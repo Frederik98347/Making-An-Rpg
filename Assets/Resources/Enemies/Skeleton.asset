@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57c1263db25c40748a894e24bba47dff, type: 3}
+  m_Name: Skeleton
+  m_EditorClassIdentifier: 
+  attack: {fileID: 0}
+  Idle: {fileID: 0}
+  Die: {fileID: 0}
+  Run: {fileID: 0}
+  Walk: {fileID: 0}
+  EnemyHP: 30
+  EnemyName: Skeleton
+  EnemyLevel: 1
+  MinAutoDamage: 0
+  MaxAutoDamage: 0
+  EnemyIcon: {fileID: 0}
+  AttackSpeed: 2
+  MovementSpeed: 0
+  DetectionRange: 0
+  abilityPrefab_1: {fileID: 0}
+  abilityPrefab_2: {fileID: 0}
+  abilityPrefab_3: {fileID: 0}
+  abilityPrefab_4: {fileID: 0}
+  clip1: {fileID: 0}
+  clip2: {fileID: 0}
+  clip3: {fileID: 0}
