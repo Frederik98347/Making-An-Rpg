@@ -29,9 +29,11 @@ public class EnemyCreator : EditorWindow {
 			tempEnemy.EnemyIcon = (Texture2D)EditorGUILayout.ObjectField("Spell Icon", tempEnemy.EnemyIcon, typeof(Texture2D), false);
 			tempEnemy.MinAutoDamage = EditorGUILayout.IntField("MinAutoDamage", tempEnemy.MinAutoDamage);
 			tempEnemy.MaxAutoDamage = EditorGUILayout.IntField("MaxAutoDamage", tempEnemy.MaxAutoDamage);
-			tempEnemy.AttackSpeed = EditorGUILayout.DoubleField("AttackSpeed", tempEnemy.AttackSpeed);
-			tempEnemy.MovementSpeed = EditorGUILayout.DoubleField("MovementSpeed", tempEnemy.MovementSpeed);
-			tempEnemy.DetectionRange = EditorGUILayout.DoubleField("DetectionRange", tempEnemy.DetectionRange);
+			tempEnemy.AttackSpeed = EditorGUILayout.FloatField("AttackSpeed", tempEnemy.AttackSpeed);
+			tempEnemy.MovementSpeed = EditorGUILayout.FloatField("MovementSpeed", tempEnemy.MovementSpeed);
+			tempEnemy.DetectionRange = EditorGUILayout.FloatField("DetectionRange", tempEnemy.DetectionRange);
+			tempEnemy.expTogive = EditorGUILayout.IntField ("Exp to give", tempEnemy.expTogive);
+
 			tempEnemy.abilityPrefab_1 = (GameObject)EditorGUILayout.ObjectField("Ability Prefab", tempEnemy.abilityPrefab_1, typeof(GameObject), false);
 			tempEnemy.abilityPrefab_2 = (GameObject)EditorGUILayout.ObjectField("Ability Prefab", tempEnemy.abilityPrefab_2, typeof(GameObject), false);
 			tempEnemy.abilityPrefab_3 = (GameObject)EditorGUILayout.ObjectField("Ability Prefab", tempEnemy.abilityPrefab_3, typeof(GameObject), false);
@@ -73,6 +75,7 @@ public class EnemyCreator : EditorWindow {
 			tempEnemy.EnemyIcon = null;
 			tempEnemy.MinAutoDamage = 0;
 			tempEnemy.MaxAutoDamage = 0;
+			tempEnemy.expTogive = 0;
 			tempEnemy.AttackSpeed = 0;
 			tempEnemy.MovementSpeed = 0;
 			tempEnemy.DetectionRange = 0;
@@ -80,7 +83,6 @@ public class EnemyCreator : EditorWindow {
 			tempEnemy.abilityPrefab_2 = null;
 			tempEnemy.abilityPrefab_3 = null;
 			tempEnemy.abilityPrefab_4 = null;
-
 		}
 	}		
 }

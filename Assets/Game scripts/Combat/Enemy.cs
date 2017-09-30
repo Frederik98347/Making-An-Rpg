@@ -5,18 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour {
-
+	
+	public AIConfig _enemyInfo;
 	public Player Player;
 
-	//Ai variables
-	public float speed = 5.5F;
-	public float detectionRange = 10.0f;
-	private float behind_detectionRange = 3.0f;
 	public bool targetSeen = false;
+	private float behind_detectionRange = 3.0f;
 	public float outofrangeTimer = 7.0f;
 
-	int health = 20;
-	float attackSpeed = 2.0f;
 	public CharacterController controller;
 	public Transform player;
 
@@ -34,7 +30,6 @@ public class Enemy : MonoBehaviour {
 	float DeadTime = 90f;
 
 	public bool Elite = false;
-	public int EnemyLevel = 1;
 
 	//mob damage
 	int Mindamage;
@@ -46,13 +41,14 @@ public class Enemy : MonoBehaviour {
 	bool PlayRunningSound = false;
 
 	public float AttackcurTime = 0.0f;
+	public int enemyArmor  = 0;
 
-	public int expToGive = 1;
-	public int enemyArmor  = 1;
-	public int HP {
-		get{ return health; }
-		set{ health = value; }
-	}
+	public int EnemyLevel = 0;
+	public int expToGive = 0;
+	public int health = 0;
+	public float attackSpeed = 0f;
+	public float speed = 0f;
+	public float detectionRange = 0f;
 
 	public bool Dead = false;
 
@@ -60,6 +56,19 @@ public class Enemy : MonoBehaviour {
 	void Start () {
 		anim = GetComponent<Animator> ();
 		Audio = GetComponent<AudioSource> ();
+
+		//Aiconfig variables
+		if (_enemyInfo) {
+			EnemyLevel = _enemyInfo.EnemyLevel;
+			expToGive = _enemyInfo.expTogive;
+			health = _enemyInfo.EnemyHP;
+			attackSpeed = _enemyInfo.AttackSpeed;
+			speed = _enemyInfo.MovementSpeed;
+			detectionRange = _enemyInfo.DetectionRange;
+
+			Mindamage = _enemyInfo.MinAutoDamage;
+			MaxDamage = _enemyInfo.MaxAutoDamage; 
+		}
 	}
 	
 	// Update is called once per frame
@@ -71,12 +80,14 @@ public class Enemy : MonoBehaviour {
 			Dead = true;
 		}
 
-		if (AttackcurTime < attackSpeed) {
+		if (AttackcurTime < attackSpeed && targetSeen == true) {
 			AttackcurTime += Time.deltaTime;
 			//count up
 
-		} else {
+		} else if (targetSeen == true && Vector3.Distance (transform.position, this.player.position) < 4.0f) {
 			Attack ();
+			AttackcurTime = 0;
+		} else {
 			AttackcurTime = 0;
 		}
 
@@ -303,8 +314,8 @@ public class Enemy : MonoBehaviour {
 			expToGive = expToGive + expToGive;
 
 			//mob damage
-			Mindamage = 2*(EnemyLevel+2);
-			MaxDamage = 4*(EnemyLevel+2);
+			Mindamage = Mindamage*(EnemyLevel+2);
+			MaxDamage = MaxDamage*(EnemyLevel+2);
 			damage  = Random.Range(Mindamage, MaxDamage);
 
 			//defensive attributes
@@ -314,8 +325,8 @@ public class Enemy : MonoBehaviour {
 			health = (health) * EnemyLevel;
 
 			//mob damage
-			Mindamage = 1*(EnemyLevel);
-			MaxDamage = 4*(EnemyLevel);
+			Mindamage = Mindamage*(EnemyLevel);
+			MaxDamage = MaxDamage*(EnemyLevel);
 			damage  = Random.Range(Mindamage, MaxDamage);
 		}
 	}
@@ -329,7 +340,8 @@ public class Enemy : MonoBehaviour {
 
 			} else {
 				//dont attack and move away from
-
+				
+			//this.transform.position = Vector3.MoveTowards (transform.position, SpawnPoint, speed * Time.deltaTime);
 			}
 		}
 	}

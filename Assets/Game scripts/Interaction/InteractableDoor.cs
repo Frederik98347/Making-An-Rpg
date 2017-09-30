@@ -11,7 +11,6 @@ public class InteractableDoor : MonoBehaviour {
 		INBETWEEN
 	}
 
-	float interactRange = 3.0f;
 	public Transform Player;
 	public State state;
 	public AudioClip openSound;
@@ -21,6 +20,10 @@ public class InteractableDoor : MonoBehaviour {
 	void Start() {
 		Audio = GetComponent<AudioSource> ();
 		state = InteractableDoor.State.CLOSE;
+
+		if (Player == null) {
+			Debug.LogError ("Missing player Transform");
+		}
 	}
 
 	public void OnMouseEnter() {
@@ -30,7 +33,7 @@ public class InteractableDoor : MonoBehaviour {
 		Debug.Log("Exit");
 	}
 	public void OnMouseUp() {
-		if  (Vector3.Distance (Player.position, transform.position) < interactRange) {
+		if  (Vector3.Distance (Player.position, this.transform.position) < 3.0f && tag == "Interactable") {
 			Debug.Log("Up");
 			switch (state) {
 			case State.OPEN:
@@ -46,7 +49,7 @@ public class InteractableDoor : MonoBehaviour {
 	}
 
 	public IEnumerator Open(){
-		if (Vector3.Distance (Player.position, transform.position) < interactRange) {
+		if (Vector3.Distance (Player.position, this.transform.position) < 3.0f && tag == "Interactable") {
 			GetComponent<Animation> ().Play ("open");
 			Audio.PlayOneShot (openSound);
 			yield return new WaitForSeconds (GetComponent<Animation> () ["open"].length);
@@ -55,7 +58,7 @@ public class InteractableDoor : MonoBehaviour {
 	}
 
 	public IEnumerator Close(){
-		if (Vector3.Distance (Player.position, transform.position) < interactRange) {
+		if (Vector3.Distance (Player.position, this.transform.position) < 3.0f && tag == "Interactable") {
 			GetComponent<Animation> ().Play ("close");
 			Audio.PlayOneShot (closeSound);
 			yield return new WaitForSeconds (GetComponent<Animation> () ["close"].length);

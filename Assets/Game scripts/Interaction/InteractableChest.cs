@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class InteractableChest : MonoBehaviour {
+public class InteractableChest : MonoBehaviour{
 	
 	public enum State
 	{
@@ -10,10 +10,8 @@ public class InteractableChest : MonoBehaviour {
 		CLOSE,
 		INBETWEEN
 	}
-
-	float interactRange = 3.0f;
-	public Transform Player;
 	public State state;
+	public Transform Player;
 	public AudioClip openSound;
 	public AudioClip closeSound;
 	AudioSource Audio;
@@ -21,6 +19,10 @@ public class InteractableChest : MonoBehaviour {
 	void Start() {
 		Audio = GetComponent<AudioSource> ();
 		state = InteractableChest.State.CLOSE;
+
+		if (Player == null) {
+			Debug.LogError ("Missing player Transform");
+		}
 	}
 
 	public void OnMouseEnter() {
@@ -30,7 +32,7 @@ public class InteractableChest : MonoBehaviour {
 		Debug.Log("Exit");
 	}
 	public void OnMouseUp() {
-		if  (Vector3.Distance (Player.position, transform.position) < interactRange) {
+		if (Vector3.Distance (Player.position, this.transform.position) < 3.0f && tag == "Interactable") {
 			Debug.Log ("Up");
 			switch (state) {
 			case State.OPEN:
@@ -47,7 +49,7 @@ public class InteractableChest : MonoBehaviour {
 
 	public IEnumerator Open(){
 
-		if (Vector3.Distance (Player.position, transform.position) < interactRange) {
+		if (Vector3.Distance (Player.position, this.transform.position) < 3.0f) {
 			GetComponent<Animation> ().Play ("open");
 			Audio.PlayOneShot (openSound);
 			yield return new WaitForSeconds (GetComponent<Animation>()["open"].length);
@@ -55,7 +57,7 @@ public class InteractableChest : MonoBehaviour {
 		}
 	}
 	private IEnumerator Close(){
-		if (Vector3.Distance (Player.position, transform.position) < interactRange) {
+		if (Vector3.Distance (Player.position, this.transform.position) < 3.0f) {
 			GetComponent<Animation> ().Play ("close");
 			Audio.PlayOneShot (closeSound);
 			yield return new WaitForSeconds (GetComponent<Animation> () ["close"].length);

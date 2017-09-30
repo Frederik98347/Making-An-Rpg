@@ -33,7 +33,8 @@ public class Player : MonoBehaviour {
 	public float autoAttackCD = 1.5f;
 
 	//health atributes
-	protected int health  = 30;
+	float MaxHP = 30f;
+	protected float health  = 30f;
 
 	public int Defense {
 		get{return defense; }
@@ -58,21 +59,21 @@ public class Player : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		healthBar.maxValue = health;
+		healthBar.value = 0;
 	}
 
-	void Healthbar() {
-		healthBar.value = health;
+	float CalculateHealth() {
+		return health / MaxHP;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Healthbar ();
+		
 		expToLevel ();
 		OnMouseEnter ();
 
 		//if dead 
-		//Isdead ();
+		//Isdead (); // doesnt work
 	}
 
 	public void Attack(){
@@ -173,7 +174,7 @@ public class Player : MonoBehaviour {
 		int expfunction = Mathf.RoundToInt(Level*Level * 5 + 295);
 
 			if (isDead != true && selectedUnit != null) {
-				if (selectedUnit.GetComponent <Enemy> ().HP <= 0 && selectedUnit.GetComponent<Enemy> ().Dead == true) { 
+			if (selectedUnit.GetComponent <Enemy> ().health <= 0 && selectedUnit.GetComponent<Enemy> ().Dead == true) { 
 					expGain = true;
 
 						if (expGain == true) {
@@ -259,6 +260,7 @@ public class Player : MonoBehaviour {
 		}
 
 		health = health - enemyDamage;
+		healthBar.value = CalculateHealth();
 		Debug.Log (health);
 
 		if (health <= 0) {
