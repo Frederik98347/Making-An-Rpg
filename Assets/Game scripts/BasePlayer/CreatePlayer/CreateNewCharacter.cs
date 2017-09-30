@@ -26,13 +26,13 @@ public class CreateNewCharacter : MonoBehaviour
 			isRogueClass = false;
 		}
 
-		if(GUI.Toggle(new Rect(10,10, 100, 30), isWarriorClass, "Warrior Class")) {
+		if(GUI.Toggle(new Rect(10,10, 50, 50), isWarriorClass, "Warrior Class")) {
 			isMageClass = false;
 			isWarriorClass = true;
 			isRogueClass = false;
 		}
 
-		if(GUI.Toggle(new Rect(10,10, 100, 30), isRogueClass, "Rogue class")) {
+		if(GUI.Toggle(new Rect(10,10, 50, 50), isRogueClass, "Rogue class")) {
 			isMageClass = false;
 			isWarriorClass = false;
 			isRogueClass = true;

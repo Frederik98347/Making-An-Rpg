@@ -19,8 +19,8 @@ MonoBehaviour:
   MaxAutoDamage: 4
   EnemyIcon: {fileID: 0}
   AttackSpeed: 1.6
-  MovementSpeed: 6
-  DetectionRange: 6.5
+  MovementSpeed: 7
+  DetectionRange: 12
   abilityPrefab_1: {fileID: 0}
   abilityPrefab_2: {fileID: 0}
   abilityPrefab_3: {fileID: 0}

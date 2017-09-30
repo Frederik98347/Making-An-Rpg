@@ -3,8 +3,7 @@ using System.Collections;
 
 public class dialogueTrigger : MonoBehaviour {
 	
-	public Interactable interactable;
-	public Transform player;
+	public Transform Player;
 	public Dialogue dialogue;
 
 	public void TriggerDialogue() {
@@ -12,7 +11,7 @@ public class dialogueTrigger : MonoBehaviour {
 	}
 
 	void OnMouseEnter() {
-		if  (Vector3.Distance (player.transform.position, this.transform.position) < interactable.interactRange && tag == "Interactable") {
+		if  (Vector3.Distance (Player.position, this.transform.position) < 3.0f && tag == "Interactable") {
 			// Highlight on mouseover
 
 			if (Input.GetMouseButton (0) || Input.GetMouseButtonUp (1)) {
