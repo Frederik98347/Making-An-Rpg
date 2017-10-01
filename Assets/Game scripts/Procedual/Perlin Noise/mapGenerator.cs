@@ -129,7 +129,6 @@ public class mapGenerator : MonoBehaviour {
             octaves = 0;
         } 
     }
-
 	struct MapThreadInfo<T> {
 		public readonly Action<T> callback;
 		public readonly T parameter;
@@ -141,6 +140,7 @@ public class mapGenerator : MonoBehaviour {
 		}
 		
 	}
+}
 
     [System.Serializable]
     public struct TerrainType {
@@ -148,7 +148,6 @@ public class mapGenerator : MonoBehaviour {
         public float Height;
         public Color colour;
     }
-}
 
 public struct MapData {
 	public readonly float[,] heightMap;
