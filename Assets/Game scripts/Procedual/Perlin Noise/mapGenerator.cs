@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class mapGenerator : MonoBehaviour {
 
-    public enum Drawmode {noiseMap, colourMap, Mesh };
+    public enum Drawmode {noiseMap, colourMap, Mesh, FalloffMap };
     public Drawmode drawMode;
 
 	public Perlin_Noise.NormalizeMode normalizeMode;
@@ -29,23 +29,32 @@ public class mapGenerator : MonoBehaviour {
 	public AnimationCurve meshHeightCurve;
 
     public bool AutoUpdate;
+	public bool useFalloff;
 	[Space]
 	[Header("Area types to generate")]
     public TerrainType[] regions;
 
+	float [,] falloffMap;
+
 	Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
 	Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
+
+	void Awake() {
+		falloffMap = FallOutGeneration.GenerateFallofMap (mapChunkSize);
+	}
 
 	public void DrawMapInEditor() {
 		MapData mapData = GenerateMapData (Vector2.zero);
 
 		mapDisplay display = GetComponent<mapDisplay>();
 		if (drawMode == Drawmode.noiseMap) {
-			display.DrawTexture(TextureGenerator.TextureFromHeightMap(mapData.heightMap));
+			display.DrawTexture (TextureGenerator.TextureFromHeightMap (mapData.heightMap));
 		} else if (drawMode == Drawmode.colourMap) {
-			display.DrawTexture(TextureGenerator.TextureFromColourMap(mapData.colourMap, mapChunkSize, mapChunkSize));
+			display.DrawTexture (TextureGenerator.TextureFromColourMap (mapData.colourMap, mapChunkSize, mapChunkSize));
 		} else if (drawMode == Drawmode.Mesh) {
 			display.DrawMesh (meshGenerator.GenerateTerrainMesh (mapData.heightMap, meshHeightMultiplier, meshHeightCurve, editorPreviewLOD), TextureGenerator.TextureFromColourMap (mapData.colourMap, mapChunkSize, mapChunkSize));
+		} else if (drawMode == Drawmode.FalloffMap) {
+			display.DrawTexture (TextureGenerator.TextureFromHeightMap (FallOutGeneration.GenerateFallofMap (mapChunkSize)));
 		}
 	
 	}
