@@ -19,7 +19,7 @@ public class EndlessTerrain : MonoBehaviour {
 	int chunksVisibleInView;
 
 	Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk> ();
-	List<TerrainChunk> terrainChunkVisibleLastUpdate = new List<TerrainChunk>();
+	static List<TerrainChunk> terrainChunkVisibleLastUpdate = new List<TerrainChunk>();
 
 	void Start() {
 		MapGenerator = GetComponent<mapGenerator> ();
@@ -143,6 +143,8 @@ public class EndlessTerrain : MonoBehaviour {
 							lodMesh.RequestMesh (mapData);
 						}
 					}
+
+					terrainChunkVisibleLastUpdate.Add (this);
 				}
 
 				SetVisible (visible);
