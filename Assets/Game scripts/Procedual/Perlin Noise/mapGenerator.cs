@@ -12,7 +12,7 @@ public class mapGenerator : MonoBehaviour {
 	public Perlin_Noise.NormalizeMode normalizeMode;
 	[Space]
 	[Header("Details")]
-	public const int mapChunkSize = 241;
+	public const int mapChunkSize = 239;
 	[Range(0,6)]
 	public int editorPreviewLOD;
     public float noiseScale;
@@ -109,16 +109,20 @@ public class mapGenerator : MonoBehaviour {
 
 	MapData GenerateMapData(Vector2 centre)
     {
-		float[,] noiseMap = Perlin_Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacurnarity, centre + offset, normalizeMode);
+		float[,] noiseMap = Perlin_Noise.GenerateNoiseMap(mapChunkSize + 2, mapChunkSize + 2, seed, noiseScale, octaves, persistance, lacurnarity, centre + offset, normalizeMode);
 
         Color[] colourMap = new Color[mapChunkSize * mapChunkSize];
         for (int y = 0; y < mapChunkSize; y++) {
             for (int x = 0; x < mapChunkSize; x++) {
+				
+				if (useFalloff) {
+					noiseMap [x, y] = Mathf.Clamp01(noiseMap [x, y] - falloffMap [x, y]);
+				}
+
                 float currentHeight = noiseMap[x, y];
                 for (int i = 0; i < regions.Length; i++) {
 					if (currentHeight >= regions [i].Height) {
 						colourMap [y * mapChunkSize + x] = regions [i].colour;
-						break;
 					} else {
 						break;
 					}
@@ -140,6 +144,8 @@ public class mapGenerator : MonoBehaviour {
         {
             octaves = 0;
         } 
+
+		falloffMap = FallOutGeneration.GenerateFallofMap (mapChunkSize);
     }
 	struct MapThreadInfo<T> {
 		public readonly Action<T> callback;
