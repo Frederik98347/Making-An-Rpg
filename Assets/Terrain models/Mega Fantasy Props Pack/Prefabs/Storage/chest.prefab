@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 82656218215460884}
   - component: {fileID: 111954324559245640}
   - component: {fileID: 114184150216428038}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: chest
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ GameObject:
   - component: {fileID: 3341146}
   - component: {fileID: 2362702}
   - component: {fileID: 6459312}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: chest_top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
