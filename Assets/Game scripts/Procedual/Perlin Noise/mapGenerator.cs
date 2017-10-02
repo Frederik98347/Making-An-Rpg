@@ -9,6 +9,7 @@ public class mapGenerator : MonoBehaviour {
     public enum Drawmode {noiseMap, colourMap, Mesh };
     public Drawmode drawMode;
 
+	public Perlin_Noise.NormalizeMode normalizeMode;
 	[Space]
 	[Header("Details")]
 	public const int mapChunkSize = 241;
@@ -99,17 +100,19 @@ public class mapGenerator : MonoBehaviour {
 
 	MapData GenerateMapData(Vector2 centre)
     {
-		float[,] noiseMap = Perlin_Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacurnarity, centre + offset);
+		float[,] noiseMap = Perlin_Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacurnarity, centre + offset, normalizeMode);
 
         Color[] colourMap = new Color[mapChunkSize * mapChunkSize];
         for (int y = 0; y < mapChunkSize; y++) {
             for (int x = 0; x < mapChunkSize; x++) {
                 float currentHeight = noiseMap[x, y];
                 for (int i = 0; i < regions.Length; i++) {
-                    if (currentHeight <= regions[i].Height) {
-                        colourMap[y * mapChunkSize + x] = regions[i].colour;
-                        break;
-                    }
+					if (currentHeight >= regions [i].Height) {
+						colourMap [y * mapChunkSize + x] = regions [i].colour;
+						break;
+					} else {
+						break;
+					}
                 }
             }
         }

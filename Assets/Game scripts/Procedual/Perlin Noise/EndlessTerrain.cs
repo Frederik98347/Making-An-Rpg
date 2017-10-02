@@ -6,6 +6,9 @@ public class EndlessTerrain : MonoBehaviour {
 
 	const float viewerMoveThreasholdForChunkUpdate = 25f;
 	const float sqrviewerMoveThreasholdForChunkUpdate = viewerMoveThreasholdForChunkUpdate * viewerMoveThreasholdForChunkUpdate;
+	[System.Serializable]
+	[Header("Scale of Terrain Chunks")]
+	const float scale = 1;
 
 	public LODInfo[] detailLevels;
 	public static float MaxViewDist;
@@ -31,7 +34,7 @@ public class EndlessTerrain : MonoBehaviour {
 	}
 
 	void Update () {
-		ViewerPosition = new Vector2 (viewer.position.x, viewer.position.z);
+		ViewerPosition = new Vector2 (viewer.position.x, viewer.position.z) / scale;
 
 		if (viewPositionOld - ViewerPosition.sqrMagnitude > sqrviewerMoveThreasholdForChunkUpdate) {
 			viewPositionOld = ViewerPosition;
@@ -93,8 +96,9 @@ public class EndlessTerrain : MonoBehaviour {
 			meshFilter = meshObject.AddComponent<MeshFilter>();
 			meshRenderer.material = material;
 
-			meshObject.transform.position = positionV3;
+			meshObject.transform.position = positionV3*scale;
 			meshObject.transform.parent = parent;
+			meshObject.transform.localScale = Vector3.one * scale;;
 			SetVisible(false);
 
 			lodMeshes = new LODMesh[detailLevels.Length];
