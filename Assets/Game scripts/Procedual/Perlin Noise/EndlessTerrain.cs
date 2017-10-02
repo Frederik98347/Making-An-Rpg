@@ -6,9 +6,7 @@ public class EndlessTerrain : MonoBehaviour {
 
 	const float viewerMoveThreasholdForChunkUpdate = 25f;
 	const float sqrviewerMoveThreasholdForChunkUpdate = viewerMoveThreasholdForChunkUpdate * viewerMoveThreasholdForChunkUpdate;
-	[System.Serializable]
-	[Header("Scale of Terrain Chunks")]
-	const float scale = 1;
+	const float scale = 5f;
 
 	public LODInfo[] detailLevels;
 	public static float MaxViewDist;
@@ -36,7 +34,7 @@ public class EndlessTerrain : MonoBehaviour {
 	void Update () {
 		ViewerPosition = new Vector2 (viewer.position.x, viewer.position.z) / scale;
 
-		if (viewPositionOld - ViewerPosition.sqrMagnitude > sqrviewerMoveThreasholdForChunkUpdate) {
+		if ((viewPositionOld - ViewerPosition).sqrMagnitude > sqrviewerMoveThreasholdForChunkUpdate) {
 			viewPositionOld = ViewerPosition;
 			UpdateVisibleChunks ();
 		}
@@ -178,7 +176,7 @@ public class EndlessTerrain : MonoBehaviour {
 		}
 
 		void OnMeshDataReceived(MeshData meshData){
-			mesh = MeshData.CreateMesh ();
+			mesh = meshData.CreateMesh ();
 			hasMesh = true;
 
 			updateCallback ();
@@ -189,6 +187,7 @@ public class EndlessTerrain : MonoBehaviour {
 			MapGenerator.RequestMeshData (mapData, lod, OnMeshDataReceived);
 		}
 	}
+
 	[System.Serializable]
 	public struct LODInfo {
 		public int lod;

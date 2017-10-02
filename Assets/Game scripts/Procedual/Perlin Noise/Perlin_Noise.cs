@@ -38,8 +38,8 @@ public static class Perlin_Noise {
             for (int x = 0; x < mapWidth; x++) {
 
 				//Setting back to default values
-                float ampltitude = 1;
-                float frequency = 1;
+				 amplitude = 1;
+ 				 frequency = 1;
                 float noiseHeight = 0;
 
                 for (int i = 0; i < octaves; i++) {
@@ -47,9 +47,9 @@ public static class Perlin_Noise {
 					float sampleY = (y-halfHeight + octaveOffsets[i].y) / scale * frequency;
 
                         float perlinValue = Mathf.PerlinNoise(sampleX, sampleY)*2-1;
-                        noiseHeight += perlinValue * ampltitude;
+						noiseHeight += perlinValue * amplitude;
 
-                        ampltitude *= persistance;
+					    amplitude *= persistance;
                         frequency *= lacunarity;
                 }
 
