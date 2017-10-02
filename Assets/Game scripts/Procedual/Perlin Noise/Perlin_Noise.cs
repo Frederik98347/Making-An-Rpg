@@ -4,11 +4,13 @@ using UnityEngine;
 public static class Perlin_Noise {
 	
 	public enum NormalizeMode{Local, Global};
+
 	public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset, NormalizeMode normalizeMode) {
         float[,] noiseMap = new float[mapWidth, mapHeight];
         System.Random prng = new System.Random(seed);
         Vector2[] octaveOffsets = new Vector2[octaves];
 
+		//Default values
 		float maxPossibleHeight = 0;
 		float amplitude = 1;
 		float frequency = 1;
@@ -26,8 +28,8 @@ public static class Perlin_Noise {
             scale = 0.0001f;
         }
 
-        float maxNoiseHeight = float.MinValue;
-        float minNoiseHeight = float.MaxValue;
+        float maxLocalNoiseHeight = float.MinValue;
+        float minLocalNoiseHeight = float.MaxValue;
 
         float halfWidth = mapWidth / 2f;
         float halfHeight = mapHeight / 2f;
@@ -35,8 +37,9 @@ public static class Perlin_Noise {
         for (int y = 0; y < mapHeight; y++) {
             for (int x = 0; x < mapWidth; x++) {
 
+				//Setting back to default values
                 float ampltitude = 1;
-                //float frequency = 1;
+                float frequency = 1;
                 float noiseHeight = 0;
 
                 for (int i = 0; i < octaves; i++) {
@@ -48,25 +51,22 @@ public static class Perlin_Noise {
 
                         ampltitude *= persistance;
                         frequency *= lacunarity;
-                        //noiseMap[x, y] = perlinValue;
                 }
 
-                if (noiseHeight > maxNoiseHeight)
+                if (noiseHeight > maxLocalNoiseHeight)
                 {
-                    maxNoiseHeight = noiseHeight;
+                    maxLocalNoiseHeight = noiseHeight;
                 }
-                else if (noiseHeight < minNoiseHeight) {
-                    minNoiseHeight = noiseHeight;
+                else if (noiseHeight < minLocalNoiseHeight) {
+                    minLocalNoiseHeight = noiseHeight;
                 }
 
                 noiseMap[x, y] = noiseHeight;
             }
         }
 
-        for (int y=0; y<mapHeight; y++)
-        {
-            for (int x = 0; x < mapWidth; x++)
-            {
+        for (int y=0; y<mapHeight; y++) {
+            for (int x = 0; x < mapWidth; x++) {
 				if (normalizeMode == NormalizeMode.Local) {
 					noiseMap[x, y] = Mathf.InverseLerp(minLocalNoiseHeight, maxLocalNoiseHeight, noiseMap[x, y]); // returns 0 BETWEEN 1
 				} else {
@@ -80,7 +80,4 @@ public static class Perlin_Noise {
 
         return noiseMap;
     }
-
 }
-
-    
