@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BasePlayer{
+public class BasePlayer {
 	public Player player;
 
 	string playerName;
@@ -12,7 +12,6 @@ public class BasePlayer{
 	private int agility;
 	private int strength;
 	private int intellect;
-
 
 	public string PlayerName {
 		get{ return playerName;}
@@ -45,7 +44,5 @@ public class BasePlayer{
 		get {return intellect;}
 		set {intellect = value;}
 	}
-
-
 }
 

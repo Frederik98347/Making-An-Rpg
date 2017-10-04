@@ -13,7 +13,7 @@ public class Player : MonoBehaviour {
 	public UserMovement usermovement;
 	bool expGain = false;
 
-	public string CharacterName;
+	public string CharacterName{ get; set; }
 	public int Level = 1;
 	private int Experience = 0;
 	public bool isDead = false;
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour {
 
 	//health atributes
 	float MaxHP = 30f;
-	protected float health  = 30f;
+	public float health  = 30f;
 
 	public int Defense {
 		get{return defense; }
