@@ -20,12 +20,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4533561457143050}
   - component: {fileID: 137024850887303934}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: chest_epic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1583495485423986
 GameObject:
@@ -35,12 +35,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4969834135367660}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: chest_epic_hinges
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1603604035739230
 GameObject:
@@ -54,12 +54,12 @@ GameObject:
   - component: {fileID: 82055633956189798}
   - component: {fileID: 111090904260034650}
   - component: {fileID: 114718014599811264}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Chest_epic
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1646437277469102
 GameObject:
@@ -70,12 +70,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4816076285321012}
   - component: {fileID: 137410496276860862}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: chest_epic_lid_spiderwebs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1843372900226406
 GameObject:
@@ -85,12 +85,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4220071017604584}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: chest_epic_root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1890849392323912
 GameObject:
@@ -101,12 +101,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4820343521213318}
   - component: {fileID: 137907574829695040}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: chest_epic_insideshadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1904087870350854
 GameObject:
@@ -117,12 +117,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4661364579181292}
   - component: {fileID: 137980016459835822}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: chest_epic_gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1916530848009728
 GameObject:
@@ -133,12 +133,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4180936472383336}
   - component: {fileID: 137375818258742930}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: chest_epic_spiderweb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1921351493176032
 GameObject:
@@ -149,12 +149,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4303772441129992}
   - component: {fileID: 137128660614847044}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: chest_epic_lid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1950848004213506
 GameObject:
@@ -164,12 +164,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4537432344092050}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: chest_epic_chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1961903441080608
 GameObject:
@@ -179,12 +179,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4069115936405664}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: chest_epic_lid 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4069115936405664
 Transform:
@@ -459,10 +459,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5780a9d1deed94ca34b1eeeefcbc7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   Player: {fileID: 0}
-  state: 1
   openSound: {fileID: 8300000, guid: 23806b1fbd641224bac908e65c9d3263, type: 3}
   closeSound: {fileID: 8300000, guid: 23806b1fbd641224bac908e65c9d3263, type: 3}
+  close: {fileID: 7400004, guid: 9cd037fec582e4242a076518695774b5, type: 3}
+  open: {fileID: 7400002, guid: 9cd037fec582e4242a076518695774b5, type: 3}
 --- !u!137 &137024850887303934
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

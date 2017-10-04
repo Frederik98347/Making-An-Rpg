@@ -294,7 +294,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5780a9d1deed94ca34b1eeeefcbc7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 1
+  state: 0
   Player: {fileID: 0}
   openSound: {fileID: 8300000, guid: 23806b1fbd641224bac908e65c9d3263, type: 3}
   closeSound: {fileID: 8300000, guid: 23806b1fbd641224bac908e65c9d3263, type: 3}
+  close: {fileID: 7400000, guid: d8e1a5baaadcd5d43b7343c942eac8fc, type: 2}
+  open: {fileID: 7400000, guid: 3c62b879bf5c8224ab78d0502f5af954, type: 2}

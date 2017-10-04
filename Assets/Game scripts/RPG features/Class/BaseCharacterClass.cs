@@ -36,5 +36,4 @@ public class BaseCharacterClass {
         get {return intellect;}
 		set {intellect = value;}
     }
-
 }﻿

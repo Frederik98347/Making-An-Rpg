@@ -2,6 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(Animation))]
 public class InteractableChest : MonoBehaviour{
 	
 	public enum State
@@ -10,14 +11,19 @@ public class InteractableChest : MonoBehaviour{
 		CLOSE,
 		INBETWEEN
 	}
+
 	public State state;
 	public Transform Player;
 	public AudioClip openSound;
 	public AudioClip closeSound;
 	AudioSource Audio;
+	Animation anim;
+	public AnimationClip close;
+	public AnimationClip open;
 
 	void Start() {
 		Audio = GetComponent<AudioSource> ();
+		anim = GetComponent<Animation> ();
 		state = InteractableChest.State.CLOSE;
 
 		if (Player == null) {
@@ -50,17 +56,19 @@ public class InteractableChest : MonoBehaviour{
 	public IEnumerator Open(){
 
 		if (Vector3.Distance (Player.position, this.transform.position) < 3.0f) {
-			GetComponent<Animation> ().Play ("open");
+			anim.clip = open;
+			anim.Play();
 			Audio.PlayOneShot (openSound);
-			yield return new WaitForSeconds (GetComponent<Animation>()["open"].length);
+			yield return new WaitForSeconds (anim.clip.length);
 			state = InteractableChest.State.OPEN;
 		}
 	}
 	private IEnumerator Close(){
 		if (Vector3.Distance (Player.position, this.transform.position) < 3.0f) {
-			GetComponent<Animation> ().Play ("close");
+			anim.clip = close;
+			anim.Play();
 			Audio.PlayOneShot (closeSound);
-			yield return new WaitForSeconds (GetComponent<Animation> () ["close"].length);
+			yield return new WaitForSeconds (anim.clip.length);
 			state = InteractableChest.State.CLOSE;
 		}
 	}

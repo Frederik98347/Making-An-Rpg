@@ -272,10 +272,10 @@ public class Player : MonoBehaviour {
 	}
 
 	void Isdead() {
-		while (isDead == true) {
+		if (isDead == true) {
 			float Speed = usermovement.runSpeed;
 
-			Speed = Speed + Speed;
+			Speed = (Speed + Speed);
 			canAttack = false;
 			expGain = false;
 

@@ -15460,20 +15460,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1603604035739230, guid: 5fd34c3173e70a144b55631fcf52177a, type: 2}
-      propertyPath: m_Name
-      value: chest_epic
-      objectReference: {fileID: 0}
     - target: {fileID: 114718014599811264, guid: 5fd34c3173e70a144b55631fcf52177a,
         type: 2}
       propertyPath: Player
       value: 
       objectReference: {fileID: 1916856573}
-    - target: {fileID: 114718014599811264, guid: 5fd34c3173e70a144b55631fcf52177a,
-        type: 2}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1916856573}
+    - target: {fileID: 1603604035739230, guid: 5fd34c3173e70a144b55631fcf52177a, type: 2}
+      propertyPath: m_Name
+      value: chest_epic
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fd34c3173e70a144b55631fcf52177a, type: 2}
   m_IsPrefabParent: 0
@@ -15977,6 +15972,7 @@ GameObject:
   - component: {fileID: 1916856569}
   - component: {fileID: 1916856568}
   - component: {fileID: 1916856575}
+  - component: {fileID: 1916856576}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Player
@@ -16078,7 +16074,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1916856567}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -48, y: 18, z: 98}
+  m_LocalPosition: {x: -46, y: 18, z: 96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2136849868}
@@ -16118,7 +16114,6 @@ MonoBehaviour:
   healthBar: {fileID: 1183273394}
   enemyScript: {fileID: 0}
   usermovement: {fileID: 1916856568}
-  CharacterName: Done John
   Level: 1
   isDead: 0
   hoverOverActive: 0
@@ -16127,10 +16122,24 @@ MonoBehaviour:
   autoAttacking: 0
   autoAttackcurTime: 0
   autoAttackCD: 1.8
+  health: 30
   DamageReduction: 0
   range: 3
   behindEnemy: 0
   canAttack: 0
+--- !u!114 &1916856576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1916856567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b3e4bfe03ad724288ef0e8c511e09b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1916856575}
+  CharacterIndex: 0
 --- !u!1 &1968627043
 GameObject:
   m_ObjectHideFlags: 0

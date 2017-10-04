@@ -15,7 +15,7 @@ public class CreateNewCharacter : MonoBehaviour {
 	void Start () {
 		newPlayer = new BasePlayer();
 
-		if (player.CharacterName != "Enter Name" || player.CharacterName == null) {
+		if (player.CharacterName == null) {
 			player.CharacterName = "Enter Name";
 		}
 	}
@@ -61,16 +61,18 @@ public class CreateNewCharacter : MonoBehaviour {
 		}
 
 			//Set Different Class Stats
-			this.newPlayer.PlayerLevel = player.Level;
-			this.newPlayer.Stamina = newPlayer.PlayerClass.Stamina;
-			this.newPlayer.Agility = newPlayer.PlayerClass.Agility;
-			this.newPlayer.Intellect = newPlayer.PlayerClass.Intellect;
-			this.newPlayer.Strength = newPlayer.PlayerClass.Strength;
+		if (newPlayer != null && player != null && newPlayer.PlayerClass != null) {
+			newPlayer.PlayerLevel = player.Level;
+			newPlayer.Stamina = this.newPlayer.PlayerClass.Stamina;
+			newPlayer.Agility = this.newPlayer.PlayerClass.Agility;
+			newPlayer.Intellect = this.newPlayer.PlayerClass.Intellect;
+			newPlayer.Strength = this.newPlayer.PlayerClass.Strength;
 
 			if (player.CharacterName == GUILayout.TextField (player.CharacterName, 12)) {
-				this.newPlayer.PlayerName = player.CharacterName;
+				newPlayer.PlayerName = player.CharacterName;
 			} else {
-				this.newPlayer.PlayerName = player.CharacterName;
+				newPlayer.PlayerName = player.CharacterName;
 			}
+		}
 	}
 }

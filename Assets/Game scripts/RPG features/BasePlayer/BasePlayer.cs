@@ -4,24 +4,19 @@ using System.Collections;
 public class BasePlayer {
 	public Player player;
 
-	string playerName;
-	int playerLevel;
-
 	BaseCharacterClass playerClass;
 	private int stamina;
 	private int agility;
 	private int strength;
 	private int intellect;
 
+
 	public string PlayerName {
-		get{ return playerName;}
+		get{ return player.CharacterName;}
 		set{player.CharacterName = value;}
 	}
 
-	public int PlayerLevel {
-		get{ return playerLevel;}
-		set{player.Level = value;}
-	}
+	public int PlayerLevel{ get; set;}
 
 	public BaseCharacterClass PlayerClass{
 		get{ return playerClass; }
@@ -45,4 +40,3 @@ public class BasePlayer {
 		set {intellect = value;}
 	}
 }
-

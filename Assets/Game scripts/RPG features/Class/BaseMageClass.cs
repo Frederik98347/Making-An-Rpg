@@ -4,7 +4,7 @@ using UnityEngine;
 public class BaseMageClass : BaseCharacterClass{
 
 	public void MageClass(){
-		//More of a tanky class
+		// can take more damage, casts spells and able to avoid some damage.
 		CharacterClassName = "Mage";
 		CharacterClassDescription = "A smart Wizard focussed on dealing damage with magic.";
 		Stamina = 13;
