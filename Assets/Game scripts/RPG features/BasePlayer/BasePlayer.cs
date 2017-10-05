@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class BasePlayer {
-	public Player player;
+	Player player;
 
 	BaseCharacterClass playerClass;
 	private int stamina;

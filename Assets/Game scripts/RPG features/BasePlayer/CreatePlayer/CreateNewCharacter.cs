@@ -3,44 +3,44 @@ using System.Collections;
 
 public class CreateNewCharacter : MonoBehaviour {
 	public BasePlayer newPlayer;
-	public Player player;
+
+	Player player;
 
 	bool isMageClass;
 	bool isWarriorClass;
 	bool isRogueClass;
+	public string NameField;
+	public bool hasCreated;
+
 	public int CharacterIndex;
 	int CharacterIndexMax = 10;
 
 	// Use this for initialization
 	void Start () {
 		newPlayer = new BasePlayer();
-
-		if (player.CharacterName == null) {
-			player.CharacterName = "Enter Name";
-		}
 	}
 
 	void OnGUI() {
 
-		if(GUI.Toggle(new Rect(10, 10, 50, 50), isMageClass, "Mage Class")) {
+		if(GUI.Toggle(new Rect(10, 40, 100, 30), isMageClass, "Mage Class")) {
 			isMageClass = true;
 			isWarriorClass = false;
 			isRogueClass = false;
 		}
 
-		if(GUI.Toggle(new Rect(10,10, 50, 50), isWarriorClass, "Warrior Class")) {
+		if(GUI.Toggle(new Rect(10,20, 100, 30), isWarriorClass, "Warrior Class")) {
 			isMageClass = false;
 			isWarriorClass = true;
 			isRogueClass = false;
 		}
 
-		if(GUI.Toggle(new Rect(10,10, 50, 50), isRogueClass, "Rogue class")) {
+		if(GUI.Toggle(new Rect(10,60, 100, 30), isRogueClass, "Rogue class")) {
 			isMageClass = false;
 			isWarriorClass = false;
 			isRogueClass = true;
 		}
 
-		if (GUILayout.Button ("Create")) {
+		if (GUI.Button (new Rect(10,100, 50, 25),("Create"))) {
 			if (CharacterIndex <= CharacterIndexMax) {
 				
 				for (int i = 0; i <= CharacterIndexMax; i++) {
@@ -53,26 +53,91 @@ public class CreateNewCharacter : MonoBehaviour {
 					} else if (isRogueClass) {
 						newPlayer.PlayerClass = new BaseRogueClass ();
 					}
+
+					hasCreated = true;
 				}
 
 			} else {
+				hasCreated = false;
 				Debug.Log ("You cant Create more Characters");
 			}
 		}
+			
+		NameField = GUI.TextField (new Rect(10,100, 50, 25), player.CharacterName, 12);
+		if (player.CharacterName != "Enter Name" && player.CharacterName != null) {
+			newPlayer.PlayerName = this.player.CharacterName;
+		} else {
+			player.CharacterName = "Enter Name";
+			NameField = GUI.TextField (new Rect(10,100, 50, 25), player.CharacterName, 12);
+		}
 
 			//Set Different Class Stats
-		if (newPlayer != null && player != null && newPlayer.PlayerClass != null) {
+		if (newPlayer != null && newPlayer.PlayerClass != null) {
 			newPlayer.PlayerLevel = player.Level;
 			newPlayer.Stamina = this.newPlayer.PlayerClass.Stamina;
 			newPlayer.Agility = this.newPlayer.PlayerClass.Agility;
 			newPlayer.Intellect = this.newPlayer.PlayerClass.Intellect;
 			newPlayer.Strength = this.newPlayer.PlayerClass.Strength;
-
-			if (player.CharacterName == GUILayout.TextField (player.CharacterName, 12)) {
-				newPlayer.PlayerName = player.CharacterName;
-			} else {
-				newPlayer.PlayerName = player.CharacterName;
-			}
 		}
 	}
 }
+
+/*
+[System.Serializable]
+public class GUI_Editor{
+	[Header("GUI options")]
+	public bool Createtoggle;
+	public bool Createbutton;
+	int[] buttons;
+	int[] toggle;
+	[Space]
+	[Header("Size of GUI")]
+	public int x = 10;
+	public int y = 0;
+
+	public int width = 100;
+	public int height = 50;
+	public string Text = string.Empty;
+	[Space]
+	[Header("Texture")]
+	public bool aTexture;
+	public Texture texture;
+
+	void createToggle (bool Createtoggle) {
+		for (int i = 0; i < buttons.Length; i++) {
+			int x = 10;
+			int y = 0;
+
+			int width = 100;
+			int height = 50;
+			string Text = string.Empty;
+		}
+
+		x = x;
+		y = y;
+		width = width;
+		height = height;
+		Text = Text;
+	}
+
+	void createButton (bool Createbutton) {
+		for (int i = 0; i < buttons.Length; i++) {
+			int x = 10;
+			int y = 0;
+
+			int width = 100;
+			int height = 50;
+			string Text = string.Empty;
+
+			if (aTexture) {
+				this.texture = texture;
+			}
+		}
+
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.Text = Text;
+	}
+}*/

@@ -5,7 +5,7 @@ using System;
 
 public class GameInfomation : MonoBehaviour {
 	public BasePlayer newPlayer;
-	public CreateNewCharacter newChar;
+	CreateNewCharacter newChar;
 	public GameData data = new GameData ();
 
 	void Awake() {
