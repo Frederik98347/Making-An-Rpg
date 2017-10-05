@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour {
 	public int expToGive = 0;
 	public int health = 0;
 	public float attackSpeed = 0f;
-	public float speed = 0f;
+	float speed = 0f;
 	public float detectionRange = 0f;
 
 	public bool Dead = false;

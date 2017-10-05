@@ -2,57 +2,65 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
-public class dialogueManager : MonoBehaviour {
-	
-	public Text nameText;
-	public Text dialogueText;
-	public Animator anim;
+public class dialogueManager : MonoBehaviour
+{
 
-	private Queue<string> sentences; 
+    public Text nameText;
+    public Text dialogueText;
+    public Animator anim;
 
-	// Use this for initialization
-	void Start () {
-		sentences = new Queue<string>();
-	}
+    private Queue<string> sentences;
 
-	public void StartDialogue (Dialogue dialogue) {
-		//anim.Setbool ("isOpen", true);
+    // Use this for initialization
+    void Start()
+    {
+        sentences = new Queue<string>();
+    }
 
-		nameText.text = dialogue.name;
+    public void StartDialogue(Dialogue dialogue)
+    {
+        //anim.Setbool ("isOpen", true);
 
-		sentences.Clear ();
+        nameText.text = dialogue.name;
 
-		foreach (string sentence in dialogue.sentences) {
-			sentences.Enqueue (sentence);
-		}
+        sentences.Clear();
 
-		DisplayNextSentence ();
-	}
+        foreach (string sentence in dialogue.sentences)
+        {
+            sentences.Enqueue(sentence);
+        }
 
-	public void DisplayNextSentence() {
-		if (sentences.Count == 0) {
-			EndDialogue ();
-			return;
-		}
+        DisplayNextSentence();
+    }
 
-		string sentence= sentences.Dequeue ();
-		dialogueText.text = sentence;
-		StopAllCoroutines ();
-		StartCoroutine (TypeSentence (sentence));
-	}
+    public void DisplayNextSentence()
+    {
+        if (sentences.Count == 0)
+        {
+            EndDialogue();
+            return;
+        }
 
-	IEnumerator TypeSentence (string sentence) {
-		dialogueText.text = "";
+        string sentence = sentences.Dequeue();
+        dialogueText.text = sentence;
+        StopAllCoroutines();
+        StartCoroutine(TypeSentence(sentence));
+    }
 
-		foreach (char letter in sentence.ToCharArray()) {
-			dialogueText.text += letter;
-			yield return null;
-		}
-	}
+    IEnumerator TypeSentence(string sentence)
+    {
+        dialogueText.text = "";
 
-	void EndDialogue() {
-		//anim.Setbool ("isOpen", false);
-		Debug.Log("End of conversation");
-	}
+        foreach (char letter in sentence.ToCharArray())
+        {
+            dialogueText.text += letter;
+            yield return null;
+        }
+    }
+
+    void EndDialogue()
+    {
+        //anim.Setbool ("isOpen", false);
+        Debug.Log("End of conversation");
+    }
 }
-
