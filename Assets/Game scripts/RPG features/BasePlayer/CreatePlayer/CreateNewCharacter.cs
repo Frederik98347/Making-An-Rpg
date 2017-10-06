@@ -5,6 +5,7 @@ public class CreateNewCharacter : MonoBehaviour {
 	public BasePlayer newPlayer;
 
 	Player player;
+    public GameController gameController;
 
 	bool isMageClass;
 	bool isWarriorClass;
@@ -55,6 +56,10 @@ public class CreateNewCharacter : MonoBehaviour {
 					}
 
 					hasCreated = true;
+
+                    if (hasCreated == true) {
+                        gameController.Save();
+                    }
 				}
 
 			} else {
