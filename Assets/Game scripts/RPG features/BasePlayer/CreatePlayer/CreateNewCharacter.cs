@@ -1,16 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 public class CreateNewCharacter : MonoBehaviour {
 	public BasePlayer newPlayer;
-
-	Player player;
-    public GameController gameController;
+	GameController gameController;
 
 	bool isMageClass;
 	bool isWarriorClass;
 	bool isRogueClass;
-	public string NameField;
 	public bool hasCreated;
 
 	public int CharacterIndex;
@@ -19,6 +17,7 @@ public class CreateNewCharacter : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		newPlayer = new BasePlayer();
+		newPlayer.PlayerName = "Enter Name";
 	}
 
 	void OnGUI() {
@@ -41,7 +40,7 @@ public class CreateNewCharacter : MonoBehaviour {
 			isRogueClass = true;
 		}
 
-		if (GUI.Button (new Rect(10,100, 50, 25),("Create"))) {
+		if (GUI.Button (new Rect(10,110, 50, 25),("Create"))) {
 			if (CharacterIndex <= CharacterIndexMax) {
 				
 				for (int i = 0; i <= CharacterIndexMax; i++) {
@@ -56,33 +55,34 @@ public class CreateNewCharacter : MonoBehaviour {
 					}
 
 					hasCreated = true;
-
-                    if (hasCreated == true) {
-                        gameController.Save();
-                    }
 				}
-
-			} else {
-				hasCreated = false;
-				Debug.Log ("You cant Create more Characters");
 			}
 		}
-			
-		NameField = GUI.TextField (new Rect(10,100, 50, 25), player.CharacterName, 12);
-		if (player.CharacterName != "Enter Name" && player.CharacterName != null) {
-			newPlayer.PlayerName = this.player.CharacterName;
+
+		if (newPlayer.PlayerName != "Enter Name" && newPlayer.PlayerName != null) {
+			newPlayer.PlayerName = GUI.TextField (new Rect (10, 85, 100, 20), newPlayer.PlayerName, 12);
+			newPlayer.PlayerName = Regex.Replace (newPlayer.PlayerName, @"[^a-zA-Z]", "");
+
+			newPlayer.PlayerName = this.newPlayer.PlayerName;
 		} else {
-			player.CharacterName = "Enter Name";
-			NameField = GUI.TextField (new Rect(10,100, 50, 25), player.CharacterName, 12);
+			newPlayer.PlayerName = GUI.TextField (new Rect (10, 85, 100, 20), newPlayer.PlayerName, 12);
+			newPlayer.PlayerName = Regex.Replace (newPlayer.PlayerName, @"[^a-zA-Z]", "");
 		}
 
 			//Set Different Class Stats
-		if (newPlayer != null && newPlayer.PlayerClass != null) {
-			newPlayer.PlayerLevel = player.Level;
+		if (newPlayer != null && newPlayer.PlayerClass != null && hasCreated == true && newPlayer.PlayerName != null && newPlayer.PlayerName != "Enter Name" && CharacterIndex <= CharacterIndexMax) {
+			CharacterIndex = this.CharacterIndex;
+			newPlayer.PlayerLevel = 1;
 			newPlayer.Stamina = this.newPlayer.PlayerClass.Stamina;
 			newPlayer.Agility = this.newPlayer.PlayerClass.Agility;
 			newPlayer.Intellect = this.newPlayer.PlayerClass.Intellect;
 			newPlayer.Strength = this.newPlayer.PlayerClass.Strength;
+			newPlayer.PlayerName = this.newPlayer.PlayerName;
+			 
+			//store info
+			//gameController.Save();
+
+			// spawn player into the world at start position
 		}
 	}
 }

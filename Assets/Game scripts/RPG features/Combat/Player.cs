@@ -6,14 +6,11 @@ using UnityEngine.UI;
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour {
-
 	//GUI
 	public Slider healthBar; 
 	public Enemy enemyScript;
 	public UserMovement usermovement;
 	bool expGain = false;
-
-	public string CharacterName{ get; set; }
 	public int Level = 1;
 	private int Experience = 0;
 	public bool isDead = false;
@@ -280,9 +277,11 @@ public class Player : MonoBehaviour {
 			expGain = false;
 
 			//making sure enemies cant attack or see you
-			enemyScript.targetSeen = false;
-			enemyScript.detectionRange = 0.0f;
-			enemyScript.outofrangeTimer = 0.0f;
+			while (isDead == true) {
+				enemyScript.targetSeen = false;
+				enemyScript.detectionRange = 0.0f;
+				enemyScript.outofrangeTimer = 0.0f;
+			}
 		}
 	}
 }

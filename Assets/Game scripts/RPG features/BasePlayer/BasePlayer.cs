@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class BasePlayer {
-	Player player;
 
 	BaseCharacterClass playerClass;
 	private int stamina;
@@ -11,10 +10,7 @@ public class BasePlayer {
 	private int intellect;
 
 
-	public string PlayerName {
-		get{ return player.CharacterName;}
-		set{player.CharacterName = value;}
-	}
+	public string PlayerName{ get; set;}
 
 	public int PlayerLevel{ get; set;}
 
