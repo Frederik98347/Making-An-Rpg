@@ -16,7 +16,7 @@ public class Player : MonoBehaviour {
 	public bool isDead = false;
 
 	// DEFENSIVE SKILL VALUES
-	int armor = 0;
+/*	int armor = 0;*/
 	int defense = 0;
 
 	//tooltip GUI
@@ -31,7 +31,7 @@ public class Player : MonoBehaviour {
 
 	//health atributes
 	float MaxHP = 30f;
-	public float health  = 30f;
+	public float health = 30f;
 
 	public int Defense {
 		get{return defense; }
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		healthBar.value = 0;
+		healthBar.value = 0f;
 	}
 
 	float CalculateHealth() {
@@ -213,11 +213,11 @@ public class Player : MonoBehaviour {
 									Debug.Log ("Ding Level:  " + Level);
 									Debug.Log (Experience + " out of " + expfunction);
 									Experience = expfunction - Experience;
-									Level++;
+									Level = Level+1;
 									ding = true;
 
-								} else if (ding == true) {
-									Level++;
+								} else if (ding == true && Experience == expfunction) {
+									Level = Level+1;
 									Experience = 0;
 									Debug.Log ("Ding Level:  " + Level);
 									Debug.Log (Experience + " out of " + expfunction);

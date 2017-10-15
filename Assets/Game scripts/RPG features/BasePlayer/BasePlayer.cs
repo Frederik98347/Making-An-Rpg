@@ -9,7 +9,6 @@ public class BasePlayer {
 	private int strength;
 	private int intellect;
 
-
 	public string PlayerName{ get; set;}
 
 	public int PlayerLevel{ get; set;}

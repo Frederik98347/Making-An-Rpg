@@ -4,85 +4,154 @@ using System.Text.RegularExpressions;
 
 public class CreateNewCharacter : MonoBehaviour {
 	public BasePlayer newPlayer;
-	GameController gameController;
+	public GameController gameController;
 
 	bool isMageClass;
 	bool isWarriorClass;
 	bool isRogueClass;
 	public bool hasCreated;
-
-	public int CharacterIndex;
+	public bool nameCreated;
+	bool savedNcreated;
+	public int CharacterIndex = 0;
 	int CharacterIndexMax = 10;
+	bool canCreate;
+	public string charName;
+	public string className;
+	bool inputEdit;
 
 	// Use this for initialization
 	void Start () {
 		newPlayer = new BasePlayer();
-		newPlayer.PlayerName = "Enter Name";
+		nameCreated = false;
+		inputEdit = true;
+
+		if (CharacterIndex < CharacterIndexMax) {
+			canCreate = true;
+		} else {
+			CharacterIndex = 10;
+			canCreate = false;
+		}
+
+		if (CharacterIndex == 0 || hasCreated == true) {
+			savedNcreated = false;
+		}
+	}
+
+	void Update() {
+		inputVal ();
 	}
 
 	void OnGUI() {
+		
+		while (savedNcreated == false) {
+		
+			if (GUI.Toggle (new Rect (10, 50, 100, 25), isMageClass, "Mage Class")) {
+				isMageClass = true;
+				isWarriorClass = false;
+				isRogueClass = false;
+			}
 
-		if(GUI.Toggle(new Rect(10, 40, 100, 30), isMageClass, "Mage Class")) {
-			isMageClass = true;
-			isWarriorClass = false;
-			isRogueClass = false;
-		}
+			if (GUI.Toggle (new Rect (10, 25, 100, 25), isWarriorClass, "Warrior Class")) {
+				isMageClass = false;
+				isWarriorClass = true;
+				isRogueClass = false;
+			}
 
-		if(GUI.Toggle(new Rect(10,20, 100, 30), isWarriorClass, "Warrior Class")) {
-			isMageClass = false;
-			isWarriorClass = true;
-			isRogueClass = false;
-		}
+			if (GUI.Toggle (new Rect (10, 75, 100, 25), isRogueClass, "Rogue class")) {
+				isMageClass = false;
+				isWarriorClass = false;
+				isRogueClass = true;
+			}
 
-		if(GUI.Toggle(new Rect(10,60, 100, 30), isRogueClass, "Rogue class")) {
-			isMageClass = false;
-			isWarriorClass = false;
-			isRogueClass = true;
-		}
-
-		if (GUI.Button (new Rect(10,110, 50, 25),("Create"))) {
-			if (CharacterIndex <= CharacterIndexMax) {
+			if (GUI.Button (new Rect (10, 125, 50, 25), ("Create"))) {
+				if (canCreate == true && CharacterIndex < CharacterIndexMax && nameCreated == true) {
 				
-				for (int i = 0; i <= CharacterIndexMax; i++) {
-					CharacterIndex = i;
-				
-					if (isMageClass) {
+					if (isMageClass && nameCreated == true) {
 						newPlayer.PlayerClass = new BaseMageClass ();
-					} else if (isWarriorClass) {
+						CharacterIndex = CharacterIndex + 1;
+						charName = newPlayer.PlayerName;
+
+					} else if (isWarriorClass && nameCreated == true) {
 						newPlayer.PlayerClass = new BaseWarriorClass ();
-					} else if (isRogueClass) {
+						CharacterIndex = CharacterIndex + 1;
+						charName = newPlayer.PlayerName;
+					} else if (isRogueClass && nameCreated == true) {
 						newPlayer.PlayerClass = new BaseRogueClass ();
+						CharacterIndex = CharacterIndex + 1;
+						charName = newPlayer.PlayerName;
 					}
 
 					hasCreated = true;
+				} else if(CharacterIndex >= CharacterIndexMax) {
+					CharacterIndex = 10;
+					hasCreated = false;
+					canCreate = false;
+					nameCreated = false;
+					Debug.LogError ("Error creating char: " + canCreate + " " + CharacterIndex);
 				}
 			}
+
+			SetupData ();
+			break;
+		}
+	}
+
+	void SetupData() {
+
+		if (inputEdit == true) {
+			charName = GUI.TextField (new Rect (10, 100, 100, 20), charName, 12);
+			charName = Regex.Replace (charName, @"[^a-zA-Z]", "");
+
+			if (charName != string.Empty) {
+				charName = GUI.TextField (new Rect (10, 100, 100, 20), charName, 12);
+				charName = Regex.Replace (charName, @"[^a-zA-Z]", "");
+
+				if (charName != "EnterName") {
+					nameCreated = true;
+				}
+			}
+
+		} else{
+			inputEdit = true;
 		}
 
-		if (newPlayer.PlayerName != "Enter Name" && newPlayer.PlayerName != null) {
-			newPlayer.PlayerName = GUI.TextField (new Rect (10, 85, 100, 20), newPlayer.PlayerName, 12);
-			newPlayer.PlayerName = Regex.Replace (newPlayer.PlayerName, @"[^a-zA-Z]", "");
-
-			newPlayer.PlayerName = this.newPlayer.PlayerName;
-		} else {
-			newPlayer.PlayerName = GUI.TextField (new Rect (10, 85, 100, 20), newPlayer.PlayerName, 12);
-			newPlayer.PlayerName = Regex.Replace (newPlayer.PlayerName, @"[^a-zA-Z]", "");
-		}
-
-			//Set Different Class Stats
-		if (newPlayer != null && newPlayer.PlayerClass != null && hasCreated == true && newPlayer.PlayerName != null && newPlayer.PlayerName != "Enter Name" && CharacterIndex <= CharacterIndexMax) {
-			CharacterIndex = this.CharacterIndex;
+		//Set Different Class Stats
+		if (hasCreated == true && canCreate == true && nameCreated == true) {
+			// set level to 1 because it creates a new char
 			newPlayer.PlayerLevel = 1;
-			newPlayer.Stamina = this.newPlayer.PlayerClass.Stamina;
-			newPlayer.Agility = this.newPlayer.PlayerClass.Agility;
-			newPlayer.Intellect = this.newPlayer.PlayerClass.Intellect;
-			newPlayer.Strength = this.newPlayer.PlayerClass.Strength;
-			newPlayer.PlayerName = this.newPlayer.PlayerName;
-			 
+			newPlayer.Agility = newPlayer.PlayerClass.Agility;
+			newPlayer.Intellect = newPlayer.PlayerClass.Intellect;
+			newPlayer.Stamina = newPlayer.PlayerClass.Stamina;
+			newPlayer.Strength = newPlayer.PlayerClass.Strength;
+
+			newPlayer.PlayerName = this.charName;
+			newPlayer.PlayerClass.CharacterClassName = this.className;
+
+
 			//store info
-			//gameController.Save();
+			gameController.Save();
+			savedNcreated = true;
+			Debug.Log ("Class: " + className);
+			Debug.Log (" Name: " + charName);
+			Debug.Log (" Index: " + CharacterIndex);
+			Debug.Log("Stats: "+newPlayer.Agility+ ", " + newPlayer.Stamina + ", " + newPlayer.Intellect + ", " + newPlayer.Strength);
 
 			// spawn player into the world at start position
+		}
+	}
+
+	void inputVal() {
+
+		if (charName == "EnterName" || charName == string.Empty) {
+			nameCreated = false;
+			inputEdit = true;
+		}
+
+		if (isMageClass == true || isWarriorClass == true || isRogueClass == true) {
+			canCreate = true;
+		} else {
+			canCreate = false;
+			Debug.LogError ("You need to select class");
 		}
 	}
 }

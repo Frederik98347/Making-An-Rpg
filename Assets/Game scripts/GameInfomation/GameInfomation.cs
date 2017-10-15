@@ -4,8 +4,7 @@ using UnityEngine;
 using System;
 
 public class GameInfomation : MonoBehaviour {
-	public BasePlayer newPlayer;
-	CreateNewCharacter newChar;
+	public CreateNewCharacter newChar;
 	public GameData data = new GameData ();
 
 	void Awake() {
@@ -13,21 +12,22 @@ public class GameInfomation : MonoBehaviour {
 	}
 
 	public void StoreInfo (){
-		if (newPlayer != null && data != null && newChar != null) {
+		if (newChar.nameCreated == true && newChar.hasCreated == true) {
 			
 			//Storing into GameData class
 			data.CharacterIndex = newChar.CharacterIndex;
-			data.name = newPlayer.PlayerName;
+			data.name = newChar.newPlayer.PlayerName;
 			data.pos = GetComponent<Player> ().transform.position;
+			data.rotation = GetComponent<Player> ().transform.rotation;
 			data.health = GetComponent<Player> ().health;
 
-			data.level = newPlayer.PlayerLevel;
-			data.Class = newPlayer.PlayerClass;
+			data.level = newChar.newPlayer.PlayerLevel;
+			data.Class = newChar.newPlayer.PlayerClass.CharacterClassName;
 
-			data.agility = newPlayer.Agility;
-			data.intellect = newPlayer.Intellect;
-			data.stamina = newPlayer.Stamina;
-			data.strength = newPlayer.Strength;
+			data.agility =  newChar.newPlayer.Agility;
+			data.intellect = newChar.newPlayer.Intellect;
+			data.stamina = newChar.newPlayer.Stamina;
+			data.strength = newChar.newPlayer.Strength;
 		} else {
 			Debug.Log ("Unable to save");
 		}
@@ -35,20 +35,22 @@ public class GameInfomation : MonoBehaviour {
 
 	public void LoadData() {
 
-		if (newPlayer != null && data != null && newChar != null) {
+		if (data != null) {
 			
 			//Stats
-			newPlayer.Stamina = data.stamina;
-			newPlayer.Strength = data.strength;
-			newPlayer.Agility = data.agility;
-			newPlayer.Intellect = data.intellect;
-			newPlayer.PlayerLevel = data.level;
+			newChar.newPlayer.Stamina = data.stamina;
+			newChar.newPlayer.Strength = data.strength;
+			newChar.newPlayer.Agility = data.agility;
+			newChar.newPlayer.Intellect = data.intellect;
+			newChar.newPlayer.PlayerLevel = data.level;
 
 			//Location && health from player Script
 			GetComponent<Player> ().transform.position = data.pos;
+			GetComponent<Player> ().transform.rotation = data.rotation;
 			GetComponent<Player> ().health = data.health;
 
-			newPlayer.PlayerClass = data.Class;
+			newChar.newPlayer.PlayerClass.CharacterClassName = data.Class;
+			newChar.newPlayer.PlayerName = data.name;
 			newChar.CharacterIndex = data.CharacterIndex;
 		} else {
 			Debug.LogError ("Unable to load Data");
@@ -79,11 +81,12 @@ public class GameData {
 
 	public string name;
 	public Vector3 pos;
+	public Quaternion rotation;
 	public float health;
 	public int level;
 
 	//Class
-	public BaseCharacterClass Class;
+	public string Class;
 
 	//Stats
 	public int agility;
