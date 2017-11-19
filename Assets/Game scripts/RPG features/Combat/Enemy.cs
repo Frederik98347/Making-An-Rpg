@@ -334,7 +334,7 @@ public class Enemy : MonoBehaviour {
 	void Attack () {
 		EnemyPowerAndLevel ();
 
-		if (this.player.GetComponent<Player> ().isDead == false && targetSeen == true) {
+		if (this.player.GetComponent<Player> ().isDead == false && targetSeen == true && Vector3.Distance (transform.position, this.player.position) > 4.0f) {
 			this.player.gameObject.transform.GetComponent<Player>().GetHit (damage);
 			Debug.Log ("Enemy damage: " + damage);
 

@@ -8051,7 +8051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newChar: {fileID: 484301838}
   data:
-    CharacterIndex: 0
+    _CharacterIndex: 0
     name: 
     pos: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}
@@ -17199,6 +17199,56 @@ Prefab:
     - target: {fileID: 1862057108836850, guid: b6be58733da2cbc47bed345f21a06b5c, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114159836118370498, guid: b6be58733da2cbc47bed345f21a06b5c,
+        type: 2}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 9c666af89b3b6cf41a041cf4a412ba98, type: 3}
+    - target: {fileID: 114381561283897092, guid: b6be58733da2cbc47bed345f21a06b5c,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 114381561283897092, guid: b6be58733da2cbc47bed345f21a06b5c,
+        type: 2}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114540474616524344, guid: b6be58733da2cbc47bed345f21a06b5c,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 114540474616524344, guid: b6be58733da2cbc47bed345f21a06b5c,
+        type: 2}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114159836118370498, guid: b6be58733da2cbc47bed345f21a06b5c,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.64705884
+      objectReference: {fileID: 0}
+    - target: {fileID: 114159836118370498, guid: b6be58733da2cbc47bed345f21a06b5c,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.07136677
+      objectReference: {fileID: 0}
+    - target: {fileID: 114159836118370498, guid: b6be58733da2cbc47bed345f21a06b5c,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.07136677
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796361504505912, guid: b6be58733da2cbc47bed345f21a06b5c,
+        type: 2}
+      propertyPath: range
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114796361504505912, guid: b6be58733da2cbc47bed345f21a06b5c,
+        type: 2}
+      propertyPath: behindEnemy
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b6be58733da2cbc47bed345f21a06b5c, type: 2}

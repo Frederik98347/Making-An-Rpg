@@ -6,9 +6,9 @@ public class CreateNewCharacter : MonoBehaviour {
 	public BasePlayer newPlayer;
 	public GameController gameController;
 
-	bool isMageClass;
-	bool isWarriorClass;
-	bool isRogueClass;
+	public bool isMageClass;
+	public bool isWarriorClass;
+	public bool isRogueClass;
 	public bool hasCreated;
 	public bool nameCreated;
 	bool savedNcreated;
@@ -69,16 +69,17 @@ public class CreateNewCharacter : MonoBehaviour {
 					if (isMageClass && nameCreated == true) {
 						newPlayer.PlayerClass = new BaseMageClass ();
 						CharacterIndex = CharacterIndex + 1;
-						charName = newPlayer.PlayerName;
+						//charName = newPlayer.PlayerName;
 
 					} else if (isWarriorClass && nameCreated == true) {
 						newPlayer.PlayerClass = new BaseWarriorClass ();
 						CharacterIndex = CharacterIndex + 1;
-						charName = newPlayer.PlayerName;
+						//charName = newPlayer.PlayerName;
+
 					} else if (isRogueClass && nameCreated == true) {
 						newPlayer.PlayerClass = new BaseRogueClass ();
 						CharacterIndex = CharacterIndex + 1;
-						charName = newPlayer.PlayerName;
+						//charName = newPlayer.PlayerName;
 					}
 
 					hasCreated = true;
@@ -97,47 +98,52 @@ public class CreateNewCharacter : MonoBehaviour {
 	}
 
 	void SetupData() {
-
-		if (inputEdit == true) {
-			charName = GUI.TextField (new Rect (10, 100, 100, 20), charName, 12);
-			charName = Regex.Replace (charName, @"[^a-zA-Z]", "");
-
-			if (charName != string.Empty) {
+		while (savedNcreated != true) {
+			if (inputEdit == true) {
 				charName = GUI.TextField (new Rect (10, 100, 100, 20), charName, 12);
 				charName = Regex.Replace (charName, @"[^a-zA-Z]", "");
 
-				if (charName != "EnterName") {
-					nameCreated = true;
+				if (charName != string.Empty) {
+					charName = GUI.TextField (new Rect (10, 100, 100, 20), charName, 12);
+					charName = Regex.Replace (charName, @"[^a-zA-Z]", "");
+
+					if (charName != "EnterName") {
+						nameCreated = true;
+					}
 				}
 			}
 
-		} else{
-			inputEdit = true;
+			//Set Different Class Stats
+			if (hasCreated == true && canCreate == true && nameCreated == true) {
+				// set level to 1 because it creates a new char
+
+				this.newPlayer.PlayerLevel = 1;
+				this.newPlayer.Agility = newPlayer.PlayerClass.Agility;
+				this.newPlayer.Intellect = newPlayer.PlayerClass.Intellect;
+				this.newPlayer.Stamina = newPlayer.PlayerClass.Stamina;
+				this.newPlayer.Strength = newPlayer.PlayerClass.Strength;
+
+				this.newPlayer.PlayerName = charName;
+				this.newPlayer.PlayerClass.CharacterClassName = className;
+
+
+				//store info
+				//gameController.Save();
+				savedNcreated = true;
+				inputEdit = false;
+				Debug.Log (newPlayer.PlayerName);
+				Debug.Log (newPlayer.PlayerClass.CharacterClassName);
+				Debug.Log (newPlayer.PlayerClass.CharacterClassDescription);
+				Debug.Log (newPlayer.Agility);
+				Debug.Log (newPlayer.Stamina);
+				Debug.Log (newPlayer.Intellect);
+				Debug.Log (newPlayer.Strength);
+
+				// spawn player into the world at start position
+			}
+			break;
 		}
-
-		//Set Different Class Stats
-		if (hasCreated == true && canCreate == true && nameCreated == true) {
-			// set level to 1 because it creates a new char
-			newPlayer.PlayerLevel = 1;
-			newPlayer.Agility = newPlayer.PlayerClass.Agility;
-			newPlayer.Intellect = newPlayer.PlayerClass.Intellect;
-			newPlayer.Stamina = newPlayer.PlayerClass.Stamina;
-			newPlayer.Strength = newPlayer.PlayerClass.Strength;
-
-			newPlayer.PlayerName = this.charName;
-			newPlayer.PlayerClass.CharacterClassName = this.className;
-
-
-			//store info
-			gameController.Save();
-			savedNcreated = true;
-			Debug.Log ("Class: " + className);
-			Debug.Log (" Name: " + charName);
-			Debug.Log (" Index: " + CharacterIndex);
-			Debug.Log("Stats: "+newPlayer.Agility+ ", " + newPlayer.Stamina + ", " + newPlayer.Intellect + ", " + newPlayer.Strength);
-
-			// spawn player into the world at start position
-		}
+		// goto Character selecting screen.
 	}
 
 	void inputVal() {
@@ -151,7 +157,11 @@ public class CreateNewCharacter : MonoBehaviour {
 			canCreate = true;
 		} else {
 			canCreate = false;
-			Debug.LogError ("You need to select class");
+		}
+
+		if (CharacterIndex >= CharacterIndexMax) {
+			canCreate = false;
+			Debug.Log ("Too many characters created, delete one before creating");
 		}
 	}
 }

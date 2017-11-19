@@ -15,7 +15,7 @@ public class GameInfomation : MonoBehaviour {
 		if (newChar.nameCreated == true && newChar.hasCreated == true) {
 			
 			//Storing into GameData class
-			data.CharacterIndex = newChar.CharacterIndex;
+			data._CharacterIndex = newChar.CharacterIndex;
 			data.name = newChar.newPlayer.PlayerName;
 			data.pos = GetComponent<Player> ().transform.position;
 			data.rotation = GetComponent<Player> ().transform.rotation;
@@ -51,7 +51,7 @@ public class GameInfomation : MonoBehaviour {
 
 			newChar.newPlayer.PlayerClass.CharacterClassName = data.Class;
 			newChar.newPlayer.PlayerName = data.name;
-			newChar.CharacterIndex = data.CharacterIndex;
+			newChar.CharacterIndex = data._CharacterIndex;
 		} else {
 			Debug.LogError ("Unable to load Data");
 		}
@@ -77,7 +77,7 @@ public class GameInfomation : MonoBehaviour {
 [Serializable]
 public class GameData {
 	//Amount of characters
-	public int CharacterIndex;
+	public int _CharacterIndex;
 
 	public string name;
 	public Vector3 pos;

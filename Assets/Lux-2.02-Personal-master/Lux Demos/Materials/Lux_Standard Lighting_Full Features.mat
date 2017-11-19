@@ -8,8 +8,8 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: Lux_Standard Lighting_Full Features
   m_Shader: {fileID: 4800000, guid: e1f34d503f3c749f4b9870e5f4079e6a, type: 3}
-  m_ShaderKeywords: EFFECT_BUMP GEOM_TYPE_BRANCH_DETAIL _DETAIL_MULX2 _NORMALMAP _PARALLAXMAP
-    _SNOW _WETNESS_SIMPLE
+  m_ShaderKeywords: EFFECT_BUMP GEOM_TYPE_BRANCH_DETAIL _NORMALMAP _PARALLAXMAP _SNOW
+    _WETNESS_SIMPLE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
