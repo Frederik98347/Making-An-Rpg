@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57c1263db25c40748a894e24bba47dff, type: 3}
+  m_Name: tank_skele
+  m_EditorClassIdentifier: 
+  EnemyHP: 35
+  EnemyName: tank_skele
+  EnemyLevel: 1
+  Enemyarmor: 0
+  expTogive: 8
+  MinAutoDamage: 1
+  MaxAutoDamage: 4
+  EnemyIcon: {fileID: 0}
+  AttackSpeed: 2.5
+  attackRange: 2.25
+  MovementSpeed: 6.5
+  walkingSpeed: 1
+  DetectionRange: 12
+  abilityPrefab_1: {fileID: 0}
+  abilityPrefab_2: {fileID: 0}
+  abilityPrefab_3: {fileID: 0}
+  abilityPrefab_4: {fileID: 0}

@@ -1,127 +1,97 @@
-using System.Collections;
 using UnityEngine;
 
-public class UserMovement : MonoBehaviour {
+public class UserMovement : MonoBehaviour
+{
 
-	public float jumpSpeed = 30.0f;
-	public float gravity = 55.0f;
-	public float runSpeed = 70.0f;
-	public float runSpeed1 = 70.0f;
-	public float runSpeed2 = 140.0f;
-	private float walkSpeed = 3f;
-	private float rotateSpeed = 150.0f;
-	
-	public bool grounded;
-	private Vector3 moveDirection = Vector3.zero;
-	private bool isWalking;
-	private string moveStatus = "idle";
+    public float walkSpeed = 2;
+    public float runSpeed = 6;
+    public float gravity = -12;
+    public float jumpHeight = 1;
+    [Range(0, 1)]
+    public float airControlPercent;
 
-	public GameObject camera1;
-	public CharacterController controller;
-	public bool isJumping;
-	private float myAng = 0.0f;
-	public bool canJump = true;
+    public float turnSmoothTime = 0.2f;
+    float turnSmoothVelocity;
 
-	private int timesPressed = 0;
+    public float speedSmoothTime = 0.1f;
+    float speedSmoothVelocity;
+    float currentSpeed;
+    float velocityY;
 
-	void Start () {
+    Animator animator;
+    Transform cameraT;
+    CharacterController controller;
 
-		controller = GetComponent<CharacterController>();
-	}
-	
-	void Update ()
-	{
-		//walking
-		if (Input.GetButton("Walk") && timesPressed == 0) {
-			timesPressed++;
-			isWalking = true;
-			runSpeed = 3f;
-		} else if (Input.GetButton ("Walk") && timesPressed == 1) {
-			timesPressed = 0;
-			runSpeed = runSpeed1;
-			isWalking = false;
-		}
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        cameraT = Camera.main.transform;
+        controller = GetComponent<CharacterController>();
+    }
 
+    void Update()
+    {
+        // input
+        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 inputDir = input.normalized;
+        bool running = Input.GetKey(KeyCode.LeftShift);
 
-		//force controller down slope. Disable jumping
-		if(myAng > 50) {
+        Move(inputDir, running);
 
-			canJump = false;
-		}
-		else {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
+        // animator
+        float animationSpeedPercent = ((running) ? currentSpeed / runSpeed : currentSpeed / walkSpeed * .5f);
+        animator.SetFloat("speedPercent", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
 
-			canJump = true;
-		}
+    }
 
-			if(grounded) {
-				
-				isJumping = false;
-				
-				if(camera1.transform.gameObject.transform.GetComponent<UserCamera>().inFirstPerson == true) {
-					moveDirection = new Vector3((Input.GetMouseButton(0) ? Input.GetAxis("Horizontal") : 0),0,Input.GetAxis("Vertical"));
-				}
-				moveDirection = new Vector3((Input.GetMouseButton(1) ? Input.GetAxis("Horizontal") : 0),0,Input.GetAxis("Vertical"));
-					
-				moveDirection = transform.TransformDirection(moveDirection);
-				moveDirection *= isWalking ? walkSpeed : runSpeed;
-				
-				moveStatus = "idle";
-				
-				
-				
-				if(moveDirection != Vector3.zero)
-					moveStatus = isWalking ? "walking" : "running";
-				
-				if (Input.GetButtonDown("Jump") && canJump) {		
-					moveDirection.y = jumpSpeed;
-					isJumping = true;
-				}
-				
-			}
-			
-			
-			// Allow turning at anytime. Keep the character facing in the same direction as the Camera if the right mouse button is down.
-			
-			if(camera1.transform.gameObject.transform.GetComponent<UserCamera>().inFirstPerson == false) {
-			
-				if(!Input.GetMouseButton(1) || !Input.GetMouseButton(0)) {
-					//move with left rigth up down
-					
-				}
-				if(Input.GetMouseButton(1)) {
-				//move with left rigth down up
-					transform.rotation = Quaternion.Euler(0,Camera.main.transform.eulerAngles.y,0);
-				} else {
-					transform.Rotate(0,Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
-					
-				}
-			}
-			else {
-				if(Input.GetMouseButton(1)) {
-					transform.rotation = Quaternion.Euler(0,Camera.main.transform.eulerAngles.y,0);
-				}
-				
-			}
-			
-			//Apply gravity
-			moveDirection.y -= gravity * Time.deltaTime;
-			
-			
-			//Move controller
-			CollisionFlags flags;
-			if(isJumping) {
-				flags = controller.Move(moveDirection * Time.deltaTime);
-			}
-			else {
-				flags = controller.Move((moveDirection + new Vector3(0,-100,0)) * Time.deltaTime);
-			}
-			
-			grounded = (flags & CollisionFlags.Below) != 0;
+    void Move(Vector2 inputDir, bool running)
+    {
+        if (inputDir != Vector2.zero)
+        {
+            float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
+            transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, GetModifiedSmoothTime(turnSmoothTime));
+        }
 
-	}
+        float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
+        currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, GetModifiedSmoothTime(speedSmoothTime));
 
-	void OnControllerColliderHit(ControllerColliderHit hit) {
+        velocityY += Time.deltaTime * gravity;
+        Vector3 velocity = transform.forward * currentSpeed + Vector3.up * velocityY;
 
-			myAng = Vector3.Angle(Vector3.up, hit.normal); 
-	}
+        controller.Move(velocity * Time.deltaTime);
+        currentSpeed = new Vector2(controller.velocity.x, controller.velocity.z).magnitude;
+
+        if (controller.isGrounded)
+        {
+            velocityY = 0;
+        }
+
+    }
+
+    void Jump()
+    {
+        if (controller.isGrounded)
+        {
+            float jumpVelocity = Mathf.Sqrt(-2 * gravity * jumpHeight);
+            velocityY = jumpVelocity;
+        }
+    }
+
+    float GetModifiedSmoothTime(float smoothTime)
+    {
+        if (controller.isGrounded)
+        {
+            return smoothTime;
+        }
+
+        if (airControlPercent == 0)
+        {
+            return float.MaxValue;
+        }
+        return smoothTime / airControlPercent;
+    }
 }

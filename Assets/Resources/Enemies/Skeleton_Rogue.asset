@@ -14,12 +14,15 @@ MonoBehaviour:
   EnemyHP: 20
   EnemyName: Skeleton_Rogue
   EnemyLevel: 1
+  Enemyarmor: 0
   expTogive: 5
   MinAutoDamage: 1
-  MaxAutoDamage: 4
+  MaxAutoDamage: 3
   EnemyIcon: {fileID: 0}
-  AttackSpeed: 1.6
-  MovementSpeed: 10
+  AttackSpeed: 1.8
+  attackRange: 2.25
+  MovementSpeed: 6.5
+  walkingSpeed: 1
   DetectionRange: 12
   abilityPrefab_1: {fileID: 0}
   abilityPrefab_2: {fileID: 0}

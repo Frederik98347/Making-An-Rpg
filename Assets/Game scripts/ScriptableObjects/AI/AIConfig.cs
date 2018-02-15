@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class AIConfig : ScriptableObject
 {
 	public int EnemyHP;
 	public string EnemyName = "";
 	public int EnemyLevel = 1;
+    public int Enemyarmor = 0;
 	public int expTogive = 0;
 	public int MinAutoDamage = 0;
 	public int MaxAutoDamage = 0;
 	public Texture2D EnemyIcon = null;
 
 	public float AttackSpeed = 0f;
+    public float attackRange = 0f;
 	public float MovementSpeed = 0f;
+    public float walkingSpeed = 0f;
 	public float DetectionRange = 0f;
 
 	// ai abilities

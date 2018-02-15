@@ -25,10 +25,6 @@ public class InteractableChest : MonoBehaviour{
 		Audio = GetComponent<AudioSource> ();
 		anim = GetComponent<Animation> ();
 		state = InteractableChest.State.CLOSE;
-
-		if (Player == null) {
-			Debug.LogError ("Missing player Transform");
-		}
 	}
 
 	public void OnMouseEnter() {

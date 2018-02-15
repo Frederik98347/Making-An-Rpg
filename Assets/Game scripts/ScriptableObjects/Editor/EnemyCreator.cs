@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
 public class EnemyCreator : EditorWindow {
@@ -26,11 +24,14 @@ public class EnemyCreator : EditorWindow {
 			tempEnemy.EnemyName = EditorGUILayout.TextField("Enemy Name", tempEnemy.EnemyName);
 			tempEnemy.EnemyHP = EditorGUILayout.IntField("Health", tempEnemy.EnemyHP);
 			tempEnemy.EnemyLevel = EditorGUILayout.IntField("Level", tempEnemy.EnemyLevel);
-			tempEnemy.EnemyIcon = (Texture2D)EditorGUILayout.ObjectField("Spell Icon", tempEnemy.EnemyIcon, typeof(Texture2D), false);
+			tempEnemy.EnemyIcon = (Texture2D)EditorGUILayout.ObjectField("EnemyIcon", tempEnemy.EnemyIcon, typeof(Texture2D), false);
 			tempEnemy.MinAutoDamage = EditorGUILayout.IntField("MinAutoDamage", tempEnemy.MinAutoDamage);
 			tempEnemy.MaxAutoDamage = EditorGUILayout.IntField("MaxAutoDamage", tempEnemy.MaxAutoDamage);
 			tempEnemy.AttackSpeed = EditorGUILayout.FloatField("AttackSpeed", tempEnemy.AttackSpeed);
-			tempEnemy.MovementSpeed = EditorGUILayout.FloatField("MovementSpeed", tempEnemy.MovementSpeed);
+            tempEnemy.attackRange = EditorGUILayout.FloatField("Attack Range", tempEnemy.attackRange);
+            tempEnemy.Enemyarmor = EditorGUILayout.IntField("Enemy Armor", tempEnemy.Enemyarmor);
+            tempEnemy.MovementSpeed = EditorGUILayout.FloatField("Walking Speed", tempEnemy.walkingSpeed);
+            tempEnemy.MovementSpeed = EditorGUILayout.FloatField("MovementSpeed", tempEnemy.MovementSpeed);
 			tempEnemy.DetectionRange = EditorGUILayout.FloatField("DetectionRange", tempEnemy.DetectionRange);
 			tempEnemy.expTogive = EditorGUILayout.IntField ("Exp to give", tempEnemy.expTogive);
 
@@ -76,9 +77,12 @@ public class EnemyCreator : EditorWindow {
 			tempEnemy.MinAutoDamage = 0;
 			tempEnemy.MaxAutoDamage = 0;
 			tempEnemy.expTogive = 0;
-			tempEnemy.AttackSpeed = 0;
-			tempEnemy.MovementSpeed = 0;
-			tempEnemy.DetectionRange = 0;
+			tempEnemy.AttackSpeed = 0f;
+            tempEnemy.attackRange = 0f;
+            tempEnemy.walkingSpeed = 0f;
+			tempEnemy.MovementSpeed = 0f;
+			tempEnemy.DetectionRange = 0f;
+            tempEnemy.Enemyarmor = 0;
 			tempEnemy.abilityPrefab_1 = null;
 			tempEnemy.abilityPrefab_2 = null;
 			tempEnemy.abilityPrefab_3 = null;

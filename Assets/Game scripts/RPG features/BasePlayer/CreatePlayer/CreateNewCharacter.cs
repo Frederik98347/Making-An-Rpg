@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Text.RegularExpressions;
 
 public class CreateNewCharacter : MonoBehaviour {
@@ -68,18 +67,15 @@ public class CreateNewCharacter : MonoBehaviour {
 				
 					if (isMageClass && nameCreated == true) {
 						newPlayer.PlayerClass = new BaseMageClass ();
-						CharacterIndex = CharacterIndex + 1;
-						//charName = newPlayer.PlayerName;
+                  		CharacterIndex = CharacterIndex + 1;
 
 					} else if (isWarriorClass && nameCreated == true) {
 						newPlayer.PlayerClass = new BaseWarriorClass ();
 						CharacterIndex = CharacterIndex + 1;
-						//charName = newPlayer.PlayerName;
 
 					} else if (isRogueClass && nameCreated == true) {
 						newPlayer.PlayerClass = new BaseRogueClass ();
 						CharacterIndex = CharacterIndex + 1;
-						//charName = newPlayer.PlayerName;
 					}
 
 					hasCreated = true;
@@ -117,14 +113,14 @@ public class CreateNewCharacter : MonoBehaviour {
 			if (hasCreated == true && canCreate == true && nameCreated == true) {
 				// set level to 1 because it creates a new char
 
-				this.newPlayer.PlayerLevel = 1;
-				this.newPlayer.Agility = newPlayer.PlayerClass.Agility;
-				this.newPlayer.Intellect = newPlayer.PlayerClass.Intellect;
-				this.newPlayer.Stamina = newPlayer.PlayerClass.Stamina;
-				this.newPlayer.Strength = newPlayer.PlayerClass.Strength;
+				newPlayer.PlayerLevel = 1;
+                charName = newPlayer.PlayerName;
+                newPlayer.Agility = newPlayer.PlayerClass.Agility;
+                newPlayer.Intellect = newPlayer.PlayerClass.Intellect;
+				newPlayer.Stamina = newPlayer.PlayerClass.Stamina;
+				newPlayer.Strength = newPlayer.PlayerClass.Strength;
 
-				this.newPlayer.PlayerName = charName;
-				this.newPlayer.PlayerClass.CharacterClassName = className;
+				newPlayer.PlayerClass.CharacterClassName = className;
 
 
 				//store info
@@ -132,6 +128,7 @@ public class CreateNewCharacter : MonoBehaviour {
 				savedNcreated = true;
 				inputEdit = false;
 				Debug.Log (newPlayer.PlayerName);
+                Debug.Log(charName);
 				Debug.Log (newPlayer.PlayerClass.CharacterClassName);
 				Debug.Log (newPlayer.PlayerClass.CharacterClassDescription);
 				Debug.Log (newPlayer.Agility);
@@ -161,7 +158,7 @@ public class CreateNewCharacter : MonoBehaviour {
 
 		if (CharacterIndex >= CharacterIndexMax) {
 			canCreate = false;
-			Debug.Log ("Too many characters created, delete one before creating");
+			Debug.Log ("Too many characters created, delete one before creating another");
 		}
 	}
 }

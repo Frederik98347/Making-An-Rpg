@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
@@ -31,7 +29,7 @@ public class Player : MonoBehaviour {
 
 	//health atributes
 	float MaxHP = 30f;
-	public float health = 30f;
+	public float health = 0f;
 
 	public int Defense {
 		get{return defense; }
@@ -56,7 +54,8 @@ public class Player : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		healthBar.value = 0f;
+		healthBar.value = 1f;
+        health = MaxHP;
 	}
 
 	float CalculateHealth() {
@@ -70,7 +69,7 @@ public class Player : MonoBehaviour {
 		OnMouseEnter ();
 
 		//if dead 
-		//Isdead (); // doesnt work
+		Isdead (); // doesnt work
 	}
 
 	public void Attack(){
@@ -231,30 +230,6 @@ public class Player : MonoBehaviour {
 	}
 
 	public void GetHit (int enemyDamage) {
-		if (selectedUnit != null) {
-
-			/*if (this.selectedUnit.GetComponent<Enemy> ().EnemyLevel == Level - 2) {
-				float DamageTaken = enemyDamage / (1.2f + this.selectedUnit.GetComponent<Enemy> ().enemyArmor);
-				health = health - Mathf.RoundToInt (DamageTaken);
-			} else if (this.selectedUnit.GetComponent<Enemy> ().EnemyLevel == Level - 3) {
-				float DamageTaken = enemyDamage / (1.3f + this.selectedUnit.GetComponent<Enemy> ().enemyArmor);
-				health = health - Mathf.RoundToInt (DamageTaken);
-			} else if (this.selectedUnit.GetComponent<Enemy> ().EnemyLevel == Level - 4) {
-				float DamageTaken = enemyDamage / (1.4f + this.selectedUnit.GetComponent<Enemy> ().enemyArmor);
-				health = health - Mathf.RoundToInt (DamageTaken);
-			}
-
-			if (this.selectedUnit.GetComponent<Enemy> ().EnemyLevel == Level + 2) {
-				float DamageTaken = enemyDamage * (1.2f + this.selectedUnit.GetComponent<Enemy> ().enemyArmor);
-				health = health - Mathf.RoundToInt (DamageTaken);
-			} else if (this.selectedUnit.GetComponent<Enemy> ().EnemyLevel == Level + 3) {
-				float DamageTaken = enemyDamage * (1.3f + this.selectedUnit.GetComponent<Enemy> ().enemyArmor);
-				health = health - Mathf.RoundToInt (DamageTaken);
-			} else if (this.selectedUnit.GetComponent<Enemy> ().EnemyLevel == Level + 4) {
-				float DamageTaken = enemyDamage * (1.4f + this.selectedUnit.GetComponent<Enemy> ().enemyArmor);
-				health = health - Mathf.RoundToInt (DamageTaken);
-			}*/
-		}
 
 		health = health - enemyDamage;
 		healthBar.value = CalculateHealth();
@@ -272,7 +247,7 @@ public class Player : MonoBehaviour {
 		if (isDead == true) {
 			float Speed = usermovement.runSpeed;
 
-			Speed = (Speed + Speed);
+			Speed = (Speed + Speed)*1.2f;
 			canAttack = false;
 			expGain = false;
 
@@ -281,7 +256,10 @@ public class Player : MonoBehaviour {
 				enemyScript.targetSeen = false;
 				enemyScript.detectionRange = 0.0f;
 				enemyScript.outofrangeTimer = 0.0f;
+                
 			}
+
+            Destroy(this.gameObject, 2.0f);
 		}
 	}
 }
