@@ -1,13 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class BasePlayer {
+﻿public class BasePlayer {
 
 	BaseCharacterClass playerClass;
 	private int stamina;
 	private int agility;
 	private int strength;
 	private int intellect;
+    int critchance;
 
 	public string PlayerName{ get; set;}
 
@@ -34,4 +32,17 @@ public class BasePlayer {
 		get {return intellect;}
 		set {intellect = value;}
 	}
+
+    public int Critchance
+    {
+        get
+        {
+            return critchance;
+        }
+
+        set
+        {
+            critchance = value;
+        }
+    }
 }

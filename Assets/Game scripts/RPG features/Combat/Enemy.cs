@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -58,10 +57,10 @@ public class Enemy : MonoBehaviour {
 	public bool Dead = false;
 
     //way point patrol
-    string state = "patrol";
+    public string state = "patrol";
     public GameObject[] waypoints;
     int currentWP = 0;
-    public float accuracyWP = 1.0f;
+    public float accuracyWP = .8f;
 
 	// Use this for initialization
 	void Start () {
@@ -94,7 +93,7 @@ public class Enemy : MonoBehaviour {
 			Dead = true;
 		}
 
-        if (AttackcurTime < attackspeed && targetSeen == true && Vector3.Distance(transform.position, this.player.position) < AttackRange)
+        if (AttackcurTime < attackspeed && targetSeen == true && Vector3.Distance(transform.position, this.player.position) < AttackRange * .8f)
         {
             AttackcurTime += Time.deltaTime;
             //count up
@@ -103,10 +102,6 @@ public class Enemy : MonoBehaviour {
                 Attack();
                 AttackcurTime = 0;
             }
-        }
-        else
-        {
-            AttackcurTime = 0;
         }
 
 		chase ();
@@ -174,7 +169,7 @@ public class Enemy : MonoBehaviour {
 
 				this.transform.rotation = Quaternion.Slerp (this.transform.rotation, Quaternion.LookRotation (direction), rotSpeed * Time.deltaTime);
 				anim.SetBool ("isIdle", false);
-				if (direction.magnitude > AttackRange) {
+				if (direction.magnitude > AttackRange*1.2f) {
 					this.transform.Translate (0, 0, movementspeed*Time.deltaTime);
 					anim.SetBool ("isRunning", true);
 					anim.SetBool ("isDead", false);
@@ -201,7 +196,7 @@ public class Enemy : MonoBehaviour {
 
 				this.transform.rotation = Quaternion.Slerp (this.transform.rotation, Quaternion.LookRotation (direction), rotSpeed * Time.deltaTime);
 				anim.SetBool ("isIdle", false);
-				if (direction.magnitude > AttackRange) {
+				if (direction.magnitude > AttackRange*.8f) {
 					this.transform.Translate (0, 0, movementspeed * Time.deltaTime);
 					anim.SetBool ("isRunning", true);
 					anim.SetBool ("isDead", false);
@@ -229,7 +224,7 @@ public class Enemy : MonoBehaviour {
 					anim.SetBool ("isIdle", false);
                     anim.SetBool("isWalking", false);
 
-                    if (direction.magnitude > AttackRange) {
+                    if (direction.magnitude > AttackRange*1.2f) {
 						this.transform.Translate (0, 0, movementspeed * Time.deltaTime);
 						anim.SetBool ("isRunning", true);
                         anim.SetBool("isWalking", false);
@@ -347,7 +342,7 @@ public class Enemy : MonoBehaviour {
 			damage  = Random.Range(Mindamage, MaxDamage);
 
 			//defensive attributes
-			enemyArmor = enemyArmor + (enemyArmor * EnemyLevel);
+			enemyArmor = enemyArmor + (enemyArmor + EnemyLevel);
 
 		} else if (Elite != true) {
 			health = (health) * EnemyLevel;
@@ -362,7 +357,7 @@ public class Enemy : MonoBehaviour {
 	void Attack () {
 		EnemyPowerAndLevel ();
 
-		if (this.player.GetComponent<Player> ().isDead == false && targetSeen == true && Vector3.Distance (transform.position, this.player.position) < AttackRange) {
+		if (this.player.GetComponent<Player> ().isDead == false && targetSeen == true && Vector3.Distance (transform.position, this.player.position) < AttackRange*1.2f) {
 			this.player.gameObject.transform.GetComponent<Player>().GetHit (damage);
 			Debug.Log ("Enemy damage: " + damage);
 

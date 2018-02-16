@@ -4,7 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Animation))]
 public class InteractableChest : MonoBehaviour{
-	
+    public Interactable interactable;
+
 	public enum State
 	{
 		OPEN,
@@ -20,11 +21,13 @@ public class InteractableChest : MonoBehaviour{
 	Animation anim;
 	public AnimationClip close;
 	public AnimationClip open;
+    private float radius;
 
-	void Start() {
+    void Start() {
 		Audio = GetComponent<AudioSource> ();
 		anim = GetComponent<Animation> ();
 		state = InteractableChest.State.CLOSE;
+        radius = interactable.radius;
 	}
 
 	public void OnMouseEnter() {
@@ -34,7 +37,7 @@ public class InteractableChest : MonoBehaviour{
 		Debug.Log("Exit");
 	}
 	public void OnMouseUp() {
-		if (Vector3.Distance (Player.position, this.transform.position) < 3.0f && tag == "Interactable") {
+		if (Vector3.Distance (Player.position, this.transform.position) < radius) {
 			Debug.Log ("Up");
 			switch (state) {
 			case State.OPEN:
@@ -51,7 +54,7 @@ public class InteractableChest : MonoBehaviour{
 
 	public IEnumerator Open(){
 
-		if (Vector3.Distance (Player.position, this.transform.position) < 3.0f) {
+		if (Vector3.Distance (Player.position, this.transform.position) < radius) {
 			anim.clip = open;
 			anim.Play();
 			Audio.PlayOneShot (openSound);
@@ -60,7 +63,7 @@ public class InteractableChest : MonoBehaviour{
 		}
 	}
 	private IEnumerator Close(){
-		if (Vector3.Distance (Player.position, this.transform.position) < 3.0f) {
+		if (Vector3.Distance (Player.position, this.transform.position) < radius) {
 			anim.clip = close;
 			anim.Play();
 			Audio.PlayOneShot (closeSound);

@@ -20,7 +20,7 @@ MonoBehaviour:
   MaxAutoDamage: 4
   EnemyIcon: {fileID: 0}
   AttackSpeed: 2.5
-  attackRange: 2.25
+  attackRange: 3
   MovementSpeed: 6.5
   walkingSpeed: 1
   DetectionRange: 12
