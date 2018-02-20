@@ -4,6 +4,6 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class GameInfoContainer {
-	public List<GameData> List = new List<GameData>();
+public class GameInfoContainer {/*
+	public List<GameData> List = new List<GameData>();*/
 }

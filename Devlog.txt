@@ -1,0 +1,13 @@
+My Rpg game:
+
+Almost done with scriptable object enemies, enemy classes and so on.
+
+things to start working on:
+inventory system
+level up system
+cleaning up in the player and enemy script
+Pausemenu
+Startmenu
+Healthbar (working)
+exp bar
+Rpg classes for players.

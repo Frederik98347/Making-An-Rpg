@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour {/*
 
 	public GameObject playerPrefab;
 	public const string playerPath = "Resources/PlayerPrefab";
@@ -35,5 +35,5 @@ public class GameController : MonoBehaviour {
 
 	public void Load() {
 		SaveData.Load (dataPath);
-	}
+	}*/
 }

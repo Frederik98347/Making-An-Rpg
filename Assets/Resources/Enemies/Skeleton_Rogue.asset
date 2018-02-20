@@ -11,20 +11,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57c1263db25c40748a894e24bba47dff, type: 3}
   m_Name: Skeleton_Rogue
   m_EditorClassIdentifier: 
-  EnemyHP: 20
-  EnemyName: Skeleton_Rogue
-  EnemyLevel: 1
-  Enemyarmor: 0
-  expTogive: 5
-  MinAutoDamage: 1
-  MaxAutoDamage: 3
-  EnemyIcon: {fileID: 0}
-  AttackSpeed: 1.8
+  enemyHP: 20
+  enemyMaxHealth: 20
+  enemyLevel: 1
+  enemyName: Skeleton Assasin
+  enemyDefense: 2
+  agility: 18
+  intellect: 9
+  stamina: 10
+  strength: 2
+  haste: 5
+  endurance: 5
+  enemyResistance: 5
+  exptogive: 10
+  minAutoDamage: 1
+  maxAutoDamage: 3
+  attackSpeed: 1.8
   attackRange: 3
-  MovementSpeed: 6.5
-  walkingSpeed: 1
-  DetectionRange: 20
+  movementSpeed: 6.5
+  walkingSpeed: 2
+  detectionRange: 12
+  behind_detectionRange: 7
+  outofrangeTimer: 14
+  enemyIcon: {fileID: 2800000, guid: 4be973f0a9b62fb4fb7525a28754f94b, type: 3}
+  toolTip: Does alot of damage in a short time, but cant widstand a whole lot in return
   abilityPrefab_1: {fileID: 0}
   abilityPrefab_2: {fileID: 0}
   abilityPrefab_3: {fileID: 0}
   abilityPrefab_4: {fileID: 0}
+  mobRarity: 0
+  dmgType: 0
+  mobType: 0
+  mobClass: 0
+  warWpnType: 0
+  warDmgType: 0
+  warriorClassType: 0
+  rogueWpnType: 1
+  rogueDmgType: 1
+  rogueClassType: 2
+  mageWpnType: 0
+  mageDmgType: 0
+  mageClassType: 0

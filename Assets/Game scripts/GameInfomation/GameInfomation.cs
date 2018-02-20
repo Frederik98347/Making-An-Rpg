@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class GameInfomation : MonoBehaviour {
+public class GameInfomation : MonoBehaviour
+{/*
 	public CreateNewCharacter newChar;
 	public GameData data = new GameData ();
 
@@ -21,7 +22,7 @@ public class GameInfomation : MonoBehaviour {
 			data.rotation = GetComponent<Player> ().transform.rotation;
 			data.health = GetComponent<Player> ().health;
 
-			data.level = newChar.newPlayer.PlayerLevel;
+			//data.level = newChar.newPlayer.PlayerLevel;
 			data.Class = newChar.newPlayer.PlayerClass.CharacterClassName;
 
 			data.agility =  newChar.newPlayer.Agility;
@@ -42,12 +43,12 @@ public class GameInfomation : MonoBehaviour {
 			newChar.newPlayer.Strength = data.strength;
 			newChar.newPlayer.Agility = data.agility;
 			newChar.newPlayer.Intellect = data.intellect;
-			newChar.newPlayer.PlayerLevel = data.level;
+			//newChar.newPlayer.PlayerLevel = data.level;
 
 			//Location && health from player Script
 			GetComponent<Player> ().transform.position = data.pos;
 			GetComponent<Player> ().transform.rotation = data.rotation;
-			GetComponent<Player> ().health = data.health;
+			//GetComponent<Player> ().health = data.health;
 
 			newChar.newPlayer.PlayerClass.CharacterClassName = data.Class;
 			newChar.newPlayer.PlayerName = data.name;
@@ -96,4 +97,5 @@ public class GameData {
 
 	//Inventory
 	//ItemsEquipped
+}*/
 }

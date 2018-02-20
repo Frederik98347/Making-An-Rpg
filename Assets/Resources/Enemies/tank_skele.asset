@@ -11,20 +11,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57c1263db25c40748a894e24bba47dff, type: 3}
   m_Name: tank_skele
   m_EditorClassIdentifier: 
-  EnemyHP: 35
-  EnemyName: tank_skele
-  EnemyLevel: 1
-  Enemyarmor: 0
-  expTogive: 8
-  MinAutoDamage: 1
-  MaxAutoDamage: 4
-  EnemyIcon: {fileID: 0}
-  AttackSpeed: 2.5
+  enemyHP: 25
+  enemyMaxHealth: 25
+  enemyLevel: 1
+  enemyName: Skeleton defender
+  enemyDefense: 5
+  agility: 5
+  intellect: 2
+  stamina: 15
+  strength: 13
+  haste: 1
+  endurance: 3
+  enemyResistance: 5
+  exptogive: 5
+  minAutoDamage: 1
+  maxAutoDamage: 4
+  attackSpeed: 2.5
   attackRange: 3
-  MovementSpeed: 6.5
-  walkingSpeed: 1
-  DetectionRange: 12
+  movementSpeed: 6
+  walkingSpeed: 2
+  detectionRange: 15
+  behind_detectionRange: 5
+  outofrangeTimer: 15
+  enemyIcon: {fileID: 2800000, guid: 638407f285212d546845248f67bd99f6, type: 3}
+  toolTip: 'Skeleton Defender: does alot of damage but is attacking slow. Watchout!
+    He is able to tank alot of damage'
   abilityPrefab_1: {fileID: 0}
   abilityPrefab_2: {fileID: 0}
   abilityPrefab_3: {fileID: 0}
   abilityPrefab_4: {fileID: 0}
+  mobRarity: 0
+  dmgType: 0
+  mobType: 0
+  mobClass: 1
+  warWpnType: 1
+  warDmgType: 1
+  warriorClassType: 1
+  rogueWpnType: 0
+  rogueDmgType: 0
+  rogueClassType: 0
+  mageWpnType: 0
+  mageDmgType: 0
+  mageClassType: 0

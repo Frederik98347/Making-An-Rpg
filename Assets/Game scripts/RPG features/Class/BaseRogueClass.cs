@@ -8,5 +8,10 @@
 		Strength = 9;
 		Intellect = 12;
 		Agility = 18;
+
+        //secoundary stats
+        Critchance = 5;
+        Defense = 1;
+
 	}
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 
 public class SaveData{
+    /*
 
 	public static GameInfoContainer dataContainer = new GameInfoContainer();
 
@@ -52,5 +53,5 @@ public class SaveData{
 		sw.Close ();
 
 		File.WriteAllText (path, json);
-	}
+	}*/
 }

@@ -1,6 +1,3 @@
-using UnityEngine;
-using System.Collections;
-
 public class BaseCharacterClass {
 
     private string characterClassName;
@@ -11,6 +8,8 @@ public class BaseCharacterClass {
     private int agility;
     private int strength;
     private int intellect;
+    private int critchance;
+    private int defense;
 
     public string CharacterClassName{
         get {return characterClassName;}
@@ -35,5 +34,31 @@ public class BaseCharacterClass {
     public int Intellect{
         get {return intellect;}
 		set {intellect = value;}
+    }
+
+    public int Critchance
+    {
+        get
+        {
+            return critchance;
+        }
+
+        set
+        {
+            critchance = value;
+        }
+    }
+
+    public int Defense
+    {
+        get
+        {
+            return defense;
+        }
+
+        set
+        {
+            defense = value;
+        }
     }
 }﻿

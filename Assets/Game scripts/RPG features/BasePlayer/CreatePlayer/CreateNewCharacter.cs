@@ -3,7 +3,6 @@ using System.Text.RegularExpressions;
 
 public class CreateNewCharacter : MonoBehaviour {
 	public BasePlayer newPlayer;
-	public GameController gameController;
 
 	public bool isMageClass;
 	public bool isWarriorClass;
@@ -11,8 +10,9 @@ public class CreateNewCharacter : MonoBehaviour {
 	public bool hasCreated;
 	public bool nameCreated;
 	bool savedNcreated;
-	public int CharacterIndex = 0;
-	int CharacterIndexMax = 10;
+    [Range(0, 10)]
+    public int CharacterIndex = 0;
+    int CharacterIndexMax = 10;
 	bool canCreate;
 	public string charName;
 	public string className;
@@ -23,6 +23,7 @@ public class CreateNewCharacter : MonoBehaviour {
 		newPlayer = new BasePlayer();
 		nameCreated = false;
 		inputEdit = true;
+        charName = "Enter Name";
 
 		if (CharacterIndex < CharacterIndexMax) {
 			canCreate = true;
@@ -37,7 +38,7 @@ public class CreateNewCharacter : MonoBehaviour {
 	}
 
 	void Update() {
-		inputVal ();
+		InputVal ();
 	}
 
 	void OnGUI() {
@@ -87,8 +88,8 @@ public class CreateNewCharacter : MonoBehaviour {
 					Debug.LogError ("Error creating char: " + canCreate + " " + CharacterIndex);
 				}
 			}
-
-			SetupData ();
+            CheckClass(isMageClass, isWarriorClass, isRogueClass);
+            SetupData ();
 			break;
 		}
 	}
@@ -113,37 +114,36 @@ public class CreateNewCharacter : MonoBehaviour {
 			if (hasCreated == true && canCreate == true && nameCreated == true) {
 				// set level to 1 because it creates a new char
 
-				newPlayer.PlayerLevel = 1;
+				newPlayer.Playerlevel = 1;
                 charName = newPlayer.PlayerName;
                 newPlayer.Agility = newPlayer.PlayerClass.Agility;
                 newPlayer.Intellect = newPlayer.PlayerClass.Intellect;
 				newPlayer.Stamina = newPlayer.PlayerClass.Stamina;
 				newPlayer.Strength = newPlayer.PlayerClass.Strength;
+                newPlayer.Critchance = newPlayer.PlayerClass.Critchance;
+                newPlayer.Defense = newPlayer.PlayerClass.Defense;
 
-				newPlayer.PlayerClass.CharacterClassName = className;
 
-
-				//store info
-				//gameController.Save();
-				savedNcreated = true;
+                //store info
+                savedNcreated = true;
 				inputEdit = false;
-				Debug.Log (newPlayer.PlayerName);
-                Debug.Log(charName);
-				Debug.Log (newPlayer.PlayerClass.CharacterClassName);
-				Debug.Log (newPlayer.PlayerClass.CharacterClassDescription);
-				Debug.Log (newPlayer.Agility);
-				Debug.Log (newPlayer.Stamina);
-				Debug.Log (newPlayer.Intellect);
-				Debug.Log (newPlayer.Strength);
 
-				// spawn player into the world at start position
-			}
+            }
 			break;
 		}
-		// goto Character selecting screen.
-	}
 
-	void inputVal() {
+        TestCreating(savedNcreated);
+
+        if (CharacterIndex == 1)
+        {
+            // Spawn into world now
+        } else if(CharacterIndex > 1)
+        {
+            // goto Character selecting screen.
+        }
+    }
+
+	void InputVal() {
 
 		if (charName == "EnterName" || charName == string.Empty) {
 			nameCreated = false;
@@ -161,64 +161,42 @@ public class CreateNewCharacter : MonoBehaviour {
 			Debug.Log ("Too many characters created, delete one before creating another");
 		}
 	}
+
+    void TestCreating(bool isCreated)
+    {
+        isCreated = savedNcreated;
+        if (isCreated == true)
+        {
+            Debug.Log("Player Name" + newPlayer.PlayerName);
+            Debug.Log("Character Name: " + charName);
+            Debug.Log("Class: " + newPlayer.PlayerClass.CharacterClassName);
+            Debug.Log("ClassDescription: " + newPlayer.PlayerClass.CharacterClassDescription);
+            Debug.Log("Stats: ");
+            Debug.Log("Agility: " + newPlayer.Agility);
+            Debug.Log("Stamina: " + newPlayer.Stamina);
+            Debug.Log("Intellect: " + newPlayer.Intellect);
+            Debug.Log("Strength: " + newPlayer.Strength);
+            Debug.Log("Defense: " + newPlayer.Defense);
+            Debug.Log("Critchance: " + newPlayer.Critchance);
+        }
+        
+    }
+
+    void CheckClass (bool isMage, bool isWarrior, bool isRogue)
+    {
+        isMage = isMageClass;
+        isWarrior = isWarriorClass;
+        isRogue = isRogueClass;
+
+        if (isMage == true)
+        {
+            newPlayer.PlayerClass = new BaseMageClass();
+        } else if (isWarrior == true)
+        {
+            newPlayer.PlayerClass = new BaseWarriorClass();
+        } else if (isRogue == true)
+        {
+            newPlayer.PlayerClass = new BaseRogueClass();
+        }
+    }
 }
-
-/*
-[System.Serializable]
-public class GUI_Editor{
-	[Header("GUI options")]
-	public bool Createtoggle;
-	public bool Createbutton;
-	int[] buttons;
-	int[] toggle;
-	[Space]
-	[Header("Size of GUI")]
-	public int x = 10;
-	public int y = 0;
-
-	public int width = 100;
-	public int height = 50;
-	public string Text = string.Empty;
-	[Space]
-	[Header("Texture")]
-	public bool aTexture;
-	public Texture texture;
-
-	void createToggle (bool Createtoggle) {
-		for (int i = 0; i < buttons.Length; i++) {
-			int x = 10;
-			int y = 0;
-
-			int width = 100;
-			int height = 50;
-			string Text = string.Empty;
-		}
-
-		x = x;
-		y = y;
-		width = width;
-		height = height;
-		Text = Text;
-	}
-
-	void createButton (bool Createbutton) {
-		for (int i = 0; i < buttons.Length; i++) {
-			int x = 10;
-			int y = 0;
-
-			int width = 100;
-			int height = 50;
-			string Text = string.Empty;
-
-			if (aTexture) {
-				this.texture = texture;
-			}
-		}
-
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.Text = Text;
-	}
-}*/

@@ -57,8 +57,8 @@ LightmapSettings:
   m_LightmapEditorSettings:
     serializedVersion: 9
     m_Resolution: 3
-    m_BakeResolution: 40
-    m_TextureWidth: 256
+    m_BakeResolution: 20
+    m_TextureWidth: 4096
     m_TextureHeight: 1024
     m_AO: 1
     m_AOMaxDistance: 1
@@ -8513,7 +8513,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3524f1c7b5348d84aaee58746ab93244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 0}
 --- !u!114 &484253134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8525,19 +8524,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2934e131cff85194a8d284c7fc6beb14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newChar: {fileID: 484301838}
-  data:
-    _CharacterIndex: 0
-    name: 
-    pos: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    health: 0
-    level: 0
-    Class: 
-    agility: 0
-    intellect: 0
-    stamina: 0
-    strength: 0
 --- !u!114 &484301838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8550,7 +8536,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b3e4bfe03ad724288ef0e8c511e09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameController: {fileID: 484253133}
   isMageClass: 0
   isWarriorClass: 0
   isRogueClass: 0
@@ -17659,7 +17644,9 @@ MonoBehaviour:
   healthBar: {fileID: 1054060249}
   enemyScript: {fileID: 0}
   usermovement: {fileID: 1582703782}
+  _characterIndex: 0
   Level: 1
+  Experience: 0
   isDead: 0
   hoverOverActive: 0
   hoverName: 
@@ -17668,9 +17655,9 @@ MonoBehaviour:
   autoAttackcurTime: 0
   autoAttackCD: 1.5
   health: 30
-  DamageReduction: 0
   behindEnemy: 0
   canAttack: 0
+  expfunction: 0
 --- !u!82 &1582703786
 AudioSource:
   m_ObjectHideFlags: 0
@@ -22552,7 +22539,7 @@ Terrain:
   m_LegacyShininess: 0.078125
   m_MaterialTemplate: {fileID: 0}
   m_BakeLightProbesForTrees: 1
-  m_ScaleInLightmap: 0.005
+  m_ScaleInLightmap: 0.00001
   m_LightmapParameters: {fileID: 0}
 --- !u!114 &1788123712
 MonoBehaviour:

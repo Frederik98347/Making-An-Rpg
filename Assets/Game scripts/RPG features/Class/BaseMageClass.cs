@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-
-public class BaseMageClass : BaseCharacterClass{
+﻿public class BaseMageClass : BaseCharacterClass{
 
 	public void MageClass(){
 		// can take more damage, casts spells and able to avoid some damage.
@@ -11,5 +8,9 @@ public class BaseMageClass : BaseCharacterClass{
 		Strength = 3;
 		Intellect = 17;
 		Agility = 9;
-	}
+
+        //secoundary stats
+        Critchance = 3;
+        Defense = 3;
+    }
 }
