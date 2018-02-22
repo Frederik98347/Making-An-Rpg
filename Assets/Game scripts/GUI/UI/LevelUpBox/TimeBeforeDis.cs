@@ -14,11 +14,6 @@ public class TimeBeforeDis : MonoBehaviour {
         prefab.SetActive(false);
     }
 
-    void Update()
-    {
-
-    }
-
     void Hide()
     {
         fade.FadeOut();
