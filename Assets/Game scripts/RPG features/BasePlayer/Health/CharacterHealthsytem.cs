@@ -1,6 +1,10 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// CharacterHealthSystem that both does Text, Ui sliders and health calculations
+/// </summary>
 public class CharacterHealthsytem : MonoBehaviour {
 
     float currentHealth;
@@ -9,9 +13,15 @@ public class CharacterHealthsytem : MonoBehaviour {
     string outofHP;
     string hpGained;
     string hpLost;
+    bool isDead;
+
+    public TMP_Text HpBarText;
+    [SerializeField] bool isPercentageHp;
+    [SerializeField] bool isPercentageNnumbers;
 
     [SerializeField] Slider healthBar;
-
+    
+    #region Init
     public float CurrentHealth
     {
         get
@@ -90,6 +100,20 @@ public class CharacterHealthsytem : MonoBehaviour {
         }
     }
 
+    public bool IsDead
+    {
+        get
+        {
+            return isDead;
+        }
+
+        set
+        {
+            isDead = value;
+        }
+    }
+    #endregion // All private variables init into public 
+
     void Start()
     {
         MaxHealth = 20f;
@@ -98,6 +122,22 @@ public class CharacterHealthsytem : MonoBehaviour {
 
         //setting healthbar value = our healthcalculation
         healthBar.value = CalculateHealth();
+
+        if (HpBarText != null)
+        {
+            if (isPercentageHp)
+            {
+                PercentageHPCalc();
+            }
+            else if (isPercentageNnumbers)
+            {
+                PercentageWithNumbers();
+            }
+            else
+            {
+                OutofHPCalc();
+            }
+        }
     }
 
     void Update()
@@ -105,56 +145,140 @@ public class CharacterHealthsytem : MonoBehaviour {
         TestDamage();
     }
 
-    void GetHit(float damageValue)
+    public void GetHit(float damageValue)
     {
-        FloatingTextController.Init(true, false);
         //Deduct the damage deatlh from the character's health
+        CombatTextManager.Instance.CreateText(gameObject.transform.position, true, false, damageValue.ToString());
+
         CurrentHealth -= damageValue;
         healthBar.value = CalculateHealth();
-        FloatingTextController.CreateFloatingText(damageValue.ToString(), transform);
-        HpLost = "Health -" + damageValue;
+        //HpLost = "Health -" + damageValue;
 
-        PercentageHPCalc();
+        if (HpBarText != null)
+        {
+            if (isPercentageHp == true)
+            {
+                PercentageHPCalc();
+            }
+            else if (isPercentageNnumbers == true)
+            {
+                PercentageWithNumbers();
+            }
+            else
+            {
+                OutofHPCalc();
+            }
+        }
 
         //making sure health cant go below 0%
 
         if (CurrentHealth <= 0)
         {
             Die();
-            Debug.Log("0% Health");
         } else
         {
-            Debug.Log(PercentageHealth + "% Health");
+            IsDead = false;
         }
     }
 
-    void GetHealth(float healValue)
+    public void GetHealth(float healValue)
     {
-        FloatingTextController.Init(false, true);
         //Deduct the damage deatlh from the character's health
+        CombatTextManager.Instance.CreateText(gameObject.transform.position, false, true, healValue.ToString());
+
+        if (HpBarText != null)
+        {
+            if (isPercentageHp == true)
+            {
+                PercentageHPCalc();
+            }
+            else if (isPercentageNnumbers == true)
+            {
+                PercentageWithNumbers();
+            }
+            else
+            {
+                OutofHPCalc();
+            }
+        }
+
         CurrentHealth += healValue;
         healthBar.value = CalculateHealth();
-        FloatingTextController.CreateFloatingText(healValue.ToString(), transform);
-        HpGained = "Health +" + healValue;
+        //HpGained = "Health +" + healValue;
 
         //Calculation %HP
-        PercentageHPCalc();
+        if (HpBarText != null)
+        {
+            if (isPercentageHp == true)
+            {
+                PercentageHPCalc();
+            }
+            else if (isPercentageNnumbers == true)
+            {
+                PercentageWithNumbers();
+            }
+            else
+            {
+                OutofHPCalc();
+            }
+        }
 
         //making sure Health can go above 100%
         if (CurrentHealth >= MaxHealth)
         {
+            IsDead = false;
             CurrentHealth = MaxHealth;
-            Debug.Log("100% Health");
+            healthBar.value = 1;
+
+            if (HpBarText != null)
+            {
+                if (isPercentageHp == true)
+                {
+                    PercentageHPCalc();
+                }
+                else if (isPercentageNnumbers == true)
+                {
+                    PercentageWithNumbers();
+                }
+                else
+                {
+                    OutofHPCalc();
+                }
+            }
         } else
         {
-            Debug.Log(PercentageHealth + "% Health");
+            IsDead = false;
+        }
+    }
+
+    void PercentageWithNumbers()
+    {
+        if (IsDead != true)
+        {
+            isPercentageHp = false;
+            string PercentNnumber = CurrentHealth + " / " + MaxHealth + " (" + CalculateHealth() * 100f + "%)";
+            SetHpText(PercentNnumber);
+        } else
+        {
+            isPercentageHp = false;
+            string PercentNnumber = CurrentHealth + " / " + MaxHealth + " (" + CalculateHealth() * 100f + "% Dead)";
+            SetHpText(PercentNnumber);
         }
     }
 
     void PercentageHPCalc()
     {
-
-        PercentageHealth = CalculateHealth() * 100f;
+        if (IsDead != true)
+        {
+            isPercentageNnumbers = false;
+            string PercentageHealth = CalculateHealth() * 100f + "%";
+            SetHpText(PercentageHealth);
+        } else
+        {
+            isPercentageNnumbers = false;
+            string PercentageHealth = CalculateHealth() * 100f + "%" + " Dead";
+            SetHpText(PercentageHealth);
+        }
     }
 
     float CalculateHealth()
@@ -164,24 +288,58 @@ public class CharacterHealthsytem : MonoBehaviour {
 
     void OutofHPCalc()
     {
-        OutofHP = CurrentHealth + " / " + MaxHealth;
+        if (IsDead != true)
+        {
+            isPercentageNnumbers = false;
+            isPercentageHp = false;
+            OutofHP = CurrentHealth + " / " + MaxHealth;
+            SetHpText(OutofHP);
+        } else
+        {
+            isPercentageNnumbers = false;
+            isPercentageHp = false;
+            OutofHP = CurrentHealth + " / " + MaxHealth + " Dead";
+            SetHpText(OutofHP);
+        }
+    }
+
+    void SetHpText(string text)
+    {
+        HpBarText.GetComponent<TMP_Text>().text = text;
     }
 
     void Die()
     {
         CurrentHealth = 0;
+        healthBar.value = CurrentHealth;
+        IsDead = true;
+        if (HpBarText != null)
+        {
+            if (isPercentageHp == true)
+            {
+                PercentageHPCalc();
+            }
+            else if (isPercentageNnumbers == true)
+            {
+                PercentageWithNumbers();
+            }
+            else
+            {
+                OutofHPCalc();
+            }
+        }
     }
 
     void TestDamage()
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            GetHit(6);
+            GetHit(Random.Range(1f,10f));
         }
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            GetHealth(6);
+            GetHealth(Random.Range(1f, 10f));
         }
     }
 }

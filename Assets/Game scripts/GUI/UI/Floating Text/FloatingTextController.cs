@@ -1,42 +1,42 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
-public class FloatingTextController : MonoBehaviour {
+public class FloatingTextControllerv1 : MonoBehaviour {
 
-    static FloatingText popupText;
-    static GameObject canvas;
+    Text mytext;
 
-    public static void Init (bool isDamage, bool isHealth)
+    [SerializeField] float moveAmt;
+    [SerializeField] float moveSpeed;
+
+    Vector3[] moveDirs;
+    Vector3 myMoveDir;
+
+    bool canMove = false;
+
+    private void Start()
     {
-
-        if (isDamage == true)
+        moveDirs = new Vector3[]
         {
-            //specific location here
-            canvas = GameObject.Find("Canvas");
-            if (!popupText)
-            {
-                popupText = Resources.Load<FloatingText>("Resources/UI/UI_anim/PopUPtext/Prefabs/PopUpParentDamage");
-            }
-        }
+            transform.up,
+            (transform.up + transform.right),
+            (transform.up + -transform.right)
+        };
 
-        if (isHealth == true)
-        {
-            //specific location here
-            canvas = GameObject.Find("Canvas");
-            if (!popupText)
-            {
-                popupText = Resources.Load<FloatingText>("Resources/UI/UI_anim/PopUPtext/Prefabs/PopUpParentHeal");
-            }
+        myMoveDir = moveDirs[Random.Range(0, moveDirs.Length)];
+    }
+
+    private void Update()
+    {
+        if (canMove) {
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + myMoveDir, moveAmt * (moveSpeed * Time.deltaTime));
         }
     }
 
-    public static void CreateFloatingText(string text, Transform location)
+    public void SetTextAndMove(string textStr, Color textColour)
     {
-        //object pooling here to come
-        FloatingText instance = Instantiate(popupText);
-        Vector2 screenPos = Camera.main.WorldToScreenPoint(new Vector2(location.position.x + Random.Range(-.5f, .5f), location.position.y + Random.Range(-.5f, .5f)));
-
-        instance.transform.SetParent(canvas.transform, false);
-        instance.transform.position = screenPos;
-        instance.SetText(text);
+        mytext = GetComponentInChildren<Text>();
+        mytext.color = textColour;
+        mytext.text = textStr;
+        canMove = true;
     }
 }

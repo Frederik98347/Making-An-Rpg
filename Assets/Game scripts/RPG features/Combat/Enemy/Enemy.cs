@@ -32,8 +32,6 @@ public class Enemy : MonoBehaviour {
 	float DeadCounter = 0;
 	float DeadTime = 90f;
 
-	bool Elite = false;
-
     //mob damage
     int Mindamage;
 	int MaxDamage;
@@ -57,7 +55,10 @@ public class Enemy : MonoBehaviour {
     [SerializeField] Texture2D enemyIcon;
     [SerializeField] string toolTip;
     [SerializeField] int Resistance;
-	public bool Dead = false;
+    [SerializeField] string enemyClass;
+    [SerializeField] int endurance;
+    [SerializeField] string mobRarity;
+	bool dead;
 
     //way point patrol
     public string state = "patrol";
@@ -91,6 +92,58 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    public bool Dead
+    {
+        get
+        {
+            return dead;
+        }
+
+        set
+        {
+            dead = value;
+        }
+    }
+
+    public string EnemyClass
+    {
+        get
+        {
+            return enemyClass;
+        }
+
+        set
+        {
+            enemyClass = value;
+        }
+    }
+
+    public int Endurance
+    {
+        get
+        {
+            return endurance;
+        }
+
+        set
+        {
+            endurance = value;
+        }
+    }
+
+    public string MobRarity
+    {
+        get
+        {
+            return mobRarity;
+        }
+
+        set
+        {
+            mobRarity = value;
+        }
+    }
+
     // Use this for initialization
     void Start () {
 		anim = GetComponent<Animator> ();
@@ -114,6 +167,11 @@ public class Enemy : MonoBehaviour {
 			Mindamage = _enemyInfo.MinAutoDamage;
 			MaxDamage = _enemyInfo.MaxAutoDamage;
             Resistance = _enemyInfo.EnemyResistance;
+            Endurance = _enemyInfo.Endurance;
+
+            EnemyClass = _enemyInfo.mobClass.ToString();
+            MobRarity = _enemyInfo.mobRarity.ToString();
+
 		}
 	}
 	
@@ -371,7 +429,7 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void EnemyPowerAndLevel () {
-		if (Elite == true) {
+		if (_enemyInfo.mobRarity.ToString() == "ELITE") {
 			health = (health) * (EnemyLevel * 2);
 			exptogive = exptogive + exptogive;
 
@@ -382,8 +440,10 @@ public class Enemy : MonoBehaviour {
 
 			//defensive attributes
 			enemyDefense = enemyDefense + (enemyDefense + EnemyLevel);
+            Resistance += EnemyLevel*EnemyLevel-1;
+            Endurance += EnemyLevel*EnemyLevel-1;
 
-		} else if (Elite != true) {
+        } else if (_enemyInfo.mobRarity.ToString() == "COMMON") {
 			health = (health) * EnemyLevel;
 
 			//mob damage
@@ -396,8 +456,8 @@ public class Enemy : MonoBehaviour {
 	void Attack () {
 		EnemyPowerAndLevel ();
 
-		if (this.player.GetComponent<Player> ().isDead == false && TargetSeen == true && Vector3.Distance (transform.position, this.player.position) < AttackRange*1.2f) {
-			this.player.gameObject.transform.GetComponent<Player>().GetHit (damage);
+		if (this.player.GetComponent<CharacterHealthsytem> ().IsDead == true && TargetSeen == true && Vector3.Distance (transform.position, this.player.position) < AttackRange*1.2f) {
+			this.player.gameObject.transform.GetComponent<CharacterHealthsytem>().GetHit (damage);
 			Debug.Log ("Enemy damage: " + damage);
 
 		} else {

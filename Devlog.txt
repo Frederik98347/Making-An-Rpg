@@ -9,10 +9,12 @@ inventory system (not started)
 cleaning up in the player and enemy script (not done)
 Pausemenu (not done)
 Startmenu (not done)
-Healthbar (not done)
+Healthbar (Almost Done)
 exp bar (not done)
 Rpg classes for players ( not done ).
 
 Focus points:
 - Level up system
-- exp bar
+- exp bar (almost done, only need text to show %)
+- Hp bar (almost done, need to text to show %)
+- Object pooling (made one, else look on asset store)

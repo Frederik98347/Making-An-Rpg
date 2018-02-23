@@ -6,14 +6,13 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour{
     //GUI
     [SerializeField] Interactable focus;
-    [SerializeField] Slider healthBar;
+    [SerializeField] CharacterHealthsytem healthsystem;
     [SerializeField] Enemy enemyScript;
     [SerializeField] UserMovement usermovement;
     //CreateNewCharacter character;
    // public int _characterIndex;
 
     public bool isDead = false;
-
 
     //tooltip GUI
     public bool hoverOverActive;
@@ -24,10 +23,6 @@ public class Player : MonoBehaviour{
     public bool autoAttacking = false;
     public float autoAttackcurTime;
     public float autoAttackCD = 1.8f;
-
-    //health atributes
-    int MaxHP = 30;
-    public int health = 0;
 
     //stats
     private int MinDamage = 1;
@@ -60,12 +55,10 @@ public class Player : MonoBehaviour{
 
     // Use this for initialization
     void Start() {
-        health = MaxHP;
         if (focus)
         {
             AutoattackRange = focus.radius;
         }
-        //_characterIndex = character.CharacterIndex;
     }
 
     // Update is called once per frame
@@ -204,6 +197,7 @@ public class Player : MonoBehaviour{
         }
 	}
 
+    /*
     public void GetHit (int enemyDamage) {
 
 		health = health - enemyDamage;
@@ -216,8 +210,8 @@ public class Player : MonoBehaviour{
 			health = 0;
 		}
 	}
-
-	void Isdead() {
+    */
+	/*void Isdead() {
 		if (isDead == true) {
 			float Speed = usermovement.runSpeed;
 
@@ -235,5 +229,5 @@ public class Player : MonoBehaviour{
 
             //Destroy(this.gameObject, 2.0f);
 		}
-	}
+	}*/
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Experience : MonoBehaviour
@@ -6,9 +7,14 @@ public class Experience : MonoBehaviour
 
     //current level
     [SerializeField] int vLevel = 1;
-    [SerializeField] ParticleSystem levelAnim;
-    [SerializeField] TimeBeforeDis time;
-    [SerializeField] Text levelText;
+    [SerializeField] ParticleSystem levelParticleSystem;
+    [SerializeField] Slider expBar;
+    GameObject levelText;
+    [SerializeField] GameObject LevelupBox;
+    public TMP_Text ExpBarText;
+
+    public bool isPercentageExp;
+    public bool isPercentageNnumbersExp;
     //current exp amount
     [SerializeField] int vCurrExp = 0;
     //exp amount needed for lvl 1
@@ -87,11 +93,43 @@ public class Experience : MonoBehaviour
     public void GainExp(int e)
     {
         VCurrExp += e;
+        expBar.value = CalculateExpBar();
+
         if (VCurrExp >= VExpReq)
         {
             LvlUp();
+            expBar.value = CalculateExpBar();
+        }
+        if (ExpBarText != null){
+            if (isPercentageExp)
+            {
+                PercentageExpbar();
+            }
+            else if (isPercentageNnumbersExp)
+            {
+                PercentageWithNumbers();
+            }
+            else
+            {
+                SetExpText(VCurrExp + " / " + VExpReq);
+            }
         }
     }
+
+    void PercentageExpbar ()
+    {
+        isPercentageNnumbersExp = false;
+        string PercentOnly = CalculateExpBar()*100f + "%";
+        SetExpText(PercentOnly);
+    }
+
+    void PercentageWithNumbers()
+    {
+        isPercentageExp = false;
+        string PercentNnumber = VCurrExp + " / " + VExpReq + " (" + CalculateExpBar() * 100f + "%)";
+        SetExpText(PercentNnumber);
+    }
+
     void LvlUp()
     {
         VCurrExp -= VExpReq;
@@ -100,13 +138,49 @@ public class Experience : MonoBehaviour
         VExpReq = (int)Mathf.Floor(VExpBase * t);
 
         IncreaseExp();
+        LevelupBox.SetActive(true);
         LvlUpAnim();
+    }
+
+    private void Start()
+    {
+        LevelupBox.SetActive(false);
+        expBar.value = CalculateExpBar();
+
+        if (ExpBarText != null)
+        {
+            if (isPercentageExp)
+            {
+                PercentageExpbar();
+            }
+            else if (isPercentageNnumbersExp)
+            {
+                PercentageWithNumbers();
+            }
+            else
+            {
+                SetExpText(VCurrExp + " / " + VExpReq);
+            }
+        }
+    }
+
+    float CalculateExpBar()
+    {
+        return (float)VCurrExp / (float)VExpReq;
     }
 
     void Update()
     {
         if (Input.GetButtonDown("Jump")) {
             GainExp(5);
+        }
+
+        if (expBar.value == 1 && VCurrExp == 0)
+        {
+            expBar.value = 0;
+        } else if (expBar.value == 1 && VCurrExp != VExpReq)
+        {
+            expBar.value = VCurrExp;
         }
     }
 
@@ -133,13 +207,25 @@ public class Experience : MonoBehaviour
 
     void LvlUpAnim()
     {
-        levelAnim.Play();
+        levelParticleSystem.Play();
         LvlUpBox();
     }
 
     void LvlUpBox()
     {
-        levelText.text = "Level " + VLevel;
-        time.Show();
+
+           
+        SetText("Level " + VLevel + "!");
+    }
+
+    public void SetText(string Text)
+    {
+        //text from ui set to = string text
+       // levelText.GetComponent<TMP_Text>().text = Text;
+    }
+
+    void SetExpText(string text)
+    {
+        ExpBarText.GetComponent<TMP_Text>().text = text;
     }
 }

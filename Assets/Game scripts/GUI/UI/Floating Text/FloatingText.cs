@@ -1,22 +1,18 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
-public class FloatingText : MonoBehaviour {
+public class FloatingTextv1 : MonoBehaviour {
 
-    [SerializeField] Animator anim;
-    [SerializeField] Text text;
+    [SerializeField] GameObject playerObject;
+    [SerializeField] GameObject enemyMarker;
+    [SerializeField] Color[] textColor;
+    [SerializeField] float textKillTime;
 
-    void OnEnable()
+    public void HitNow()
     {
-        AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
-        Destroy(gameObject, clipInfo[0].clip.length);
-        text = anim.GetComponent<Text>();
-
-    }
-
-    public void SetText(string Text)
-    {
-        //text from ui set to = string text
-        text.text = Text;
+        GameObject newText = Instantiate(enemyMarker, playerObject.transform.position, Quaternion.identity);
+        newText.SetActive(true);
+        newText.GetComponent<FloatingTextControllerv1>().SetTextAndMove(Random.Range(0, 101).ToString(),
+            textColor[Random.Range(0, textColor.Length)]);
+        Destroy(newText.gameObject, textKillTime);
     }
 }
