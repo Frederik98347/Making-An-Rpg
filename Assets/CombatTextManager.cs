@@ -5,10 +5,12 @@ public class CombatTextManager : MonoBehaviour {
 
     public GameObject TextPrefabDamage;
     public GameObject TextPrefabHeal;
+    public GameObject TextPrefabAuto;
+    public GameObject TextPrefabAbility;
     public RectTransform canvasTransform;
 
-    public float Speed;
-    public Vector3 Dir;
+    public float offsetX;
+    public float offsetY;
 
     //SingleTon Pattern
     #region SingleTon
@@ -28,26 +30,49 @@ public class CombatTextManager : MonoBehaviour {
     }
     #endregion
 
-    public void CreateText(Vector3 pos, bool isDamage, bool isHeal, string text)
+    public void CreateText(Vector3 pos, bool isDamage, bool isHeal, bool isAuto, bool isAbility, string text)
     {
         if (isDamage)
         {
-            GameObject sct = (GameObject)Instantiate(TextPrefabDamage, pos, Quaternion.identity);
+            GameObject sct = (GameObject)Instantiate(TextPrefabDamage, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
             sct.GetComponent<TMP_Text>().text = text;
 
-            sct.transform.SetParent(canvasTransform);
-            sct.GetComponent<RectTransform>().localScale = new Vector3(0.075f, 0.075f, 0.075f);
+            sct.transform.SetParent(canvasTransform, false);
+            SetUp();
+
         }
 
         if (isHeal)
         {
-            GameObject sct = (GameObject)Instantiate(TextPrefabHeal, pos, Quaternion.identity);
+            GameObject sct = (GameObject)Instantiate(TextPrefabHeal, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
             sct.GetComponent<TMP_Text>().text = text;
-            sct.transform.SetParent(canvasTransform);
-            sct.GetComponent<RectTransform>().localScale = new Vector3(0.075f, 0.075f, 0.075f);
 
-            sct.GetComponent<CombatText>().Initialize(Speed, Dir);
-            //sct.GetComponent<TextMesh>().color = colour;
+            sct.transform.SetParent(canvasTransform, false);
+            SetUp();
         }
+
+        if (isAuto)
+        {
+            GameObject sct = (GameObject)Instantiate(TextPrefabAuto, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
+            sct.GetComponent<TMP_Text>().text = text;
+
+            sct.transform.SetParent(canvasTransform, false);
+            SetUp();
+        }
+
+        if (isAbility)
+        {
+            GameObject sct = (GameObject)Instantiate(TextPrefabAbility, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
+            sct.GetComponent<TMP_Text>().text = text;
+
+            sct.transform.SetParent(canvasTransform, false);
+            SetUp();
+        }
+    }
+
+    private void SetUp()
+    {
+        Transform Text = GetComponent<TMP_Text>().transform;
+        Text.eulerAngles = Camera.main.transform.eulerAngles;
     }
 }

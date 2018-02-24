@@ -9,8 +9,8 @@ public class Experience : MonoBehaviour
     [SerializeField] int vLevel = 1;
     [SerializeField] ParticleSystem levelParticleSystem;
     [SerializeField] Slider expBar;
-    GameObject levelText;
     [SerializeField] GameObject LevelupBox;
+    public TMP_Text levelText;
     public TMP_Text ExpBarText;
 
     public bool isPercentageExp;
@@ -207,21 +207,21 @@ public class Experience : MonoBehaviour
 
     void LvlUpAnim()
     {
-        levelParticleSystem.Play();
+        //objectPooler needs to go here instead
+        Instantiate(levelParticleSystem, transform.position, transform.rotation);
         LvlUpBox();
     }
 
     void LvlUpBox()
     {
 
-           
         SetText("Level " + VLevel + "!");
     }
 
     public void SetText(string Text)
     {
         //text from ui set to = string text
-       // levelText.GetComponent<TMP_Text>().text = Text;
+        levelText.GetComponent<TMP_Text>().text = Text;
     }
 
     void SetExpText(string text)

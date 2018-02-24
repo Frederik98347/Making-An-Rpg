@@ -16,7 +16,6 @@ public class Enemy : MonoBehaviour {
 	[SerializeField] float behind_detectionRange;
     [SerializeField] float outofrangeTimer;
 
-	public CharacterController controller;
     [SerializeField] Transform player;
 
 	// animations

@@ -19,7 +19,7 @@ public class CharacterHealthsytem : MonoBehaviour {
     [SerializeField] bool isPercentageHp;
     [SerializeField] bool isPercentageNnumbers;
 
-    [SerializeField] Slider healthBar;
+    public Slider healthBar;
     
     #region Init
     public float CurrentHealth
@@ -121,7 +121,13 @@ public class CharacterHealthsytem : MonoBehaviour {
         CurrentHealth = MaxHealth;
 
         //setting healthbar value = our healthcalculation
-        healthBar.value = CalculateHealth();
+        if (healthBar != null)
+        {
+            healthBar.value = CalculateHealth();
+        } else
+        {
+            Debug.LogWarning("Couldnt Find slide object on: " + gameObject.name + "");
+        }
 
         if (HpBarText != null)
         {
@@ -145,10 +151,10 @@ public class CharacterHealthsytem : MonoBehaviour {
         TestDamage();
     }
 
-    public void GetHit(float damageValue)
+    public void GetHit(int damageValue)
     {
         //Deduct the damage deatlh from the character's health
-        CombatTextManager.Instance.CreateText(gameObject.transform.position, true, false, damageValue.ToString());
+        CombatTextManager.Instance.CreateText(transform.position, true, false, false, false, damageValue.ToString());
 
         CurrentHealth -= damageValue;
         healthBar.value = CalculateHealth();
@@ -181,10 +187,10 @@ public class CharacterHealthsytem : MonoBehaviour {
         }
     }
 
-    public void GetHealth(float healValue)
+    public void GetHealth(int healValue)
     {
         //Deduct the damage deatlh from the character's health
-        CombatTextManager.Instance.CreateText(gameObject.transform.position, false, true, healValue.ToString());
+        CombatTextManager.Instance.CreateText(transform.position, false, true, false, false, healValue.ToString());
 
         if (HpBarText != null)
         {
@@ -281,7 +287,7 @@ public class CharacterHealthsytem : MonoBehaviour {
         }
     }
 
-    float CalculateHealth()
+    public float CalculateHealth()
     {
         return CurrentHealth / MaxHealth;
     }
@@ -334,12 +340,12 @@ public class CharacterHealthsytem : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            GetHit(Random.Range(1f,10f));
+            GetHit(Random.Range(1, 10));
         }
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            GetHealth(Random.Range(1f, 10f));
+            GetHealth(Random.Range(1, 10));
         }
     }
 }

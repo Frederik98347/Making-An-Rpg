@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 82656218215460884}
   - component: {fileID: 111954324559245640}
   - component: {fileID: 114184150216428038}
+  - component: {fileID: 114236215662128602}
   m_Layer: 9
   m_Name: chest
   m_TagString: Interactable
@@ -75,6 +76,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -92,6 +94,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -109,6 +112,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -126,6 +130,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -157,9 +162,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Convex: 0
-  m_InflateMesh: 0
+  m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 3ef5a1a2da5be7f4582c3a39af5635e5, type: 3}
 --- !u!64 &6459312
@@ -171,9 +176,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Convex: 0
-  m_InflateMesh: 0
+  m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: e129cb2f91e2663438d9b61f3cf6dea8, type: 3}
 --- !u!1001 &100100000
@@ -294,9 +299,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5780a9d1deed94ca34b1eeeefcbc7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
+  interactable: {fileID: 114236215662128602}
+  state: 1
   Player: {fileID: 0}
   openSound: {fileID: 8300000, guid: 23806b1fbd641224bac908e65c9d3263, type: 3}
   closeSound: {fileID: 8300000, guid: 23806b1fbd641224bac908e65c9d3263, type: 3}
   close: {fileID: 7400000, guid: d8e1a5baaadcd5d43b7343c942eac8fc, type: 2}
   open: {fileID: 7400000, guid: 3c62b879bf5c8224ab78d0502f5af954, type: 2}
+--- !u!114 &114236215662128602
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0822908fc8ad129498ab149adf9283e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 3
+  interactionTransform: {fileID: 402668}

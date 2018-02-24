@@ -29,6 +29,6 @@ public class FloatingTextController : MonoBehaviour {
         instance.transform.position = screenPosition;
         
         //setting up text
-        instance.SetText(text);
+        //instance.SetText(text);
     }
 }

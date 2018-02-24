@@ -231,7 +231,7 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Jump
-    descriptiveName: 
+    descriptiveName: JumpKey
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: joystick button 3
@@ -310,9 +310,9 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Cancel
-    descriptiveName: Cancel GUI
-    descriptiveNegativeName: 
+    m_Name: Escape
+    descriptiveName: Cancel GUI / Deselect Enemies
+    descriptiveNegativeName: PauseMenu
     negativeButton: 
     positiveButton: 
     altNegativeButton: 

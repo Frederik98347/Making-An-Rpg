@@ -1,22 +1,29 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class FloatingText : MonoBehaviour {
 
-    [SerializeField] Animator anim;
-    Text text;
+    //[SerializeField] Animator anim;
+    public string floatingText;
+    public TMP_Text Text;
 
-    void OnEnable()
+    /*  void OnEnable()
+      {
+          AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
+          Debug.Log(clipInfo.Length);
+          Destroy(gameObject, clipInfo[0].clip.length);
+          text = anim.GetComponent<Text>();
+      }
+      */
+
+    private void Start()
     {
-        AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
-        Debug.Log(clipInfo.Length);
-        Destroy(gameObject, clipInfo[0].clip.length);
-        text = anim.GetComponent<Text>();
+        Text.transform.eulerAngles = Camera.main.transform.eulerAngles;
+        Text.transform.eulerAngles = Camera.main.transform.eulerAngles;
     }
 
-    public void SetText(string Text)
+    public void CreateText(string text)
     {
-        //text from ui set to = string text
-        text.text = Text;
+        Text.text = floatingText;
     }
 }
