@@ -1,28 +1,70 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class levelupboxAnim : MonoBehaviour {
+    [Tooltip("How long it takes to fadeout the object")][SerializeField] float fadeTime;
+    [Range(0,8)]
     [SerializeField] float timeBeforeFade;
-    [SerializeField] float fadeSpeed;
-    
+    [SerializeField] float fadeInTime;
+    [Tooltip("The Canvas object you want to fadeout")] [SerializeField] CanvasGroup canvas;
+
+   
 	// Use this for initialization
 	void Start () {
         gameObject.SetActive(false);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		//set active before fade & set active false after fade
-	}
 
-    void StartAnim()
-    {
-
-    }
+   public void StartAnim()
+   {
+        gameObject.SetActive(true);
+        Fade();
+   }
 
     void Fade()
     {
-        
+        //float translation = fadeSpeed * Time.deltaTime;
+
+        StartCoroutine(FadeIn());
+    }
+
+    private IEnumerator Fadeout()
+    {
+
+        while (canvas.alpha > 0)
+        {
+            if (timeBeforeFade > 0f)
+            {
+                timeBeforeFade -= Time.deltaTime;
+            } else
+            {
+                canvas.alpha -= Time.deltaTime / fadeTime;
+            }
+
+            yield return null;
+        }
+
+        canvas.interactable = false;
+        gameObject.SetActive(false);
+        yield return null;
+    }
+
+    IEnumerator FadeIn()
+    {
+
+        gameObject.SetActive(true);
+        canvas.alpha = 0;
+        while (canvas.alpha < 1)
+        {
+            canvas.alpha += Time.deltaTime / fadeTime;
+           
+
+            yield return null;
+        }
+
+        canvas.interactable = false;
+        StartCoroutine(Fadeout());
+        yield return null;
     }
 }

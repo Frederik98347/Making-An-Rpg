@@ -1,21 +1,22 @@
 using UnityEngine;
 using System.Collections;
 
+[ExecuteInEditMode]
 public class UserCamera : MonoBehaviour {
 
 	public Transform target; 							// Target to follow
-	public float targetHeight = 1.7f; 						// Vertical offset adjustment
-	public float distance = 12.0f;							// Default Distance
-	public float offsetFromWall = 0.1f;						// Bring camera away from any colliding objects
-	public float maxDistance = 20; 						// Maximum zoom Distance
-	public float minDistance = 0.6f; 						// Minimum zoom Distance
-	public float xSpeed = 200.0f; 							// Orbit speed (Left/Right)
-	public float ySpeed = 200.0f; 							// Orbit speed (Up/Down)
-	public float yMinLimit = -80; 							// Looking up limit
-	public float yMaxLimit = 80; 							// Looking down limit
-	public float zoomRate = 40; 							// Zoom Speed
-	public float rotationDampening = 3.0f; 				// Auto Rotation speed (higher = faster)
-	public float zoomDampening = 5.0f; 					// Auto Zoom speed (Higher = faster)
+	[SerializeField] float targetHeight = 1.7f;                         // Vertical offset adjustment
+    [SerializeField] float distance = 10.0f;                            // Default Distance
+    [SerializeField] float offsetFromWall = 0.1f;                       // Bring camera away from any colliding objects
+    [SerializeField] float maxDistance = 15;                        // Maximum zoom Distance
+    [SerializeField] float minDistance = 0.6f;                      // Minimum zoom Distance
+    [SerializeField] float xSpeed = 200.0f;                             // Orbit speed (Left/Right)
+    [SerializeField] float ySpeed = 200.0f;                             // Orbit speed (Up/Down)
+    [SerializeField] float yMinLimit = -80;                             // Looking up limit
+    [SerializeField] float yMaxLimit = 80;                          // Looking down limit
+    [SerializeField] float zoomRate = 40;                           // Zoom Speed
+    [SerializeField] float rotationDampening = 3.0f;                // Auto Rotation speed (higher = faster)
+    [SerializeField] float zoomDampening = 5.0f; 					// Auto Zoom speed (Higher = faster)
 	LayerMask collisionLayers = -1;		// What the camera will collide with
 
 	public bool lockToRearOfTarget;				

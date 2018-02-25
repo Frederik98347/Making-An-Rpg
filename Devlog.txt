@@ -2,19 +2,21 @@ My Rpg game:
 
 Almost done with: 
 - scriptable object enemies, enemy classes and so on.
-- level up system (almost done, work but anymation and dialogue doesnt)
 
 things to start working on:
 inventory system (not started)
 cleaning up in the player and enemy script (not done)
-Pausemenu (not done)
-Startmenu (not done)
-Healthbar (Almost Done)
-exp bar (not done)
+Pausemenu (Done)
+Startmenu (Done)
+Healthbar (Done, just a bug with text not always fitting inside the bar)
+exp bar (Done)
+LevelUpSystem (done, fade in script and all)
 Rpg classes for players ( not done ).
+floating text (not done)
+Enemy animation states redo (not started)
 
 Focus points:
-- Level up system
-- exp bar (almost done, only need text to show %)
-- Hp bar (almost done, need to text to show %)
 - Object pooling (made one, else look on asset store)
+- GUI frames
+- Healthbar over enemies / player (not working, doesnt fade out depending on dist from player)
+- floating text

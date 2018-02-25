@@ -2,14 +2,17 @@
 using TMPro;
 
 public class CombatTextManager : MonoBehaviour {
-
+    [Header("TextPrefabs")]
     public GameObject TextPrefabDamage;
     public GameObject TextPrefabHeal;
     public GameObject TextPrefabAuto;
     public GameObject TextPrefabAbility;
+    [Header("Canvas the prefabs should instanciate at")]
     public RectTransform canvasTransform;
-
+    [Header("Offset to Text position")]
+    [Range(-5, 5)]
     public float offsetX;
+    [Range(-5, 5)]
     public float offsetY;
 
     //SingleTon Pattern
@@ -39,7 +42,6 @@ public class CombatTextManager : MonoBehaviour {
 
             sct.transform.SetParent(canvasTransform, false);
             SetUp();
-
         }
 
         if (isHeal)

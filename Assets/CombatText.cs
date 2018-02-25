@@ -52,7 +52,6 @@ public class CombatText : MonoBehaviour {
         float translation = Speed * Time.deltaTime;
 
         transform.Translate(Dir * translation);
-
 	}
 
     public void Initialize(float speed, Vector3 dir, float fadeTime) 

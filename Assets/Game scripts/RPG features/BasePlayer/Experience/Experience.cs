@@ -2,16 +2,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Player))]
 public class Experience : MonoBehaviour
 {
 
     //current level
     [SerializeField] int vLevel = 1;
     [SerializeField] ParticleSystem levelParticleSystem;
+    [SerializeField] float levelParticlefadeTime = 1.5f;
     [SerializeField] Slider expBar;
     [SerializeField] GameObject LevelupBox;
-    public TMP_Text levelText;
+    [SerializeField] TMP_Text levelText;
     public TMP_Text ExpBarText;
+    [SerializeField] AudioManger Audio;
 
     public bool isPercentageExp;
     public bool isPercentageNnumbersExp;
@@ -138,13 +141,11 @@ public class Experience : MonoBehaviour
         VExpReq = (int)Mathf.Floor(VExpBase * t);
 
         IncreaseExp();
-        LevelupBox.SetActive(true);
         LvlUpAnim();
     }
 
     private void Start()
     {
-        LevelupBox.SetActive(false);
         expBar.value = CalculateExpBar();
 
         if (ExpBarText != null)
@@ -208,14 +209,26 @@ public class Experience : MonoBehaviour
     void LvlUpAnim()
     {
         //objectPooler needs to go here instead
-        Instantiate(levelParticleSystem, transform.position, transform.rotation);
+        if (LevelupBox == null)
+        {
+            LevelupBox = GameObject.Find("LevelUpAnim&BoX");
+            levelText = GameObject.Find("LevelText").GetComponent<TMP_Text>();
+        } else if (levelText == null)
+        {
+            levelText = GameObject.Find("LevelText").GetComponent<TMP_Text>();
+        }
+
+        LevelupBox.GetComponent<levelupboxAnim>().StartAnim();
+        ParticleSystem i = Instantiate(levelParticleSystem, transform.position, transform.rotation);
+        i.transform.SetParent(LevelupBox.transform);
+        Destroy(i.gameObject, levelParticlefadeTime);
+
         LvlUpBox();
     }
 
     void LvlUpBox()
     {
-
-        SetText("Level " + VLevel + "!");
+        SetText("You Have Reached " + " Level " + VLevel + "!");
     }
 
     public void SetText(string Text)

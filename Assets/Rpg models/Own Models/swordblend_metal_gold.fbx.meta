@@ -17,6 +17,7 @@ ModelImporter:
     400008: //RootNode
     2100000: Metal
     2100002: Wood
+    2100004: Steel
     2300000: Sword
     3300000: Sword
     4300000: Sword
