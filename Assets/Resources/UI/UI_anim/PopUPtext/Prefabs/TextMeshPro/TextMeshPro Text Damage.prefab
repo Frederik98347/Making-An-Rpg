@@ -21,9 +21,8 @@ GameObject:
   - component: {fileID: 224735966554259640}
   - component: {fileID: 222896443121494630}
   - component: {fileID: 114326933476450246}
-  - component: {fileID: 114791287768214708}
   - component: {fileID: 95515885228383742}
-  - component: {fileID: 114803479212480056}
+  - component: {fileID: 114166980484161290}
   m_Layer: 5
   m_Name: TextMeshPro Text Damage
   m_TagString: EditorOnly
@@ -48,6 +47,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114166980484161290
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1150477335490986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60f451a2e9b7b4942a2afffa13adc568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 95515885228383742}
+  fadeTimeOffset: 3
 --- !u!114 &114326933476450246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -160,29 +172,6 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &114791287768214708
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1150477335490986}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ec30407bea4823449e76156efd48bfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114803479212480056
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1150477335490986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 362e424cec95fd2428e0ec7dd1ad0c26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 95515885228383742}
 --- !u!222 &222896443121494630
 CanvasRenderer:
   m_ObjectHideFlags: 1

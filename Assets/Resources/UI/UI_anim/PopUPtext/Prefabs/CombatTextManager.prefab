@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4314301816686196}
-  - component: {fileID: 114718697421241174}
+  - component: {fileID: 114731192279513848}
   m_Layer: 0
   m_Name: CombatTextManager
   m_TagString: GameController
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114718697421241174
+--- !u!114 &114731192279513848
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -48,17 +48,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1248859384289372}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d0f23b44f25e404ca7d0712e35b796e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e2160ed91eceb44283b537d705d176b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextPrefabDamage: {fileID: 1150477335490986, guid: 8d5e79feb4c0c704ca1232ae8793e166,
-    type: 2}
-  TextPrefabHeal: {fileID: 1924260390741554, guid: a5c9de7b8bc3e5449868befe294ad5d1,
-    type: 2}
-  TextPrefabAuto: {fileID: 1375871951212950, guid: ece1810e53b246947a66f036ab7d8880,
-    type: 2}
-  TextPrefabAbility: {fileID: 1615683466875294, guid: 86cf63b68938f324992d2f5d42e161a7,
-    type: 2}
+  TextPrefabDamage: {fileID: 0}
+  TextPrefabHeal: {fileID: 0}
+  TextPrefabAuto: {fileID: 0}
+  TextPrefabAbility: {fileID: 0}
   canvasTransform: {fileID: 0}
-  offsetX: 0.5
-  offsetY: 0
+  offsetX: 0
+  offsetY: 5

@@ -13,10 +13,10 @@ exp bar (Done)
 LevelUpSystem (done, fade in script and all)
 Rpg classes for players ( not done ).
 floating text (not done)
-Enemy animation states redo (not started)
+Enemy animation states redo (started, not done)
+Bug: When you are set to idle state animations dont work, and attacking state still doesnt work either
 
 Focus points:
 - Object pooling (made one, else look on asset store)
 - GUI frames
-- Healthbar over enemies / player (not working, doesnt fade out depending on dist from player)
 - floating text

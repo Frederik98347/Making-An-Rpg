@@ -42,6 +42,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1025560325207284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4227852641176974}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1040496253840350
 GameObject:
   m_ObjectHideFlags: 1
@@ -866,6 +881,19 @@ Transform:
   m_Father: {fileID: 4856925659500030}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4227852641176974
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1025560325207284}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4856925659500030}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4272224830518944
 Transform:
   m_ObjectHideFlags: 1
@@ -1187,6 +1215,7 @@ Transform:
   - {fileID: 4651512478160788}
   - {fileID: 4481942906896706}
   - {fileID: 4174425067922062}
+  - {fileID: 4227852641176974}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1573,8 +1602,12 @@ MonoBehaviour:
   distY: 2.25
   distZ: 0
   owner: {fileID: 4856925659500030}
-  IsEnemy: 0
-  healthSystem: {fileID: 0}
+  IsEnemy: 1
+  fadeRange: 10
+  healthSystem: {fileID: 114069300901988518}
+  player: {fileID: 0}
+  HpbarFadeRange: 6
+  canvas: {fileID: 223849284524872470}
 --- !u!114 &114710972703060942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1637,28 +1670,20 @@ MonoBehaviour:
   _enemyInfo: {fileID: 11400000, guid: 9d8007b1f9de49b40bcc448e142ed737, type: 2}
   Player: {fileID: 0}
   rotSpeed: 2.5
-  targetSeen: 0
   behind_detectionRange: 0
-  outofrangeTimer: 10
+  offsetSpawnPoint: 0
+  spawnPoint: {fileID: 4227852641176974}
   player: {fileID: 0}
   AttackSound: {fileID: 8300000, guid: a1dfc0ae9a946024aa7b1bf846fe77dd, type: 3}
   runSound: {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
   deathSound: {fileID: 8300000, guid: 5bd36db3ed2469240ad9e7694535fe82, type: 3}
+  walkSound: {fileID: 0}
   EnemyLevel: 1
   exptogive: 0
-  attackspeed: 2
-  movementspeed: 0
-  walkingspeed: 0
-  detectionRange: 10
-  enemyIcon: {fileID: 0}
-  toolTip: 
-  Resistance: 0
-  enemyClass: 
-  endurance: 0
-  mobRarity: 
-  state: patrol
+  state: 0
   waypoints: []
   accuracyWP: 0.8
+  timeBeforeStateChange: 10
 --- !u!114 &114984669275998764
 MonoBehaviour:
   m_ObjectHideFlags: 1

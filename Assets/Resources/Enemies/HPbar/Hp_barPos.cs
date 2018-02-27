@@ -10,10 +10,14 @@ public class Hp_barPos : MonoBehaviour
     public float fadeRange;
     [SerializeField] CharacterHealthsytem healthSystem;
     [SerializeField] Transform player;
+    [Range(1f, 10f)]
+    public float HpbarFadeRange = 8f;
+    [Tooltip("Canvas to disable")]
+    [SerializeField] Canvas canvas;
 
     private void Start()
     {
-        gameObject.SetActive(false);
+        canvas.gameObject.SetActive(false);
 
         if (healthSystem != null)
         {
@@ -33,22 +37,22 @@ public class Hp_barPos : MonoBehaviour
         {
             Vector3 pos = new Vector3(owner.position.x, owner.position.y + distY, owner.position.z + distZ);
             transform.position = pos;
-
-            HpDistDisappear(fadeRange);
         }
+
+        HpDistDisappear(HpbarFadeRange);
     }
 
     void HpDistDisappear(float fadeRange)
     {
         if (IsEnemy == true)
         {
-            if (Vector3.Distance(player.position, owner.position) <= 6f)
+            if (Vector3.Distance(player.position, owner.position) <= fadeRange)
             {
-                gameObject.SetActive(true);
+                canvas.gameObject.SetActive(true);
             }
             if (Vector3.Distance(player.position, owner.position) >= fadeRange) 
             {
-                gameObject.SetActive(false);
+                canvas.gameObject.SetActive(false);
             }
         }
     }

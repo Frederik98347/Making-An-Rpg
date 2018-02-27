@@ -6,15 +6,25 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 	
 	public AIConfig _enemyInfo;
+    public enum State
+    {
+        Idle,
+        Chase,
+        Attacking,
+        Patrol,
+        Dead
+    }
     
 	[SerializeField] Player Player;
 
     [SerializeField] float rotSpeed = 2.5f;
 
 
-    [SerializeField] bool targetSeen = false;
-	[SerializeField] float behind_detectionRange;
-    [SerializeField] float outofrangeTimer;
+    bool targetSeen = false;
+	[SerializeField] float behind_detectionRange = 4f;
+    float outofrangeTimer;
+    [SerializeField] float offsetSpawnPoint = 2f;
+    [SerializeField] Transform spawnPoint;
 
     [SerializeField] Transform player;
 
@@ -25,6 +35,7 @@ public class Enemy : MonoBehaviour {
 	public AudioClip AttackSound;
 	public AudioClip runSound;
 	public AudioClip deathSound;
+    public AudioClip walkSound;
 	AudioSource Audio;
 
 	//mob info
@@ -36,34 +47,34 @@ public class Enemy : MonoBehaviour {
 	int MaxDamage;
 	int damage;
 
-	//Sound bools
-	bool PlayAttackSound = false;
-	bool PlayRunningSound = false;
-
 	float AttackcurTime = 0.0f;
-	int enemyDefense = 0;
+    int enemyDefense;
 
     [SerializeField] int EnemyLevel;
     [SerializeField] int exptogive;
     int health;
-    [SerializeField] float attackspeed;
+    float attackspeed;
     float AttackRange;
-    [SerializeField] float movementspeed;
-    [SerializeField] float walkingspeed;
-    [SerializeField] float detectionRange;
-    [SerializeField] Texture2D enemyIcon;
-    [SerializeField] string toolTip;
-    [SerializeField] int Resistance;
-    [SerializeField] string enemyClass;
-    [SerializeField] int endurance;
-    [SerializeField] string mobRarity;
-	bool dead;
+    float movementspeed;
+    float walkingspeed;
+    float detectionRange;
+    Texture2D enemyIcon;
+    string toolTip;
+    int Resistance;
+    string enemyClass;
+    int endurance;
+    string mobRarity;
 
     //way point patrol
-    public string state = "patrol";
+    public State state = State.Idle;
     public GameObject[] waypoints;
     int currentWP = 0;
+    [Range(0.1f, 2f)]
     public float accuracyWP = .8f;
+    [Range(0.1f, 3f)]
+    private float attackRangeMulti;
+    [Range(0, 20)]
+    [Tooltip("Time before you want an idling enemy to begin patrolling")] public float timeBeforeStateChange;
 
     public bool TargetSeen
     {
@@ -88,19 +99,6 @@ public class Enemy : MonoBehaviour {
         set
         {
             outofrangeTimer = value;
-        }
-    }
-
-    public bool Dead
-    {
-        get
-        {
-            return dead;
-        }
-
-        set
-        {
-            dead = value;
         }
     }
 
@@ -176,14 +174,8 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //StartCoroutine("EnemySounds");
 
-		if (health <= 0) {
-			health = 0;
-			Dead = true;
-		}
-
-        if (AttackcurTime < attackspeed && TargetSeen == true && Vector3.Distance(transform.position, this.player.position) < AttackRange * .8f)
+        if (AttackcurTime < attackspeed && TargetSeen == true && Vector3.Distance(transform.position, this.player.position) < AttackRange * attackRangeMulti)
         {
             AttackcurTime += Time.deltaTime;
             //count up
@@ -197,12 +189,14 @@ public class Enemy : MonoBehaviour {
 		Chase ();
         Patrolling();
         IsEnemyDead ();
-		//EnemySounds();
-	}
+        StartCoroutine(EnemySounds());
+
+        Idle();
+    }
 
     void Patrolling()
     {
-        if (state == "patrol" && waypoints.Length > 0 && Dead == false)
+        if (state == State.Patrol && waypoints.Length > 0)
         {
                 anim.SetBool("isIdle", false);
                 anim.SetBool("isRunning", false);
@@ -226,17 +220,53 @@ public class Enemy : MonoBehaviour {
                 direction.y = 0;
                 this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
                 this.transform.Translate(0, 0, walkingspeed * Time.deltaTime);
+        } else if(waypoints.Length == 0)
+        {
+            state = State.Idle;
+        }
+    }
+
+    void Idle()
+    {
+        if (state == State.Idle)
+        {
+            anim.SetBool("isIdle", true);
+            anim.SetBool("isRunning", false);
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isAttacking", false);
+            anim.SetBool("isDead", false);
+        }
+
+        if (waypoints.Length > 0 && targetSeen == false && state != State.Patrol)
+        {
+            timeBeforeStateChange -= Time.deltaTime;
+
+            if (timeBeforeStateChange <= 0)
+            {
+                timeBeforeStateChange = 0;
+                state = State.Patrol;
+                Patrolling();
+            }
+
         }
     }
 
 	void IsEnemyDead() {
-		
-		if (Dead == true) {
 
-			// make loot glow
-			//loot gui
+        if (state == State.Dead) {
 
-			if (DeadCounter < DeadTime) {
+            TargetSeen = false;
+            OutofrangeTimer = 0f;
+            anim.SetBool("isIdle", false);
+            anim.SetBool("isDead", true);
+            anim.SetBool("isAttacking", false);
+            anim.SetBool("isRunning", false);
+            anim.SetBool("isWalking", false);
+            movementspeed = 0f;
+            // make loot glow
+            //loot gui
+
+            if (DeadCounter < DeadTime) {
 				//count up
 				DeadCounter += Time.deltaTime;
 
@@ -251,173 +281,109 @@ public class Enemy : MonoBehaviour {
         direction.y = 0;
 
         float angle = Vector3.Angle (direction, this.transform.forward);
-		if (Dead == false) {
-			
-			if (Vector3.Distance (transform.position, player.position) < detectionRange && angle < 30 || state == "chase") {
-				TargetSeen = true;
-                state = "chase";
 
-				this.transform.rotation = Quaternion.Slerp (this.transform.rotation, Quaternion.LookRotation (direction), rotSpeed * Time.deltaTime);
-				anim.SetBool ("isIdle", false);
-				if (direction.magnitude > AttackRange*1.2f) {
-					this.transform.Translate (0, 0, movementspeed*Time.deltaTime);
-					anim.SetBool ("isRunning", true);
-					anim.SetBool ("isDead", false);
-					anim.SetBool ("isAttacking", false);
-                    anim.SetBool("isWalking", false);
+        if (Vector3.Distance(transform.position, player.position) < detectionRange && (angle < 30 || Vector3.Distance(transform.position, this.player.position) < behind_detectionRange))
+        {
+            TargetSeen = true;
+            state = State.Chase;
 
-					PlayRunningSound = true;
-					PlayAttackSound = false;
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
+            if (direction.magnitude > AttackRange)
+            {
+                //chase
+                this.transform.Translate(0, 0, movementspeed * Time.deltaTime);
+                anim.SetBool("isRunning", true);
+                anim.SetBool("isDead", false);
+                anim.SetBool("isIdle", false);
+                anim.SetBool("isAttacking", false);
+                anim.SetBool("isWalking", false);
+                anim.SetBool("isIdle", false);
 
 
-				} else {
-					anim.SetBool ("isDead", false);
-					anim.SetBool ("isAttacking", true);
-					anim.SetBool ("isRunning", false);
-                    anim.SetBool("isWalking", false);
-                    PlayRunningSound = false;
-					PlayAttackSound = true;
-				}
+            }
+            else
+            {
+                //attack
+                state = State.Attacking;
+                anim.SetBool("isDead", false);
+                anim.SetBool("isAttacking", true);
+                anim.SetBool("isRunning", false);
+                anim.SetBool("isWalking", false);
+                Debug.Log("Attacking");
+            }
 
-			} else if (Vector3.Distance (transform.position, this.player.position) < behind_detectionRange || state == "chase") {
-				TargetSeen = true;
-				direction.y = 0;
-                state = "chase";
+        }
+        else if (OutofrangeTimer < 0.0f && TargetSeen == true && Vector3.Distance(transform.position, this.player.position) > detectionRange)
+        {
+            TargetSeen = false;
+            anim.SetBool("isIdle", false);
+            anim.SetBool("isRunning", false);
+            anim.SetBool("isAttacking", false);
+            anim.SetBool("isWalking", true);
+            anim.SetBool("isDead", false);
+            state = State.Idle;
 
-				this.transform.rotation = Quaternion.Slerp (this.transform.rotation, Quaternion.LookRotation (direction), rotSpeed * Time.deltaTime);
-				anim.SetBool ("isIdle", false);
-				if (direction.magnitude > AttackRange*.8f) {
-					this.transform.Translate (0, 0, movementspeed * Time.deltaTime);
-					anim.SetBool ("isRunning", true);
-					anim.SetBool ("isDead", false);
-					anim.SetBool ("isAttacking", false);
-                    anim.SetBool("isWalking", false);
-
-                    PlayRunningSound = true;
-					PlayAttackSound = false;
-				} else {
-					anim.SetBool ("isDead", false);
-					anim.SetBool ("isAttacking", true);
-					anim.SetBool ("isRunning", false);
-                    anim.SetBool("isWalking", false);
-
-                    PlayRunningSound = false;
-					PlayAttackSound = true;
-				}
-
-			} else {
-
-				if (OutofrangeTimer > 0.0f && TargetSeen == true && Vector3.Distance (transform.position, this.player.position) > detectionRange || state == "chase") {
-                    state = "chase";
-					OutofrangeTimer -= Time.deltaTime;
-					this.transform.rotation = Quaternion.Slerp (this.transform.rotation, Quaternion.LookRotation (direction), rotSpeed * Time.deltaTime);
-					anim.SetBool ("isIdle", false);
-                    anim.SetBool("isWalking", false);
-
-                    if (direction.magnitude > AttackRange*1.2f) {
-						this.transform.Translate (0, 0, movementspeed * Time.deltaTime);
-						anim.SetBool ("isRunning", true);
-                        anim.SetBool("isWalking", false);
-                        anim.SetBool ("isDead", false);
-						anim.SetBool ("isAttacking", false);
-
-						PlayRunningSound = true;
-						PlayAttackSound = false;
-
-					} else {
-						anim.SetBool ("isDead", false);
-						anim.SetBool ("isAttacking", true);
-						anim.SetBool ("isRunning", false);
-                        anim.SetBool("isWalking", false);
-                        anim.SetBool("isIdle", false);
-
-                        PlayRunningSound = false;
-						PlayAttackSound = true;
-					}
-						
-				} else if (OutofrangeTimer < 0.0f && TargetSeen == true && Vector3.Distance (transform.position, this.player.position) > detectionRange) {
-					TargetSeen = false;
-					anim.SetBool ("isIdle", false);
-					anim.SetBool ("isRunning", false);
-                    anim.SetBool("isWalking", true);
-                    anim.SetBool ("isAttacking", false);
-					anim.SetBool ("isDead", false);
-					PlayRunningSound = false;
-					PlayAttackSound = false;
-                    state = "patrol";
-
-				} else if (Dead == true) {
-					TargetSeen = false;
-					OutofrangeTimer = 0f;
-					anim.SetBool ("isIdle", false);
-					anim.SetBool ("isDead", true);
-					anim.SetBool ("isAttacking", false);
-					anim.SetBool ("isRunning", false);
-                    anim.SetBool("isWalking", false);
-                    exptogive = 0;
-                    state = "dead";
-
-					PlayRunningSound = false;
-					PlayAttackSound = false;
-				}
-			}
-		} else if (Dead == true) {
-			TargetSeen = false;
-			OutofrangeTimer = 0f;
-			anim.SetBool ("isIdle", false);
-			anim.SetBool ("isDead", true);
-			anim.SetBool ("isAttacking", false);
-			anim.SetBool ("isRunning", false);
-            anim.SetBool("isWalking", false);
-            exptogive = 0;
-            state = "dead";
-
-			PlayRunningSound = false;
-			PlayAttackSound = false;
-		}
-	}
+            //dont attack and move away from
+            transform.position = Vector3.MoveTowards(transform.position, spawnPoint.position, 5f);
+            if (Vector3.Distance(spawnPoint.position, transform.position) < offsetSpawnPoint)
+            {
+                int i = Random.Range(0, 2);
+                if (i == 0)
+                {
+                    Idle();
+                }
+                else if (i == 1)
+                {
+                    state = State.Patrol;
+                    Patrolling();
+                }
+            }
+        }
+    }
 
 	private IEnumerator EnemySounds() {
 		
-		if (PlayAttackSound == true && TargetSeen == true && Dead != true) {
-			Debug.Log ("Attack sound playing");
+		if (state == State.Attacking && TargetSeen == true && Audio.isPlaying == false) {
 			Audio.clip = AttackSound;
-			Audio.PlayOneShot (AttackSound);
-			yield return new WaitForSeconds(Audio.clip.length);
-			//Audio.Stop;
-		}
+            Audio.volume = Random.Range(.8f, 1f);
+            Audio.pitch = Random.Range(.8f, 1f);
+            Audio.PlayDelayed(Random.Range(.8f, 1f));
+            yield return new WaitForSeconds(Audio.clip.length*2);
+        }
 
-		if (Dead == true) {
-			int i = 0;
-			i++;
+		if (state == State.Dead && Audio.isPlaying == false) {
+            Audio.clip = deathSound;
+            Audio.PlayOneShot(deathSound);
+            yield return new WaitForSeconds(Audio.clip.length);
+            //Audio.Stop;
+        }
 
-				if (i == 1) {
-					Debug.Log ("Death Sound");
-					Audio.clip = deathSound;
-					Audio.PlayOneShot (deathSound);
-					yield return new WaitForSeconds(Audio.clip.length);
-					//Audio.Stop;
-				}
-		}
-
-		if (PlayRunningSound == true && TargetSeen == true && Dead != true) {
-			Debug.Log ("Run sound playing");
+        if (state == State.Chase && TargetSeen == true && Audio.isPlaying == false) {
 			Audio.clip = runSound;
-			Audio.PlayOneShot (runSound);
-			yield return new WaitForSeconds(Audio.clip.length);
+            Audio.volume = Random.Range(.55f, 1f);
+            Audio.pitch = Random.Range(.75f, 1f);
+            Audio.PlayOneShot(runSound);
+            yield return new WaitForSeconds(Audio.clip.length / 2);
 			//Audio.Stop(runSound);
 		}
-	}
 
-	public void GetHit (int playerDamage) {
+        if (state == State.Patrol && TargetSeen == true && Audio.isPlaying == false)
+        {
+            Audio.clip = walkSound;
+            Audio.volume = Random.Range(.6f, 1f);
+            Audio.pitch = Random.Range(.8f, 1f);
+            Audio.PlayOneShot(walkSound);
+            yield return new WaitForSeconds(Audio.clip.length / 2);
+            //Audio.Stop(runSound);
+        }
+    }
 
-		health = health - playerDamage;
-		Debug.Log ("HP: " + health);
+	public void GetHit (int damage) {
 
-		if (health <= 0) {
-			//enemy is dead
-			Dead = true;
-			health = 0;
+        transform.GetComponent<CharacterHealthsytem>().GetHit(damage);
+		if (transform.GetComponent<CharacterHealthsytem>().IsDead == true) {
+            //enemy is dead
+            state = State.Dead;
 
             if (player.GetComponent<Experience>())
             {
@@ -455,13 +421,24 @@ public class Enemy : MonoBehaviour {
 	void Attack () {
 		EnemyPowerAndLevel ();
 
-		if (this.player.GetComponent<CharacterHealthsytem> ().IsDead == true && TargetSeen == true && Vector3.Distance (transform.position, this.player.position) < AttackRange*1.2f) {
-			this.player.gameObject.transform.GetComponent<CharacterHealthsytem>().GetHit (damage);
-			Debug.Log ("Enemy damage: " + damage);
+		if (this.player.GetComponent<CharacterHealthsytem> ().IsDead == false && TargetSeen == true) {
+            state = State.Attacking;
+			this.player.transform.GetComponent<CharacterHealthsytem>().GetHit (damage);
 
 		} else {
             //dont attack and move away from
-            state = "patrol";
-		}
+            transform.position = Vector3.MoveTowards(transform.position, spawnPoint.position, 5f);
+            if (Vector3.Distance(spawnPoint.position, transform.position) < offsetSpawnPoint) {
+                int i = Random.Range(0, 2);
+                if (i == 0)
+                {
+                    Idle();
+                } else if (i == 1)
+                {
+                    state = State.Patrol;
+                    Patrolling();
+                }
+            }
+        }
 	}
 }

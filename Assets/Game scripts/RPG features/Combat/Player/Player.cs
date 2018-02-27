@@ -12,8 +12,6 @@ public class Player : MonoBehaviour{
     //CreateNewCharacter character;
    // public int _characterIndex;
 
-    public bool isDead = false;
-
     //tooltip GUI
     public bool hoverOverActive;
     public string hoverName;
@@ -23,6 +21,8 @@ public class Player : MonoBehaviour{
     public bool autoAttacking = false;
     public float autoAttackcurTime;
     public float autoAttackCD = 1.8f;
+    [Range(0.1f,3f)]
+    public float attackRangeMulti = .8f;
 
     //stats
     private int MinDamage = 1;
@@ -174,7 +174,7 @@ public class Player : MonoBehaviour{
 				behindEnemy = true;
 			}
 
-            if (canAttack == true && autoAttacking == true && enemyScript.Dead != true && Vector3.Distance(this.transform.position, selectedUnit.transform.position) < AutoattackRange * 0.8f)
+            if (canAttack == true && autoAttacking == true && enemyScript.state != Enemy.State.Dead && Vector3.Distance(this.transform.position, selectedUnit.transform.position) < AutoattackRange * attackRangeMulti)
             {
                 autoAttackcurTime += Time.deltaTime;
                 //count up
@@ -188,7 +188,7 @@ public class Player : MonoBehaviour{
                     autoAttackcurTime = 0;
                 }
             }
-            else if (Vector3.Distance(this.transform.position, selectedUnit.transform.position) > AutoattackRange * 2f)
+            else if (Vector3.Distance(this.transform.position, selectedUnit.transform.position) > AutoattackRange * attackRangeMulti)
             {
                 autoAttacking = false;
                 autoAttackcurTime = 0;
