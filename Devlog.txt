@@ -13,8 +13,10 @@ exp bar (Done)
 LevelUpSystem (done, fade in script and all)
 Rpg classes for players ( not done ).
 floating text (not done)
-Enemy animation states redo (started, not done)
+Enemy states redo (done)
 Bug: When you are set to idle state animations dont work, and attacking state still doesnt work either
+
+Enemy to take damage again with the new healthsystem (notdone)
 
 Focus points:
 - Object pooling (made one, else look on asset store)

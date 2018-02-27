@@ -8,7 +8,7 @@ public class CombatTextManager : MonoBehaviour {
     public GameObject TextPrefabAuto;
     public GameObject TextPrefabAbility;
     [Header("Canvas the prefabs should instanciate at")]
-    public RectTransform canvasTransform;
+    public Transform canvasTransform;
     [Header("Offset to Text position")]
     [Range(-5, 5)]
     public float offsetX;
@@ -25,7 +25,7 @@ public class CombatTextManager : MonoBehaviour {
         {
             if (instance == null)
             {
-                instance = GameObject.FindObjectOfType<CombatTextManager>();
+                instance = FindObjectOfType<CombatTextManager>();
             }
 
             return instance;
@@ -35,49 +35,46 @@ public class CombatTextManager : MonoBehaviour {
 
     public void CreateText(Vector3 pos, bool isDamage, bool isHeal, bool isAuto, bool isAbility, string text)
     {
-        if (isDamage)
+        if (isDamage && TextPrefabDamage != null)
         {
             GameObject sct = (GameObject)Instantiate(TextPrefabDamage, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
-            sct.GetComponent<TMP_Text>().text = text;
+            sct.GetComponent<TextMeshPro>().text = text;
 
             sct.transform.SetParent(canvasTransform, false);
-            Transform Text = GetComponent<TMP_Text>().transform;
-            SetUp(Text);
+            SetUp(sct);
         }
 
-        if (isHeal)
+        if (isHeal && TextPrefabHeal != null)
         {
             GameObject sct = (GameObject)Instantiate(TextPrefabHeal, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
-            sct.GetComponent<TMP_Text>().text = text;
+            sct.GetComponent<TextMeshPro>().text = text;
 
             sct.transform.SetParent(canvasTransform, false);
-            Transform Text = GetComponent<TMP_Text>().transform;
-            SetUp(Text);
+            SetUp(sct);
         }
 
-        if (isAuto)
+        if (isAuto && TextPrefabAuto != null)
         {
             GameObject sct = (GameObject)Instantiate(TextPrefabAuto, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
-            sct.GetComponent<TMP_Text>().text = text;
+            sct.GetComponent<TextMeshPro>().text = text;
 
             sct.transform.SetParent(canvasTransform, false);
-            Transform Text = GetComponent<TMP_Text>().transform;
-            SetUp(Text);
+            SetUp(sct);
         }
 
-        if (isAbility)
+        if (isAbility && TextPrefabAbility != null)
         {
             GameObject sct = (GameObject)Instantiate(TextPrefabAbility, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
-            sct.GetComponent<TMP_Text>().text = text;
-            Transform Text = GetComponent<TMP_Text>().transform;
+            sct.GetComponent<TextMeshPro>().text = text;
 
             sct.transform.SetParent(canvasTransform, false);
-            SetUp(Text);
+            SetUp(sct);
         }
     }
 
-    private void SetUp(Transform textTransform)
+    private void SetUp(GameObject sct)
     {
-        textTransform.eulerAngles = Camera.main.transform.eulerAngles;
+        sct.transform.eulerAngles = Camera.main.transform.eulerAngles;
+        sct.transform.position = canvasTransform.GetComponent<PositionasParent>().targetPosition.position;
     }
 }

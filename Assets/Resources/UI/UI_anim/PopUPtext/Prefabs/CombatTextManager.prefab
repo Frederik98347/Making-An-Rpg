@@ -51,10 +51,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e2160ed91eceb44283b537d705d176b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextPrefabDamage: {fileID: 0}
-  TextPrefabHeal: {fileID: 0}
-  TextPrefabAuto: {fileID: 0}
-  TextPrefabAbility: {fileID: 0}
+  TextPrefabDamage: {fileID: 1214720077274850, guid: 697c24d2fe447db4c8e73f95f44f757c,
+    type: 2}
+  TextPrefabHeal: {fileID: 1150587642263326, guid: 9d3162431e09bb54a917c8f59ff390d4,
+    type: 2}
+  TextPrefabAuto: {fileID: 1555073445864534, guid: ca1daaa868e69114e9442c99d32a63c1,
+    type: 2}
+  TextPrefabAbility: {fileID: 1680191503310048, guid: 1ce2951b5d9026e4089efe79c580aac7,
+    type: 2}
   canvasTransform: {fileID: 0}
   offsetX: 0
-  offsetY: 5
+  offsetY: 0.5
