@@ -483,10 +483,15 @@ ModelImporter:
     10800000: Sun
     10800002: Sun.001
     13700000: mage
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: robe
+    second: {fileID: 2100000, guid: c3b60b54acd33964db70c19f1641c36d, type: 2}
   materials:
     importMaterials: 1
-    materialName: 0
+    materialName: 1
     materialSearch: 1
     materialLocation: 1
   animations:
