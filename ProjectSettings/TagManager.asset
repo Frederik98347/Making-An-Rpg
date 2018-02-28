@@ -9,6 +9,7 @@ TagManager:
   - Interactable
   - Terrain
   - Canvas
+  - Npc
   layers:
   - Default
   - TransparentFX

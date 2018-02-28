@@ -4,16 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class levelupboxAnim : MonoBehaviour {
-    [Tooltip("How long it takes to fadeout the object")] public float fadeTime = 1f;
+    [Tooltip("How long it takes to fadeout the object")] public float fadeTime = 3f;
     [Range(0,8)]
     public float timeBeforeFade = 3.5f;
     public float fadeInTime = 3f;
+    float initFadeInTime;
+    float initTimeBeforeFade;
+    float initFadeTime;
     [Tooltip("The Canvas object you want to fadeout")] [SerializeField] CanvasGroup canvas;
 
    
 	// Use this for initialization
 	void Start () {
         gameObject.SetActive(false);
+        initFadeInTime = fadeInTime;
+        initTimeBeforeFade = timeBeforeFade;
+        initFadeTime = fadeTime;
 	}
 
    public void StartAnim()
@@ -47,6 +53,9 @@ public class levelupboxAnim : MonoBehaviour {
 
         canvas.interactable = false;
         gameObject.SetActive(false);
+        timeBeforeFade = initTimeBeforeFade;
+        fadeInTime = initFadeInTime;
+        fadeTime = initFadeTime;
         yield return null;
     }
 

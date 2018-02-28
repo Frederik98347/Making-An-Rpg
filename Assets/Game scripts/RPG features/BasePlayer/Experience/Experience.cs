@@ -16,12 +16,13 @@ public class Experience : MonoBehaviour
     public TMP_Text ExpBarText;
     [SerializeField] AudioManger Audio;
 
+    public bool showText = true;
     public bool isPercentageExp;
     public bool isPercentageNnumbersExp;
     //current exp amount
     [SerializeField] int vCurrExp = 0;
     //exp amount needed for lvl 1
-    int vExpBase = 27;
+    int vExpBase = 25;
     //exp amount Required to next levelup
     [SerializeField] int vExpReq = 30;
     //modifier that increases needed exp each level
@@ -150,18 +151,7 @@ public class Experience : MonoBehaviour
 
         if (ExpBarText != null)
         {
-            if (isPercentageExp)
-            {
-                PercentageExpbar();
-            }
-            else if (isPercentageNnumbersExp)
-            {
-                PercentageWithNumbers();
-            }
-            else
-            {
-                SetExpText(VCurrExp + " / " + VExpReq);
-            }
+            ShowText();
         }
     }
 
@@ -173,7 +163,7 @@ public class Experience : MonoBehaviour
     void Update()
     {
         if (Input.GetButtonDown("Jump")) {
-            GainExp(5);
+            GainExp(100);
         }
 
         if (expBar.value == 1 && VCurrExp == 0)
@@ -183,26 +173,22 @@ public class Experience : MonoBehaviour
         {
             expBar.value = VCurrExp;
         }
+
+        ShowText();
     }
 
     void IncreaseExp()
     {
         if (VLevel >= 20)
         {
-            VExpBase = VExpBase-3 + VExpReq;
-            VExpReq = VExpReq-1 + VExpBase;
-            VExpMod = 1.20f;
+            VExpMod += .005f;
         } else if (VLevel >= 35)
         {
-            VExpBase = VExpReq-2 + VExpBase;
-            VExpReq = VExpBase + VExpReq;
-            VExpMod = 1.25f;
+            VExpMod += .003f;
         }
         else if (VLevel >= 45)
         {
-            VExpBase = VExpBase + VExpBase;
-            VExpReq = VExpReq + VExpReq;
-            VExpMod = 1.30f;
+            VExpMod += .002f;
         }
     }
 
@@ -240,5 +226,29 @@ public class Experience : MonoBehaviour
     void SetExpText(string text)
     {
         ExpBarText.GetComponent<TMP_Text>().text = text;
+    }
+
+    void ShowText()
+    {
+        if (showText == false)
+        {
+            // dont show text On exp bar
+            SetExpText("");
+        }
+        else
+        {
+            if (isPercentageNnumbersExp == true)
+            {
+                PercentageWithNumbers();
+            }
+            else if (isPercentageExp == true)
+            {
+                PercentageExpbar();
+            }
+            else
+            {
+                SetExpText(VCurrExp + " / " + VExpReq);
+            }
+        }
     }
 }

@@ -14,6 +14,7 @@ public class CharacterHealthsytem : MonoBehaviour {
     string hpGained;
     string hpLost;
     bool isDead;
+    public bool showText = true;
 
     public TMP_Text HpBarText;
     [SerializeField] bool isPercentageHp;
@@ -131,24 +132,20 @@ public class CharacterHealthsytem : MonoBehaviour {
 
         if (HpBarText != null)
         {
-            if (isPercentageHp)
-            {
-                PercentageHPCalc();
-            }
-            else if (isPercentageNnumbers)
-            {
-                PercentageWithNumbers();
-            }
-            else
-            {
-                OutofHPCalc();
-            }
+            ShowText();
+
         }
     }
 
     void Update()
     {
         TestDamage();
+
+        if (HpBarText != null)
+        {
+            ShowText();
+
+        }
     }
 
     public void GetHit(int damageValue)
@@ -162,18 +159,7 @@ public class CharacterHealthsytem : MonoBehaviour {
 
         if (HpBarText != null)
         {
-            if (isPercentageHp == true)
-            {
-                PercentageHPCalc();
-            }
-            else if (isPercentageNnumbers == true)
-            {
-                PercentageWithNumbers();
-            }
-            else
-            {
-                OutofHPCalc();
-            }
+            ShowText();
         }
 
         //making sure health cant go below 0%
@@ -194,40 +180,12 @@ public class CharacterHealthsytem : MonoBehaviour {
 
         if (HpBarText != null)
         {
-            if (isPercentageHp == true)
-            {
-                PercentageHPCalc();
-            }
-            else if (isPercentageNnumbers == true)
-            {
-                PercentageWithNumbers();
-            }
-            else
-            {
-                OutofHPCalc();
-            }
+            ShowText();
         }
 
         CurrentHealth += healValue;
         healthBar.value = CalculateHealth();
         //HpGained = "Health +" + healValue;
-
-        //Calculation %HP
-        if (HpBarText != null)
-        {
-            if (isPercentageHp == true)
-            {
-                PercentageHPCalc();
-            }
-            else if (isPercentageNnumbers == true)
-            {
-                PercentageWithNumbers();
-            }
-            else
-            {
-                OutofHPCalc();
-            }
-        }
 
         //making sure Health can go above 100%
         if (CurrentHealth >= MaxHealth)
@@ -238,18 +196,7 @@ public class CharacterHealthsytem : MonoBehaviour {
 
             if (HpBarText != null)
             {
-                if (isPercentageHp == true)
-                {
-                    PercentageHPCalc();
-                }
-                else if (isPercentageNnumbers == true)
-                {
-                    PercentageWithNumbers();
-                }
-                else
-                {
-                    OutofHPCalc();
-                }
+                ShowText();
             }
         } else
         {
@@ -312,6 +259,30 @@ public class CharacterHealthsytem : MonoBehaviour {
     void SetHpText(string text)
     {
         HpBarText.GetComponent<TMP_Text>().text = text;
+    }
+
+    void ShowText()
+    {
+        if (showText == false)
+        {
+            // dont show text On HP bar
+            SetHpText("");
+        }
+        else
+        {
+            if (isPercentageNnumbers == true)
+            {
+                PercentageWithNumbers();
+            }
+            else if (isPercentageHp == true)
+            {
+                PercentageHPCalc();
+            }
+            else
+            {
+                OutofHPCalc();
+            }
+        }
     }
 
     void Die()
