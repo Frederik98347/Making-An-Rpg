@@ -9,6 +9,7 @@ public class Player : MonoBehaviour{
     [SerializeField] CharacterHealthsytem healthsystem;
     [SerializeField] Enemy enemyScript;
     [SerializeField] UserMovement usermovement;
+    BasePlayer basePlayer;
     //CreateNewCharacter character;
    // public int _characterIndex;
 
@@ -16,6 +17,8 @@ public class Player : MonoBehaviour{
     public bool hoverOverActive;
     public string hoverName;
     public GameObject selectedUnit;
+    public string Playername;
+    public string Playerclass;
 
     // auto attack timer
     public bool autoAttacking = false;
@@ -55,6 +58,12 @@ public class Player : MonoBehaviour{
 
     // Use this for initialization
     void Start() {
+        if (basePlayer != null)
+        {
+            basePlayer.PlayerName = Playername;
+            basePlayer.PlayerClass.CharacterClassName = Playerclass;
+        }
+
         if (focus)
         {
             AutoattackRange = focus.radius;

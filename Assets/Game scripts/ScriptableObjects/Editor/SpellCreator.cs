@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
@@ -18,7 +16,7 @@ public class SpellCreator : EditorWindow {
 		
 		if (spellManager == null) {
 			
-			spellManager = GameObject.Find("SpellManager").GetComponent<SpellManager>();
+            spellManager = GameObject.FindObjectOfType<SpellManager>().GetComponent<SpellManager>();
 		}
 		
 		if (tempSpell) {

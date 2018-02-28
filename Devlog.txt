@@ -4,8 +4,8 @@ Almost done with:
 - scriptable object enemies, enemy classes and so on.
 
 things to start working on:
-inventory system (not started)
-cleaning up in the player and enemy script (Started)
+inventory system (Started, still need to add on to the itemCreator menu system)
+cleaning up in the player and enemy script (Started, enemyscript done, player not)
 Pausemenu (Done)
 Startmenu (Done)
 Healthbar (Done, just a bug with text not always fitting inside the bar)
@@ -21,4 +21,5 @@ Enemy to take damage again with the new healthsystem (notdone)
 Focus points:
 - Object pooling (made one, else look on asset store)
 - GUI frames
-- floating text
+- inventory system
+- floating text position fix

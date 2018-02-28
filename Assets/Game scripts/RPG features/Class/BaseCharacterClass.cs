@@ -2,14 +2,11 @@ public class BaseCharacterClass {
 
     private string characterClassName;
     private string characterClassDescription;
-	
+    public bool customClass;
+    public int[] stats;
+
     //stats
-    private int stamina;
-    private int agility;
-    private int strength;
-    private int intellect;
-    private int critchance;
-    private int defense;
+    public AttributeTypes attributeTypes;
 
     public string CharacterClassName{
         get {return characterClassName;}
@@ -19,46 +16,43 @@ public class BaseCharacterClass {
         get {return characterClassDescription;}
         set {characterClassDescription = value;}
     }
-    public int Stamina{
-        get {return stamina;}
-        set {stamina = value;}
-    }
-    public int Agility{
-        get {return agility;}
-        set {agility = value;}
-    }
-    public int Strength{
-        get {return strength;}
-        set {strength = value;}
-    }
-    public int Intellect{
-        get {return intellect;}
-		set {intellect = value;}
-    }
 
-    public int Critchance
+    void CustomClass()
     {
-        get
+        if (customClass)
         {
-            return critchance;
-        }
-
-        set
-        {
-            critchance = value;
+            CharClassGen();
         }
     }
 
-    public int Defense
+    void CharClassGen()
     {
-        get
-        {
-            return defense;
-        }
+        //Generate name for costum made class & stats / bonuses for it
+    }
 
-        set
-        {
-            defense = value;
-        }
+    public void Stats()
+    {
+    /*STRENGTH, // Increases meleedamage, and increases how much weight you can have in your bags, more weight = more bag space && how heavy armor you can carry, heavier armor gives more defense
+    STAMINA, //Increases healthpool
+    INTELLECT, //Allmagic damage increase, Increase mana pool && give memory
+    AGILITY, // +meleeattackdamage / 2 of str, + crit + movementspeed
+    HASTE, // how fast you cast / can melee swing
+    DEFENSE, // reduction to physical damage (dark, physical, bleed, poison)
+    CRITCHANCE, //how often you critical strike
+    ENDURANCE, // how long time you can sprint
+    RESISTANCE, // reduction to all magic damage by x%
+    MEMORY // How many skills have active at the same time, meaning not restricting how many you can learn, but how many you can use.
+    */
+        stats = new int[10];
+        stats[0] = (int)AttributeTypes.STRENGTH;
+        stats[1] = (int)AttributeTypes.STAMINA;
+        stats[2] = (int)AttributeTypes.INTELLECT;
+        stats[3] = (int)AttributeTypes.AGILITY;
+        stats[4] = (int)AttributeTypes.HASTE;
+        stats[5] = (int)AttributeTypes.DEFENSE;
+        stats[6] = (int)AttributeTypes.CRITCHANCE;
+        stats[7] = (int)AttributeTypes.ENDURANCE;
+        stats[8] = (int)AttributeTypes.RESISTANCE;
+        stats[9] = (int)AttributeTypes.MEMORY;
     }
 }﻿

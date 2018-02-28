@@ -18,6 +18,9 @@ public class CreateNewCharacter : MonoBehaviour {
 	public string className;
 	bool inputEdit;
 
+    //Stats
+
+
 	// Use this for initialization
 	void Start () {
 		newPlayer = new BasePlayer();
@@ -112,16 +115,17 @@ public class CreateNewCharacter : MonoBehaviour {
 
 			//Set Different Class Stats
 			if (hasCreated == true && canCreate == true && nameCreated == true) {
-				// set level to 1 because it creates a new char
+                // set level to 1 because it creates a new char
+                newPlayer.Stats();
 
-				newPlayer.Playerlevel = 1;
+                newPlayer.Playerlevel = 1;
                 charName = newPlayer.PlayerName;
-                newPlayer.Agility = newPlayer.PlayerClass.Agility;
-                newPlayer.Intellect = newPlayer.PlayerClass.Intellect;
-				newPlayer.Stamina = newPlayer.PlayerClass.Stamina;
-				newPlayer.Strength = newPlayer.PlayerClass.Strength;
-                newPlayer.Critchance = newPlayer.PlayerClass.Critchance;
-                newPlayer.Defense = newPlayer.PlayerClass.Defense;
+                //newPlayer.stats[0]
+                //newPlayer.Intellect = newPlayer.PlayerClass.Intellect;
+				//newPlayer.Stamina = newPlayer.PlayerClass.Stamina;
+				//newPlayer.Strength = newPlayer.PlayerClass.Strength;
+                //newPlayer.Critchance = newPlayer.PlayerClass.Critchance;
+                //newPlayer.Defense = newPlayer.PlayerClass.Defense;
 
 
                 //store info
@@ -167,7 +171,7 @@ public class CreateNewCharacter : MonoBehaviour {
         isCreated = savedNcreated;
         if (isCreated == true)
         {
-            Debug.Log("Player Name" + newPlayer.PlayerName);
+           /* Debug.Log("Player Name" + newPlayer.PlayerName);
             Debug.Log("Character Name: " + charName);
             Debug.Log("Class: " + newPlayer.PlayerClass.CharacterClassName);
             Debug.Log("ClassDescription: " + newPlayer.PlayerClass.CharacterClassDescription);
@@ -177,7 +181,7 @@ public class CreateNewCharacter : MonoBehaviour {
             Debug.Log("Intellect: " + newPlayer.Intellect);
             Debug.Log("Strength: " + newPlayer.Strength);
             Debug.Log("Defense: " + newPlayer.Defense);
-            Debug.Log("Critchance: " + newPlayer.Critchance);
+            Debug.Log("Critchance: " + newPlayer.Critchance);*/
         }
         
     }

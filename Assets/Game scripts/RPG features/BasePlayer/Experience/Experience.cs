@@ -7,7 +7,7 @@ public class Experience : MonoBehaviour
 {
 
     //current level
-    [SerializeField] int vLevel = 1;
+    [SerializeField] int vLevel;
     [SerializeField] ParticleSystem levelParticleSystem;
     [SerializeField] float levelParticlefadeTime = 1.5f;
     [SerializeField] Slider expBar;
@@ -15,6 +15,8 @@ public class Experience : MonoBehaviour
     [SerializeField] TMP_Text levelText;
     public TMP_Text ExpBarText;
     [SerializeField] AudioManger Audio;
+
+    BasePlayer basePlayer;
 
     public bool showText = true;
     public bool isPercentageExp;
@@ -152,6 +154,11 @@ public class Experience : MonoBehaviour
         if (ExpBarText != null)
         {
             ShowText();
+        }
+
+        if(basePlayer != null)
+        {
+            basePlayer.Playerlevel = vLevel;
         }
     }
 

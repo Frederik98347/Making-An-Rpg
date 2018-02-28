@@ -1,22 +1,16 @@
 ﻿using UnityEngine;
 [System.Serializable]
-public class Item {
-    [SerializeField] Icon icon;
+[CreateAssetMenu(fileName = "Create Item", menuName = "RpgTools/Inventory/Item")]
+public class Item : ScriptableObject{
+    [SerializeField] Texture2D icon;
     [SerializeField] string itemName;
     [SerializeField] string itemDescription;
     [SerializeField] ItemType itemType;
 
-    public Icon Thumbnail
+    public virtual void Use()
     {
-        get
-        {
-            return icon;
-        }
-
-        set
-        {
-            icon = value;
-        }
+        //use Item
+        Debug.Log("Using " + name);
     }
 
     public string Name
@@ -55,6 +49,19 @@ public class Item {
         set
         {
             itemType = value;
+        }
+    }
+
+    public Texture2D Icon
+    {
+        get
+        {
+            return icon;
+        }
+
+        set
+        {
+            icon = value;
         }
     }
 }
