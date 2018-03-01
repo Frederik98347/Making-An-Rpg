@@ -309,7 +309,6 @@ public class Enemy : MonoBehaviour {
                 anim.SetBool("isAttacking", true);
                 anim.SetBool("isRunning", false);
                 anim.SetBool("isWalking", false);
-                Debug.Log("Attacking");
             }
 
         }

@@ -6,19 +6,14 @@ public class InventorySlot : MonoBehaviour {
 
     public RawImage icon;
     public int amount = 0;
-    Item item;
+    public Item item;
+    ItemManager itemManger;
 
 
-    public void AddItem (Item newItem)
+    public void AddItem (Item newItem, int amountToAdd)
     {
 
         item = newItem;
-        if (item.isStackable)
-        {
-            //set text = amount
-            //check if item is already in that slot
-            amount += 1;
-        }
 
         if (item != null)
         {
@@ -41,25 +36,41 @@ public class InventorySlot : MonoBehaviour {
     {
         if (item != null)
         {
-            if (item.isStackable)
+            if (item.isStackable && CheckIfitemIsInInventory(itemManger))
             {
-                amount -= 1;
-                item.Use();
+                for (int i = 0; i < itemManger.items.Count; i++)
+                {
+                    if (itemManger.items[i].ItemName == this.item.name)
+                    {
+                        //if this item[i].name = this exact object's name
+                        icon.GetComponentInChildren<TMPro.TextMeshPro>().enabled = true;
+                        string text = icon.GetComponentInChildren<TMPro.TextMeshPro>().text;
+                        amount -= 1;
+                        text = amount.ToString();
+                        item.Use();
+                        break;
+                    }
+                }
             }
 
             item.Use();
         }
     }
 
-   /* public bool CheckIfitemIsInInventory (ItemManager item)
+    public bool CheckIfitemIsInInventory (ItemManager item)
     {
-        for (int i = 0; i < item.items.Count)
+        if (item != null)
         {
-            if (item.items[i].ItemName == item.name)
+            for (int i = 0; i < item.items.Count; i++)
             {
-                return true;
+                if (item.items[i].ItemName == this.item.name)
+                {
+                    //if this item[i].name = this exact object's name
+                    return true;
+                }
             }
         }
-        return false;
-    }*/
+
+        return false; 
+    }
 }

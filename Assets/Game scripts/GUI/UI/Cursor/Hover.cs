@@ -19,6 +19,7 @@ public class Hover : MonoBehaviour {
     {
         if (gameObject.tag == "Enemy")
         {
+            Debug.Log("Enemy");
             Cursor.SetCursor(BattleTexture, hotSpot, curMode);
         } else if (gameObject.tag == "Npc")
         {

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ae7de2d4debcda4584d8bc142281abc, type: 3}
+  m_Name: Health Potion
+  m_EditorClassIdentifier: 
+  isStackable: 1
+  StackSize: 10
+  image: {fileID: 2800000, guid: f1cbdc5db7f7f014fa523c5ab1337e7e, type: 3}
+  description: Gives health when consumed
+  itemType: 3
+  armorType: 0
+  weaponType: 0
+  potionType: 2
+  grimoireType: 0
+  jewlryType: 0
+  Rarity: 0

@@ -13,13 +13,12 @@ exp bar (Done)
 LevelUpSystem (done, fade in script and all)
 Rpg classes for players ( not done ).
 floating text (Almost done, just need to offset position so numbers dont fly over eachother and need to make animation for if its a player (downgoing movement instead of upgoing))
-More Cursor textures (Default is set, missing enemy cursor and vendor cursor)
+More Cursor textures (Default is set, missing enemy cursor and vendor cursor / possible find out how to set outline on objets depending on what tag it has, enemy = red and so on)
 Enemy states redo (done)
 
 Enemy to take damage again with the new healthsystem (notdone)
 
 Focus points:
 - Object pooling (made one, else look on asset store)
-- GUI frames
-- inventory system
+- inventory system (make items stackable, make consumable items able to be used and remove 1 item from stack)
 - floating text position fix

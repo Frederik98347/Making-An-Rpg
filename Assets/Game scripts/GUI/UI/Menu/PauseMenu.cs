@@ -8,7 +8,7 @@ public class PauseMenu : MonoBehaviour {
     public GameObject PauseMenuUI;
     [SerializeField] UserCamera cam;
 
-    public string StartMenu;
+    public string StartMenu = "StartMenu";
 
     private void Update()
     {
@@ -47,8 +47,10 @@ public class PauseMenu : MonoBehaviour {
     public void LoadMenu()
     {
         Time.timeScale = 1f;
-        Debug.Log("Loading menu");
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         SceneManager.LoadScene(StartMenu);
+        Debug.Log("Loading menu");
+
     }
 
     public void QuitGame()

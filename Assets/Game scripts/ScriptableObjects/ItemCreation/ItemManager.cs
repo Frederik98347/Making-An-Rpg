@@ -23,13 +23,19 @@ public class ItemManager : MonoBehaviour {
 
     public List<Item> items = new List<Item>();
 
-    public bool Add (Item item)
+    public bool Add (Item item, int amountToAdd)
     {
 
         if (items.Count >= space)
         {
             Debug.Log("Not enough Room in inventory.");
             return false;
+        }
+
+        if (items.Contains(item) && item.isStackable)
+        {
+            //InventorySlot data = 
+            //data.amount += amountToAdd
         }
 
         items.Add(item);
