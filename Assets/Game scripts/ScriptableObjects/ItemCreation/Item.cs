@@ -2,6 +2,8 @@
 
 [CreateAssetMenu(fileName = "Create Item", menuName = "RpgTools/Inventory/Item")]
 public class Item : ScriptableObject{
+    public bool isStackable = false;
+    public int StackSize = 0;
     [SerializeField] Texture2D image;
     [SerializeField] string description;
     [SerializeField] ItemType itemType;
@@ -17,7 +19,7 @@ public class Item : ScriptableObject{
 
     public enum ItemRarity
     {
-        COMMON, // common gear
+        COMMON = 0, // common gear
         RARE, //good gear
         EPIC, // great gear
         DEMONIC //Best gear & = legendary status

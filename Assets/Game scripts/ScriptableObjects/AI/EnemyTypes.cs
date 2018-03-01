@@ -2,7 +2,7 @@
 
     public enum MobRarity
     {
-        COMMON,
+        COMMON = 0,
         RARE,
         EPIC,
         DEMONIC
@@ -10,7 +10,7 @@
 
     public enum MobTypes
     {
-        MELEE, // only doing melee attacks
+        MELEE = 0, // only doing melee attacks
         CASTER, // only casting spells
         HYBRID, //both able to do melee and spells
         ELITE, // Able to do magic damage and melee, while having the max amount of abilities
@@ -19,7 +19,7 @@
 
     public enum MobDmgTypes
     {
-        NONE,
+        NONE = 0,
         SHADOW,
         FROST,
         LIGHTNING,
@@ -30,7 +30,7 @@
 
     public enum MobClass
     {
-        NONE,
+        NONE = 0,
         WARRIOR,
         MAGE,
         ROGUE
@@ -38,14 +38,14 @@
 
     public enum MobClassTypeWarrior
     {
-        NONE,
+        NONE = 0,
         TANK,
         BERSKER        
     }
 
     public enum WarriorWpnType
     {
-        NONE,
+        NONE = 0,
         ONE_HANDED_SWORD,
         TWO_HANDED_SWORD,
         DUAL_WIELDED_SWORDS,
@@ -54,14 +54,14 @@
 
     public enum WarriorDmgTypes
     {
-        NONE,
+        NONE = 0,
         PHYSICAL,
         DARK,
     }
 
     public enum MobClassTypeMage
     {
-        NONE,
+        NONE = 0,
         CONTROLLER,
         HEAVYSINGLE,
         HEAVYAOE
@@ -69,7 +69,7 @@
 
     public enum MageWpnType
     {
-        NONE,
+        NONE = 0,
         STAFF,
         WAND,
         GRIMOIRE_WAND
@@ -77,7 +77,7 @@
 
     public enum MageDmgTypes
     {
-        NONE,
+        NONE = 0,
         SHADOW,
         FROST,
         LIGHTNING,
@@ -86,7 +86,7 @@
 
     public enum MobClassTypeRogue
     {
-        NONE,
+        NONE = 0,
         STEALTH,
         SPEED,
         TOXIN
@@ -94,7 +94,7 @@
 
     public enum RogueWpnType
     {
-        NONE,
+        NONE = 0,
         DAGGERS,
         THROWING_KNIVES,
         GRIMMOIRE_DAGGER
@@ -102,7 +102,7 @@
 
     public enum RogueDmgTypes
     {
-        NONE,
+        NONE = 0,
         TOXIN,
         DARK,
         SHADOW,

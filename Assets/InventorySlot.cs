@@ -1,9 +1,11 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
 
+
 public class InventorySlot : MonoBehaviour {
 
     public RawImage icon;
+    public int amount = 0;
     Item item;
 
 
@@ -11,6 +13,12 @@ public class InventorySlot : MonoBehaviour {
     {
 
         item = newItem;
+        if (item.isStackable)
+        {
+            //set text = amount
+            //check if item is already in that slot
+            amount += 1;
+        }
 
         if (item != null)
         {
@@ -33,7 +41,25 @@ public class InventorySlot : MonoBehaviour {
     {
         if (item != null)
         {
+            if (item.isStackable)
+            {
+                amount -= 1;
+                item.Use();
+            }
+
             item.Use();
         }
     }
+
+   /* public bool CheckIfitemIsInInventory (ItemManager item)
+    {
+        for (int i = 0; i < item.items.Count)
+        {
+            if (item.items[i].ItemName == item.name)
+            {
+                return true;
+            }
+        }
+        return false;
+    }*/
 }

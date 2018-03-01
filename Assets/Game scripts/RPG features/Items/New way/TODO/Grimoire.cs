@@ -6,6 +6,7 @@ public class Grimoire : Item {
 
     public enum typeOfGrimoire
     {
+        NONE = 0,
 
         // all the possible book names with the models i got
         BOOKOFEARTH, //Increase tankyness

@@ -47,6 +47,8 @@ public class ItemCreator : EditorWindow
             } else if (tempItem.TypeOfItem == ItemType.CONSUMABLE)
             {
                 tempItem.potionType = (Consumable.TypeOfPotion)EditorGUILayout.EnumPopup("Potion type", tempItem.potionType);
+                tempItem.isStackable = true;
+                tempItem.StackSize = 10;
             } else if(tempItem.TypeOfItem == ItemType.GRIMOIRE)
             {
                 tempItem.grimoireType = (Grimoire.typeOfGrimoire)EditorGUILayout.EnumPopup("Grimoire type", tempItem.grimoireType);

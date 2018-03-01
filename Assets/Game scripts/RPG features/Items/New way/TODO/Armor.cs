@@ -2,6 +2,7 @@
 public class Armor : Item {
     public enum TypeOfArmor
     {
+        NONE = 0,
         CHEST,
         BOOTS,
         PANTS,
