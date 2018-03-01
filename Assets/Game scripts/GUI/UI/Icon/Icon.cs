@@ -2,11 +2,11 @@
 
 [System.Serializable]
 public class Icon{
-    [SerializeField] Sprite image;
+    [SerializeField] Texture2D image;
     [SerializeField] string toolTip;
     [SerializeField] string description;
 
-    public Sprite Image
+    public Texture2D Image
     {
         get { return image; }
         set { image = value; }
