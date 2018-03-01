@@ -10,7 +10,6 @@ public class Weapon : Item {
         SWORD,
         SHIELD,
         WAND,
-        STAFF,
-        GRIMOIRE
+        STAFF
     }
 }

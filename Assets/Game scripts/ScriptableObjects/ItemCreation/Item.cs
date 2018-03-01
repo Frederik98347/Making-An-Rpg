@@ -1,42 +1,32 @@
 ﻿using UnityEngine;
-[System.Serializable]
+
 [CreateAssetMenu(fileName = "Create Item", menuName = "RpgTools/Inventory/Item")]
 public class Item : ScriptableObject{
-    [SerializeField] Texture2D icon;
-    [SerializeField] string itemName;
-    [SerializeField] string itemDescription;
+    [SerializeField] Texture2D image;
+    [SerializeField] string description;
     [SerializeField] ItemType itemType;
+    new string name;
+
+    // setting up
+    public Armor.TypeOfArmor armorType;
+    public Weapon.TypeOfWeapon weaponType;
+    public Consumable.TypeOfPotion potionType;
+    public Grimoire.typeOfGrimoire grimoireType;
+    public Jewelry.TypeOfJewelry jewlryType;
+    public ItemRarity Rarity;
+
+    public enum ItemRarity
+    {
+        COMMON, // common gear
+        RARE, //good gear
+        EPIC, // great gear
+        DEMONIC //Best gear & = legendary status
+    }
 
     public virtual void Use()
     {
         //use Item
-        Debug.Log("Using " + name);
-    }
-
-    public string Name
-    {
-        get
-        {
-            return itemName;
-        }
-
-        set
-        {
-            itemName = value;
-        }
-    }
-
-    public string Description
-    {
-        get
-        {
-            return itemDescription;
-        }
-
-        set
-        {
-            itemDescription = value;
-        }
+        Debug.Log("Using " + ItemName);
     }
 
     public ItemType TypeOfItem
@@ -52,16 +42,42 @@ public class Item : ScriptableObject{
         }
     }
 
-    public Texture2D Icon
+    public string ItemName
     {
         get
         {
-            return icon;
+            return name;
         }
 
         set
         {
-            icon = value;
+            name = value;
+        }
+    }
+
+    public Texture2D Image
+    {
+        get
+        {
+            return image;
+        }
+
+        set
+        {
+            image = value;
+        }
+    }
+
+    public string Description
+    {
+        get
+        {
+            return description;
+        }
+
+        set
+        {
+            description = value;
         }
     }
 }

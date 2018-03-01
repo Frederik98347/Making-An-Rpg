@@ -5,6 +5,5 @@
     JEWELRY,
     CONSUMABLE,
     QUESTITEM,
-    SEAL,
     GRIMOIRE
 }

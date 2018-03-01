@@ -21,18 +21,18 @@ public class ItemManager : MonoBehaviour {
 
     public int space = 20;
 
-    public List<Item> itemList = new List<Item>();
+    public List<Item> items = new List<Item>();
 
     public bool Add (Item item)
     {
 
-        if (itemList.Count >= space)
+        if (items.Count >= space)
         {
             Debug.Log("Not enough Room in inventory.");
             return false;
         }
 
-        itemList.Add(item);
+        items.Add(item);
         if (onItemChangedCallback != null)
         {
             onItemChangedCallback.Invoke();
@@ -42,7 +42,7 @@ public class ItemManager : MonoBehaviour {
 
     public void Remove (Item item)
     {
-        itemList.Remove(item);
+        items.Remove(item);
 
         if (onItemChangedCallback != null)
         {

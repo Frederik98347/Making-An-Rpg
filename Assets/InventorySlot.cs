@@ -14,7 +14,7 @@ public class InventorySlot : MonoBehaviour {
 
         if (item != null)
         {
-            icon.texture = item.Icon;
+            icon.texture = item.Image;
             icon.enabled = true;
         }
     }
