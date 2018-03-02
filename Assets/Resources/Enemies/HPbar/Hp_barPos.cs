@@ -27,6 +27,11 @@ public class Hp_barPos : MonoBehaviour
         {
             Debug.LogWarning("Couldnt Find CharacterHealthsystem!");
         }
+
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
     }
 
     // Update is called once per frame

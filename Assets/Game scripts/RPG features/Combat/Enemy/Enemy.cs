@@ -49,10 +49,12 @@ public class Enemy : MonoBehaviour {
 
 	float AttackcurTime = 0.0f;
     int enemyDefense;
+    public int[] stats;
 
     [SerializeField] int EnemyLevel;
     [SerializeField] int exptogive;
-    int health;
+    public CharacterHealthsytem healthsystem;
+    float health;
     float attackspeed;
     float AttackRange;
     float movementspeed;
@@ -60,10 +62,6 @@ public class Enemy : MonoBehaviour {
     float detectionRange;
     Texture2D enemyIcon;
     string toolTip;
-    int Resistance;
-    string enemyClass;
-    int endurance;
-    string mobRarity;
 
     //way point patrol
     public State state = State.Idle;
@@ -102,49 +100,29 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    public string EnemyClass
+    public float Health
     {
         get
         {
-            return enemyClass;
+            return health;
         }
 
         set
         {
-            enemyClass = value;
-        }
-    }
-
-    public int Endurance
-    {
-        get
-        {
-            return endurance;
-        }
-
-        set
-        {
-            endurance = value;
-        }
-    }
-
-    public string MobRarity
-    {
-        get
-        {
-            return mobRarity;
-        }
-
-        set
-        {
-            mobRarity = value;
+            health = value;
         }
     }
 
     // Use this for initialization
     void Start () {
-		anim = GetComponent<Animator> ();
+        stats = new int[12];
+        anim = GetComponent<Animator> ();
 		Audio = GetComponent<AudioSource> ();
+        if (healthsystem == null)
+        {
+            healthsystem = transform.GetComponent<CharacterHealthsytem>();
+        }
+        
 
 		//Aiconfig variables
 		if (_enemyInfo) {
@@ -152,30 +130,57 @@ public class Enemy : MonoBehaviour {
             toolTip = _enemyInfo.ToolTip;
             outofrangeTimer = _enemyInfo.OutofrangeTimer;
             walkingspeed = _enemyInfo.WalkingSpeed;
-            enemyDefense = _enemyInfo.EnemyDefense;
             AttackRange = _enemyInfo.AttackRange;
 			EnemyLevel = _enemyInfo.EnemyLevel;
-			exptogive = _enemyInfo.Exptogive;
-			health = _enemyInfo.EnemyHP;
+			Health = stats[1];
+            exptogive = stats[11];
 			attackspeed = _enemyInfo.AttackSpeed;
 			movementspeed = _enemyInfo.MovementSpeed;
 			detectionRange = _enemyInfo.DetectionRange;
 
-			Mindamage = _enemyInfo.MinAutoDamage;
-			MaxDamage = _enemyInfo.MaxAutoDamage;
-            Resistance = _enemyInfo.EnemyResistance;
-            Endurance = _enemyInfo.Endurance;
-
-            EnemyClass = _enemyInfo.mobClass.ToString();
-            MobRarity = _enemyInfo.mobRarity.ToString();
-
+            stats[0] = _enemyInfo.EnemyDefense;
+            stats[1] = _enemyInfo.EnemyHP;
+            stats[2] = _enemyInfo.Endurance;
+            stats[3] = _enemyInfo.EnemyResistance;
+            stats[4] = _enemyInfo.Agility;
+            stats[5] = _enemyInfo.Strength;
+            stats[6] = _enemyInfo.Stamina;
+            stats[7] = _enemyInfo.Intellect;
+            stats[8] = _enemyInfo.Haste;
+            stats[9] = _enemyInfo.MinAutoDamage;
+            stats[10] = _enemyInfo.MaxAutoDamage;
+            Mindamage = stats[9];
+            MaxDamage = stats[10];
+            stats[11] = _enemyInfo.Exptogive;
 		}
+
+        if (Player == null)
+        {
+            Player = GameObject.FindObjectOfType<Player>().GetComponent<Player>();
+            if (player == null)
+            {
+                player = Player.transform;
+            }
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (AttackcurTime < attackspeed && TargetSeen == true && Vector3.Distance(transform.position, this.player.position) < AttackRange * attackRangeMulti)
+		Chase ();
+        if (waypoints != null)
+        {
+            Patrolling();
+        }
+        IsEnemyDead ();
+        StartCoroutine(EnemySounds());
+
+        Idle();
+    }
+
+    void InRangeForAttack()
+    {
+        if (AttackcurTime < attackspeed && TargetSeen == true && Vector3.Distance(transform.position, this.player.transform.position) < AttackRange * attackRangeMulti)
         {
             AttackcurTime += Time.deltaTime;
             //count up
@@ -185,19 +190,16 @@ public class Enemy : MonoBehaviour {
                 AttackcurTime = 0;
             }
         }
-
-		Chase ();
-        Patrolling();
-        IsEnemyDead ();
-        StartCoroutine(EnemySounds());
-
-        Idle();
     }
 
     void Patrolling()
     {
-        if (state == State.Patrol && waypoints.Length > 0)
+        // bug here, object not set to error, but everything works
+        if (waypoints.Length != 0 && accuracyWP != 0)
         {
+
+            if (state == State.Patrol && waypoints.Length > 0)
+            {
                 anim.SetBool("isIdle", false);
                 anim.SetBool("isRunning", false);
                 anim.SetBool("isWalking", true);
@@ -205,24 +207,26 @@ public class Enemy : MonoBehaviour {
                 anim.SetBool("isDead", false);
 
 
-            if (Vector3.Distance(waypoints[currentWP].transform.position, this.transform.position) < accuracyWP)
-            {
-                currentWP++;
-
-                if (currentWP >= waypoints.Length)
+                if (Vector3.Distance(waypoints[currentWP].gameObject.transform.position, transform.position) < accuracyWP)
                 {
-                    currentWP = 0;
-                }
-            }
+                    currentWP++;
 
-            //rotate and move towards waypoint
-                Vector3 direction = waypoints[currentWP].transform.position - this.transform.position;
+                    if (currentWP >= waypoints.Length)
+                    {
+                        currentWP = 0;
+                    }
+                }
+
+                //rotate and move towards waypoint
+                Vector3 direction = waypoints[currentWP].transform.position - transform.position;
                 direction.y = 0;
-                this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
-                this.transform.Translate(0, 0, walkingspeed * Time.deltaTime);
-        } else if(waypoints.Length == 0)
-        {
-            state = State.Idle;
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
+                transform.Translate(0, 0, walkingspeed * Time.deltaTime);
+            }
+            else if (waypoints.Length == 0)
+            {
+                state = State.Idle;
+            }
         }
     }
 
@@ -244,8 +248,11 @@ public class Enemy : MonoBehaviour {
             if (timeBeforeStateChange <= 0)
             {
                 timeBeforeStateChange = 0;
-                state = State.Patrol;
-                Patrolling();
+                if (waypoints != null)
+                {
+                    state = State.Patrol;
+                    Patrolling();
+                }
             }
 
         }
@@ -305,6 +312,7 @@ public class Enemy : MonoBehaviour {
             {
                 //attack
                 state = State.Attacking;
+                InRangeForAttack();
                 anim.SetBool("isDead", false);
                 anim.SetBool("isAttacking", true);
                 anim.SetBool("isRunning", false);
@@ -362,7 +370,7 @@ public class Enemy : MonoBehaviour {
             Audio.volume = Random.Range(.55f, 1f);
             Audio.pitch = Random.Range(.75f, 1f);
             Audio.PlayOneShot(runSound);
-            yield return new WaitForSeconds(Audio.clip.length / 2);
+            yield return new WaitForSeconds(Audio.clip.length);
 			//Audio.Stop(runSound);
 		}
 
@@ -372,57 +380,73 @@ public class Enemy : MonoBehaviour {
             Audio.volume = Random.Range(.6f, 1f);
             Audio.pitch = Random.Range(.8f, 1f);
             Audio.PlayOneShot(walkSound);
-            yield return new WaitForSeconds(Audio.clip.length / 2);
+            yield return new WaitForSeconds(Audio.clip.length);
             //Audio.Stop(runSound);
         }
     }
 
 	public void GetHit (int damage) {
-
-        transform.GetComponent<CharacterHealthsytem>().GetHit(damage);
-		if (transform.GetComponent<CharacterHealthsytem>().IsDead == true) {
+        //deal damage
+        healthsystem.GetHit(damage);
+        // checking if this transform is dead
+		if (healthsystem.IsDead) {
             //enemy is dead
             state = State.Dead;
 
             if (player.GetComponent<Experience>())
             {
                 //send exp to player here
-                player.GetComponent<Experience>().GainExp(exptogive);
+                Debug.Log(stats[12]);
+                player.GetComponent<Experience>().GainExp(stats[12]);
             }
         }
 	}
 
 	void EnemyPowerAndLevel () {
-		if (_enemyInfo.mobRarity.ToString() == "ELITE") {
-			health = (health) * (EnemyLevel * 2);
-			exptogive = exptogive + exptogive;
+        //Check what class enemy is, give bonus to certain class specific skills or passivs
+		if (_enemyInfo.mobRarity == EnemyTypes.MobRarity.RARE) {
 
-			//mob damage
-			Mindamage = Mindamage*(EnemyLevel+(2-1));
-			MaxDamage = MaxDamage*(EnemyLevel+(2-1));
-			damage  = Random.Range(Mindamage, MaxDamage);
+            int rareMultiplier = (int)(1.3f * EnemyLevel);
 
-			//defensive attributes
-			enemyDefense = enemyDefense + (enemyDefense + EnemyLevel);
-            Resistance += EnemyLevel*EnemyLevel-1;
-            Endurance += EnemyLevel*EnemyLevel-1;
+            foreach (int value in stats)
+            {
+                rareMultiplier *= value;
+            }
 
-        } else if (_enemyInfo.mobRarity.ToString() == "COMMON") {
-			health = (health) * EnemyLevel;
+        } else if (_enemyInfo.mobRarity == EnemyTypes.MobRarity.COMMON) {
+            float commonMultiplier = (1.0f);
 
-			//mob damage
-			Mindamage = Mindamage*(EnemyLevel);
-			MaxDamage = MaxDamage*(EnemyLevel);
-			damage  = Random.Range(Mindamage, MaxDamage);
-		}
+            foreach (int value in stats)
+            {
+                commonMultiplier = (int)commonMultiplier * (value + EnemyLevel);
+            }
+        } else if (_enemyInfo.mobRarity == EnemyTypes.MobRarity.EPIC)
+        {
+            float epicMultiplier = (1.6f);
+
+            foreach (int value in stats)
+            {
+                epicMultiplier = (int)epicMultiplier * (value + EnemyLevel);
+            }
+        } else if (_enemyInfo.mobRarity == EnemyTypes.MobRarity.DEMONIC)
+        {
+            float demonicMultiplier = (2f);
+
+            foreach (int value in stats)
+            {
+                demonicMultiplier = (int)demonicMultiplier * (value + EnemyLevel);
+            }
+        }
 	}
 
 	void Attack () {
 		EnemyPowerAndLevel ();
 
-		if (this.player.GetComponent<CharacterHealthsytem> ().IsDead == false && TargetSeen == true) {
+		if (TargetSeen == true) {
             state = State.Attacking;
-			this.player.transform.GetComponent<CharacterHealthsytem>().GetHit (damage);
+            damage = Random.Range(Mindamage, MaxDamage+1);
+            Debug.Log("damage");
+            Player.healthsystem.GetHit(damage);
 
 		} else {
             //dont attack and move away from

@@ -6,19 +6,21 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour{
     //GUI
     [SerializeField] Interactable focus;
-    [SerializeField] CharacterHealthsytem healthsystem;
+    public CharacterHealthsytem healthsystem;
     [SerializeField] Enemy enemyScript;
     [SerializeField] UserMovement usermovement;
     BasePlayer basePlayer;
     //CreateNewCharacter character;
-   // public int _characterIndex;
+    // public int _characterIndex;
 
     //tooltip GUI
+    public State state;
     public bool hoverOverActive;
     public string hoverName;
     public GameObject selectedUnit;
     public string Playername;
     public string Playerclass;
+    float health = 20f;
 
     // auto attack timer
     public bool autoAttacking = false;
@@ -56,6 +58,19 @@ public class Player : MonoBehaviour{
         }
     }
 
+    public float Health
+    {
+        get
+        {
+            return health;
+        }
+
+        set
+        {
+            health = value;
+        }
+    }
+
     // Use this for initialization
     void Start() {
         if (basePlayer != null)
@@ -68,11 +83,15 @@ public class Player : MonoBehaviour{
         {
             AutoattackRange = focus.radius;
         }
+
+        if (healthsystem == null)
+        {
+            healthsystem = transform.GetComponent<CharacterHealthsytem>();
+        }
     }
 
     // Update is called once per frame
     void Update() {
-
         OnMouseEnter();
         if (selectedUnit != null)
         {
@@ -206,37 +225,37 @@ public class Player : MonoBehaviour{
         }
 	}
 
-    /*
-    public void GetHit (int enemyDamage) {
+    public void GetHit(int damage)
+    {
 
-		health = health - enemyDamage;
-		Debug.Log ("Playerhp: " + health);
+        healthsystem.GetHit(damage);
+        if (transform.GetComponent<CharacterHealthsytem>().IsDead == true)
+        {
+            //Player is dead
+            state = State.DEAD;
+        }
+    }
 
-		if (health <= 0) {
-			//player is dead
-			isDead = true;
-			Debug.Log("Player is dead");
-			health = 0;
-		}
-	}
-    */
-	/*void Isdead() {
-		if (isDead == true) {
+    public enum State
+    {
+        Alive = 0,
+        DEAD,
+        COMBAT
+    }
+
+    void Isdead() {
+		while (state == State.DEAD) {
 			float Speed = usermovement.runSpeed;
 
 			Speed = (Speed + Speed)*1.2f;
 			canAttack = false;
+            enemyScript.TargetSeen = false;
+            enemyScript._enemyInfo.DetectionRange = 0.0f;
+            enemyScript.OutofrangeTimer = 0.0f;
+            enemyScript.state = Enemy.State.Patrol;
 
-			//making sure enemies cant attack or see you
-			while (isDead == true) {
-				enemyScript.TargetSeen = false;
-				enemyScript._enemyInfo.DetectionRange = 0.0f;
-				enemyScript.OutofrangeTimer = 0.0f;
-                enemyScript.state = "patrol";
-                
-			}
-
-            //Destroy(this.gameObject, 2.0f);
 		}
-	}*/
+
+        //Destroy(this.gameObject, 2.0f);
+    }
 }

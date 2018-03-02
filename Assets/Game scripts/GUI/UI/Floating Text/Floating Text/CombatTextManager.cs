@@ -37,7 +37,7 @@ public class CombatTextManager : MonoBehaviour {
     {
         if (isDamage && TextPrefabDamage != null)
         {
-            GameObject sct = (GameObject)Instantiate(TextPrefabDamage, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
+            GameObject sct = Instantiate(TextPrefabDamage, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
             sct.GetComponent<TextMeshPro>().text = text;
 
             sct.transform.SetParent(canvasTransform, false);
@@ -46,29 +46,32 @@ public class CombatTextManager : MonoBehaviour {
 
         if (isHeal && TextPrefabHeal != null)
         {
-            GameObject sct = (GameObject)Instantiate(TextPrefabHeal, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
+            GameObject sct = Instantiate(TextPrefabHeal, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
             sct.GetComponent<TextMeshPro>().text = text;
 
             sct.transform.SetParent(canvasTransform, false);
             SetUp(sct);
+            return;
         }
 
         if (isAuto && TextPrefabAuto != null)
         {
-            GameObject sct = (GameObject)Instantiate(TextPrefabAuto, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
+            GameObject sct = Instantiate(TextPrefabAuto, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
             sct.GetComponent<TextMeshPro>().text = text;
 
             sct.transform.SetParent(canvasTransform, false);
             SetUp(sct);
+            return;
         }
 
         if (isAbility && TextPrefabAbility != null)
         {
-            GameObject sct = (GameObject)Instantiate(TextPrefabAbility, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
+            GameObject sct = Instantiate(TextPrefabAbility, new Vector3(pos.x + (Random.Range(-offsetX, offsetX)), pos.y + offsetY, pos.z), Quaternion.identity) as GameObject;
             sct.GetComponent<TextMeshPro>().text = text;
 
             sct.transform.SetParent(canvasTransform, false);
             SetUp(sct);
+            return;
         }
     }
 

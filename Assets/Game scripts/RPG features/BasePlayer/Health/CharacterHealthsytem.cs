@@ -15,6 +15,7 @@ public class CharacterHealthsytem : MonoBehaviour {
     string hpLost;
     bool isDead;
     public bool showText = true;
+    public bool IsEnemy = true;
 
     public TMP_Text HpBarText;
     [SerializeField] bool isPercentageHp;
@@ -117,7 +118,13 @@ public class CharacterHealthsytem : MonoBehaviour {
 
     void Start()
     {
-        MaxHealth = 20f;
+        if (IsEnemy)
+        {
+            MaxHealth = GetComponent<Enemy>().Health;
+        }else if(!IsEnemy)
+        {
+            MaxHealth = GetComponent<Player>().Health;
+        }
         // Rests health to full on game load
         CurrentHealth = MaxHealth;
 
@@ -155,7 +162,6 @@ public class CharacterHealthsytem : MonoBehaviour {
 
         CurrentHealth -= damageValue;
         healthBar.value = CalculateHealth();
-        //HpLost = "Health -" + damageValue;
 
         if (HpBarText != null)
         {

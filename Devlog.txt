@@ -21,4 +21,4 @@ Enemy to take damage again with the new healthsystem (notdone)
 Focus points:
 - Object pooling (made one, else look on asset store)
 - inventory system (make items stackable, make consumable items able to be used and remove 1 item from stack)
-- floating text position fix
+- floating text position fix ( now bugged, instaniates 4x of 1 object pr damage / heal)
