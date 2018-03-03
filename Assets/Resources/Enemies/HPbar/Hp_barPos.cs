@@ -13,24 +13,15 @@ public class Hp_barPos : MonoBehaviour
     [Range(1f, 10f)]
     public float HpbarFadeRange = 8f;
     [Tooltip("Canvas to disable")]
-    [SerializeField] Canvas canvas;
+    public Canvas canvas;
 
     private void Start()
     {
         canvas.gameObject.SetActive(false);
 
-        if (healthSystem != null)
-        {
-            healthSystem.healthBar.value = healthSystem.CalculateHealth();
-        }
-        else
-        {
-            Debug.LogWarning("Couldnt Find CharacterHealthsystem!");
-        }
-
         if (player == null)
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            player = FindObjectOfType<Player>().transform;
         }
     }
 

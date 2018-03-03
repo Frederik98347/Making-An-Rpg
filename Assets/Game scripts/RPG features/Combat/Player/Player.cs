@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour{
     //GUI
     [SerializeField] Interactable focus;
-    public CharacterHealthsytem healthsystem;
+    CharacterHealthsytem healthsystem;
     [SerializeField] Enemy enemyScript;
     [SerializeField] UserMovement usermovement;
     BasePlayer basePlayer;
@@ -15,8 +14,6 @@ public class Player : MonoBehaviour{
 
     //tooltip GUI
     public State state;
-    public bool hoverOverActive;
-    public string hoverName;
     public GameObject selectedUnit;
     public string Playername;
     public string Playerclass;
@@ -24,10 +21,8 @@ public class Player : MonoBehaviour{
 
     // auto attack timer
     public bool autoAttacking = false;
-    public float autoAttackcurTime;
+    float autoAttackcurTime;
     public float autoAttackCD = 1.8f;
-    [Range(0.1f,3f)]
-    public float attackRangeMulti = .8f;
 
     //stats
     private int MinDamage = 1;
@@ -35,10 +30,12 @@ public class Player : MonoBehaviour{
 
     //bools to check enemy location
     public bool behindEnemy = false;
-    public bool canAttack = false;
+    bool canAttack = false;
 
     private int autoattackDamage;
-    private float autoattackRange;
+    private float autoattackRange = 3f;
+    private float CombatCounter;
+    private float CombatTime = 10f;
 
     public int AutoAttackDamage {
         get { return autoattackDamage; }
@@ -86,7 +83,7 @@ public class Player : MonoBehaviour{
 
         if (healthsystem == null)
         {
-            healthsystem = transform.GetComponent<CharacterHealthsytem>();
+            healthsystem = GetComponent<CharacterHealthsytem>();
         }
     }
 
@@ -99,11 +96,10 @@ public class Player : MonoBehaviour{
         }
 
         //if dead 
-        //Isdead(); // doesnt work
+        Isdead(); // doesnt work
     }
 
     void OnMouseEnter() {
-
         if (Input.GetKeyDown(KeyCode.Escape)) {
             autoAttacking = false;
             autoAttackcurTime = 0;
@@ -116,7 +112,7 @@ public class Player : MonoBehaviour{
             SelectselectedUnit();
             int i = 0;
             i = i + 1;
-            if (i == 2) {
+            if (i == 2 && state != State.DEAD) {
                 autoAttacking = true;
                 i = 0;
             }
@@ -124,7 +120,31 @@ public class Player : MonoBehaviour{
 
         } else if (Input.GetMouseButtonDown(1)) {
             SelectselectedUnit();
-            autoAttacking = true;
+            if (state != State.DEAD)
+            {
+                autoAttacking = true;
+            }
+        }
+    }
+
+    void GettingOutOfCombat()
+    {
+        if (state == State.COMBAT)
+        {
+            if (selectedUnit == null)
+            {
+                if (CombatCounter < CombatTime)
+                {
+                    //count up
+                    CombatCounter += Time.deltaTime;
+
+                }
+                else
+                {
+                    state = State.Alive;
+                    CombatCounter = 0;
+                }
+            }
         }
     }
 
@@ -177,62 +197,75 @@ public class Player : MonoBehaviour{
         autoAttacking = false;
         behindEnemy = false;
     }
+
 	void AutoAttack() {
-		if (selectedUnit != null && focus != null) {
-            if (focus != selectedUnit)
+        if (state != State.DEAD)
+        {
+            if (selectedUnit != null && focus != null)
             {
-                focus.OnDefocused();
-            }
-			//Vectors
-			Vector3 direction = selectedUnit.transform.position - this.transform.position;
-			float angle = Vector3.Angle (direction, this.transform.forward);
-
-			if (angle > 90.0f) {
-
-				canAttack = false;
-			} else {
-
-				canAttack = true;
-			}
-
-			if (Vector3.Dot (direction, selectedUnit.transform.forward) < 0) {
-				behindEnemy = false;
-
-			} else {
-				behindEnemy = true;
-			}
-
-            if (canAttack == true && autoAttacking == true && enemyScript.state != Enemy.State.Dead && Vector3.Distance(this.transform.position, selectedUnit.transform.position) < AutoattackRange * attackRangeMulti)
-            {
-                autoAttackcurTime += Time.deltaTime;
-                //count up
-
-                if (autoAttackcurTime >= autoAttackCD)
+                if (focus != selectedUnit)
                 {
-                    // no cd on autoattack
-                    AutoAttackDamage = Random.Range(MinDamage, MaxDamage);
-                    enemyScript.GetHit(AutoAttackDamage);
-                    autoAttacking = true;
-                    autoAttackcurTime = 0;
+                    focus.OnDefocused();
                 }
-            }
-            else if (Vector3.Distance(this.transform.position, selectedUnit.transform.position) > AutoattackRange * attackRangeMulti)
-            {
-                autoAttacking = false;
-                autoAttackcurTime = 0;
-                Debug.Log("Out of Range");
+                //Vectors
+                Vector3 direction = selectedUnit.transform.position - this.transform.position;
+                float angle = Vector3.Angle(direction, this.transform.forward);
+
+                if (angle > 90.0f)
+                {
+
+                    canAttack = false;
+                }
+                else
+                {
+
+                    canAttack = true;
+                }
+
+                if (Vector3.Dot(direction, selectedUnit.transform.forward) < 0)
+                {
+                    behindEnemy = false;
+
+                }
+                else
+                {
+                    behindEnemy = true;
+                }
+
+                if (canAttack == true && autoAttacking == true && enemyScript.state != Enemy.State.Dead && Vector3.Distance(this.transform.position, selectedUnit.transform.position) < AutoattackRange)
+                {
+                    state = State.COMBAT;
+                    autoAttackcurTime += Time.deltaTime;
+                    //count up
+
+                    if (autoAttackcurTime >= autoAttackCD)
+                    {
+                        // no cd on autoattack
+                        AutoAttackDamage = Random.Range(MinDamage, MaxDamage);
+                        Debug.Log(AutoAttackDamage);
+                        enemyScript.GetHit(AutoAttackDamage);
+                        autoAttackcurTime = 0;
+                    }
+                }
+                else if (Vector3.Distance(transform.position, selectedUnit.transform.position) > AutoattackRange)
+                {
+                    autoAttacking = false;
+                    autoAttackcurTime = 0;
+                    Debug.Log("Out of Range");
+                }
             }
         }
 	}
 
     public void GetHit(int damage)
     {
-
-        healthsystem.GetHit(damage);
-        if (transform.GetComponent<CharacterHealthsytem>().IsDead == true)
+        if (healthsystem.IsDead == true)
         {
             //Player is dead
             state = State.DEAD;
+        } else
+        {
+            healthsystem.GetHit(damage);
         }
     }
 
@@ -244,15 +277,19 @@ public class Player : MonoBehaviour{
     }
 
     void Isdead() {
-		while (state == State.DEAD) {
+		if (state == State.DEAD) {
 			float Speed = usermovement.runSpeed;
 
 			Speed = (Speed + Speed)*1.2f;
 			canAttack = false;
-            enemyScript.TargetSeen = false;
-            enemyScript._enemyInfo.DetectionRange = 0.0f;
-            enemyScript.OutofrangeTimer = 0.0f;
-            enemyScript.state = Enemy.State.Patrol;
+            autoAttacking = false;
+            if (enemyScript != null)
+            {
+                enemyScript.TargetSeen = false;
+                enemyScript._enemyInfo.DetectionRange = 0.0f;
+                enemyScript.OutofrangeTimer = 0.0f;
+                enemyScript.state = Enemy.State.Patrol;
+            }
 
 		}
 

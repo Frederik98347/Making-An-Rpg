@@ -7,15 +7,14 @@ using UnityEngine.UI;
 /// </summary>
 public class CharacterHealthsytem : MonoBehaviour {
 
-    float currentHealth;
-    float maxHealth;
+   [SerializeField] float currentHealth;
+   [SerializeField] float maxHealth;
     float percentageHealth;
     string outofHP;
     string hpGained;
     string hpLost;
     bool isDead;
     public bool showText = true;
-    public bool IsEnemy = true;
 
     public TMP_Text HpBarText;
     [SerializeField] bool isPercentageHp;
@@ -118,24 +117,10 @@ public class CharacterHealthsytem : MonoBehaviour {
 
     void Start()
     {
-        if (IsEnemy)
-        {
-            MaxHealth = GetComponent<Enemy>().Health;
-        }else if(!IsEnemy)
-        {
-            MaxHealth = GetComponent<Player>().Health;
-        }
+        MaxHealth = GetComponent<Player>().Health;
         // Rests health to full on game load
         CurrentHealth = MaxHealth;
-
-        //setting healthbar value = our healthcalculation
-        if (healthBar != null)
-        {
-            healthBar.value = CalculateHealth();
-        } else
-        {
-            Debug.LogWarning("Couldnt Find slide object on: " + gameObject.name + "");
-        }
+        healthBar.value = CalculateHealth();
 
         if (HpBarText != null)
         {
@@ -163,16 +148,12 @@ public class CharacterHealthsytem : MonoBehaviour {
         CurrentHealth -= damageValue;
         healthBar.value = CalculateHealth();
 
-        if (HpBarText != null)
-        {
-            ShowText();
-        }
-
         //making sure health cant go below 0%
 
         if (CurrentHealth <= 0)
         {
             Die();
+            IsDead = true;
         } else
         {
             IsDead = false;
@@ -181,13 +162,9 @@ public class CharacterHealthsytem : MonoBehaviour {
 
     public void GetHealth(int healValue)
     {
+        if (!isDead)
         //Deduct the damage deatlh from the character's health
         CombatTextManager.Instance.CreateText(transform.position, false, true, false, false, healValue.ToString());
-
-        if (HpBarText != null)
-        {
-            ShowText();
-        }
 
         CurrentHealth += healValue;
         healthBar.value = CalculateHealth();
