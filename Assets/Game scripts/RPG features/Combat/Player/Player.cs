@@ -3,6 +3,8 @@
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour{
+
+    #region Variables
     //GUI
     [SerializeField] Interactable focus;
     CharacterHealthsytem healthsystem;
@@ -67,6 +69,7 @@ public class Player : MonoBehaviour{
             health = value;
         }
     }
+    #endregion
 
     // Use this for initialization
     void Start() {
@@ -107,7 +110,6 @@ public class Player : MonoBehaviour{
             canAttack = false;
             print("DESELECT");
         }
-
         if (Input.GetMouseButton(0)) {
             SelectselectedUnit();
             int i = 0;
@@ -131,18 +133,32 @@ public class Player : MonoBehaviour{
     {
         if (state == State.COMBAT)
         {
-            if (selectedUnit == null)
+            if (CombatCounter < CombatTime)
             {
-                if (CombatCounter < CombatTime)
-                {
-                    //count up
-                    CombatCounter += Time.deltaTime;
+                //count up
+                CombatCounter += Time.deltaTime;
 
-                }
-                else
+            }
+            else
+            {
+                state = State.Alive;
+                CombatCounter = 0;
+                HPregain();
+            }
+        }
+    }
+
+    void HPregain()
+    {
+        if (state == State.Alive)
+        {
+            if (healthsystem.CurrentHealth < healthsystem.MaxHealth)
+            {
+                healthsystem.CurrentHealth += (int)(0.05f * healthsystem.MaxHealth) * Time.deltaTime;
+
+                if (healthsystem.CurrentHealth >= healthsystem.MaxHealth)
                 {
-                    state = State.Alive;
-                    CombatCounter = 0;
+                    healthsystem.CurrentHealth = healthsystem.MaxHealth;
                 }
             }
         }
@@ -241,17 +257,18 @@ public class Player : MonoBehaviour{
                     if (autoAttackcurTime >= autoAttackCD)
                     {
                         // no cd on autoattack
-                        AutoAttackDamage = Random.Range(MinDamage, MaxDamage);
-                        Debug.Log(AutoAttackDamage);
-                        enemyScript.GetHit(AutoAttackDamage);
+                        DoAutoDamage();
                         autoAttackcurTime = 0;
                     }
                 }
                 else if (Vector3.Distance(transform.position, selectedUnit.transform.position) > AutoattackRange)
                 {
                     autoAttacking = false;
+                    canAttack = false;
                     autoAttackcurTime = 0;
-                    Debug.Log("Out of Range");
+
+                    // Check if no enemies is around and then run the script
+                    GettingOutOfCombat();
                 }
             }
         }
@@ -267,6 +284,12 @@ public class Player : MonoBehaviour{
         {
             healthsystem.GetHit(damage);
         }
+    }
+
+    void DoAutoDamage()
+    {
+        AutoAttackDamage = Random.Range(MinDamage, MaxDamage);
+        enemyScript.GetHit(AutoAttackDamage);
     }
 
     public enum State

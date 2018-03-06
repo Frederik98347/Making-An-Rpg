@@ -180,7 +180,7 @@ public class Enemy : MonoBehaviour {
 
         if (Player == null)
         {
-            Player = GameObject.FindObjectOfType<Player>().GetComponent<Player>();
+            Player = FindObjectOfType<Player>().GetComponent<Player>();
             if (player == null)
             {
                 player = Player.transform;
@@ -439,6 +439,8 @@ public class Enemy : MonoBehaviour {
     }
 
 	public void GetHit (int damage) {
+        CombatTextManager.Instance.CreateText(transform.position, false, false, true, false, damage.ToString());
+
         //deal damage
         CurrentHealth -= damage;
         HealthBar.value = CalculateHealth();
@@ -454,6 +456,7 @@ public class Enemy : MonoBehaviour {
 
     public void GetHealth(int healValue)
     {
+        CombatTextManager.Instance.CreateText(transform.position, true, false, false, false, healValue.ToString());
         CurrentHealth += healValue;
         HealthBar.value = CalculateHealth();
         //Enemy healing spells can work now

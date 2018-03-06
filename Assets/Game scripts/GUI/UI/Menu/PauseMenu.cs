@@ -7,12 +7,18 @@ public class PauseMenu : MonoBehaviour {
     
     public GameObject PauseMenuUI;
     [SerializeField] UserCamera cam;
+    Player player;
 
     public string StartMenu = "StartMenu";
 
+    private void Start()
+    {
+        player = FindObjectOfType<Player>();
+    }
+
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && player.autoAttacking == false)
         {
             if (GameIsPaused)
             {
