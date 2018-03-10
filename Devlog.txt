@@ -16,7 +16,8 @@ floating text (Almost done, just need to offset position so numbers dont fly ove
 More Cursor textures (Default is set, missing enemy cursor and vendor cursor / possible find out how to set outline on objets depending on what tag it has, enemy = red and so on)
 Enemy states redo (done)
 
-Enemy to take damage again with the new healthsystem (notdone)
+Enemy to take damage again with the new healthsystem (done)
+Navmesh to collision avoid + more (not started)
 
 Focus points:
 - Object pooling (made one, else look on asset store)

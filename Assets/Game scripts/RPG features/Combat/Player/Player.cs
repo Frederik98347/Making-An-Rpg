@@ -100,6 +100,8 @@ public class Player : MonoBehaviour{
 
         //if dead 
         Isdead(); // doesnt work
+
+        HPregain();
     }
 
     void OnMouseEnter() {
@@ -143,7 +145,6 @@ public class Player : MonoBehaviour{
             {
                 state = State.Alive;
                 CombatCounter = 0;
-                HPregain();
             }
         }
     }
@@ -154,7 +155,7 @@ public class Player : MonoBehaviour{
         {
             if (healthsystem.CurrentHealth < healthsystem.MaxHealth)
             {
-                healthsystem.CurrentHealth += (int)(0.05f * healthsystem.MaxHealth) * Time.deltaTime;
+                healthsystem.CurrentHealth += (int)(0.05f * healthsystem.MaxHealth* Time.deltaTime);
 
                 if (healthsystem.CurrentHealth >= healthsystem.MaxHealth)
                 {

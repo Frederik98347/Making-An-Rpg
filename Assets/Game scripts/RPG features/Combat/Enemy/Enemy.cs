@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour {
 
     bool targetSeen = false;
 	[SerializeField] float behind_detectionRange = 4f;
-    float outofrangeTimer;
+    [SerializeField] float outofrangeTimer;
     [SerializeField] float offsetSpawnPoint = 2f;
     [SerializeField] Transform spawnPoint;
 
@@ -36,9 +36,10 @@ public class Enemy : MonoBehaviour {
 
 	// animations
 	private Animator anim;
+    Animation Anim;
 
-	//audio
-	public AudioClip AttackSound;
+    //audio
+    public AudioClip AttackSound;
 	public AudioClip runSound;
 	public AudioClip deathSound;
     public AudioClip walkSound;
@@ -58,7 +59,7 @@ public class Enemy : MonoBehaviour {
     [SerializeField] int EnemyLevel;
     [SerializeField] int exptogive;
     float attackspeed;
-    float AttackRange;
+    [SerializeField] float AttackRange;
     float movementspeed;
     float walkingspeed;
     float detectionRange;
@@ -85,6 +86,7 @@ public class Enemy : MonoBehaviour {
 
     float currentHealth;
     float maxHealth;
+    private float baseoutofrangeTimer;
 
     public bool TargetSeen
     {
@@ -98,7 +100,7 @@ public class Enemy : MonoBehaviour {
             targetSeen = value;
         }
     }
-
+    
     public float OutofrangeTimer
     {
         get
@@ -140,14 +142,23 @@ public class Enemy : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+        //Finding the player component
+        if (Player == null)
+        {
+            Player = FindObjectOfType<Player>().GetComponent<Player>();
+            player = Player.transform;
+        }
+
         if (canvas == null)
         {
             canvas = GetComponentInChildren<Hp_barPos>();
+            HealthBar = canvas.GetComponentInChildren<Slider>();
         }
         EnemyPowerAndLevel();
         anim = GetComponent<Animator> ();
 		Audio = GetComponent<AudioSource> ();
-        
+        //HealthBar = GetComponentInChildren<Slider>();        
 
 		//Aiconfig variables
 		if (_enemyInfo) {
@@ -172,18 +183,18 @@ public class Enemy : MonoBehaviour {
             Mindamage = _enemyInfo.MinAutoDamage;
             MaxDamage = _enemyInfo.MaxAutoDamage;
             MaxHealth = _enemyInfo.EnemyHP;
+
             // Rests health to full on game load
             CurrentHealth = MaxHealth;
             HealthBar.value = CalculateHealth();
             exptogive = _enemyInfo.Exptogive;
-        }
 
-        if (Player == null)
-        {
-            Player = FindObjectOfType<Player>().GetComponent<Player>();
-            if (player == null)
+            //anim speed
+            if (Anim != null)
             {
-                player = Player.transform;
+                Anim["Run"].speed = _enemyInfo.MovementSpeed;
+                Anim["Walk"].speed = _enemyInfo.WalkingSpeed;
+                Anim["Attack"].speed = _enemyInfo.AttackSpeed;
             }
         }
 	}
@@ -197,15 +208,41 @@ public class Enemy : MonoBehaviour {
             TargetSeen = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            MoveToSpawn(true);
+        }
+
         Chase ();
         if (waypoints.Length != 0)
         {
             Patrolling();
         }
         StartCoroutine(EnemySounds());
-       // InRangeForAttack();
 
         Idle();
+
+        //Implentment into move to spawn script. So the target moves back away from the player before starting to patrol again
+        if (Vector3.Distance(transform.position, player.position) > AttackRange * 1.25f && targetSeen)
+        {
+            if (state == State.Chase || state == State.Attacking)
+            {
+                //check if i'm out of dectectionRange and then count down
+                outofrangeTimer -= Time.deltaTime;
+                if (outofrangeTimer <= 0f)
+                {
+                    TargetSeen = false;
+                    // if target isnt seen or anything 
+                    anim.SetBool("isIdle", false);
+                    anim.SetBool("isRunning", false);
+                    anim.SetBool("isAttacking", false);
+                    anim.SetBool("isWalking", true);
+                    anim.SetBool("isDead", false);
+                    state = State.Patrol;
+                    outofrangeTimer = _enemyInfo.OutofrangeTimer;
+                }
+            }
+        }
     }
 
     void InRangeForAttack()
@@ -218,6 +255,10 @@ public class Enemy : MonoBehaviour {
                 AttackcurTime += Time.deltaTime;
                 //count up
                 if (AttackcurTime >= attackspeed && state == State.Attacking)
+                {
+                    Attack();
+                    AttackcurTime = 0;
+                } else if (AttackcurTime >= attackspeed && Vector3.Distance(transform.position, this.player.transform.position) < AttackRange * 2f)
                 {
                     Attack();
                     AttackcurTime = 0;
@@ -336,13 +377,14 @@ public class Enemy : MonoBehaviour {
 			}
 		}
 	}
+
 	void Chase () {
 		Vector3 direction = player.position - this.transform.position;
         direction.y = 0;
 
         float angle = Vector3.Angle (direction, this.transform.forward);
         if (state != State.Dead) {
-            if (Vector3.Distance(transform.position, player.position) < detectionRange && angle < 30 || Vector3.Distance(transform.position, this.player.position) < behind_detectionRange)
+            if (Vector3.Distance(transform.position, player.position) < detectionRange && angle < 30 || Vector3.Distance(transform.position, player.position) < behind_detectionRange)
             {
                 TargetSeen = true;
                 state = State.Chase;
@@ -360,7 +402,6 @@ public class Enemy : MonoBehaviour {
                     anim.SetBool("isWalking", false);
                     anim.SetBool("isIdle", false);
 
-
                 }
                 else
                 {
@@ -375,31 +416,34 @@ public class Enemy : MonoBehaviour {
                 }
 
             }
-            else if (OutofrangeTimer < 0.0f && Vector3.Distance(transform.position, this.player.position) > detectionRange)
-            {
-                TargetSeen = false;
-                anim.SetBool("isIdle", false);
-                anim.SetBool("isRunning", false);
-                anim.SetBool("isAttacking", false);
-                anim.SetBool("isWalking", true);
-                anim.SetBool("isDead", false);
-                state = State.Idle;
+        }
+    }
 
-                //dont attack and move away from
-                transform.position = Vector3.MoveTowards(transform.position, spawnPoint.position, 5f);
-                if (Vector3.Distance(spawnPoint.position, transform.position) < offsetSpawnPoint)
-                {
-                    int i = Random.Range(0, 2);
-                    if (i == 0)
-                    {
-                        Idle();
-                    }
-                    else if (i == 1)
-                    {
-                        state = State.Patrol;
-                        Patrolling();
-                    }
-                }
+    void MoveToSpawn(bool moveToSpawn)
+    {
+        state = State.Patrol;
+        if (moveToSpawn == true)
+        {
+            //dont attack and move away from
+            Vector3 direction = spawnPoint.position - transform.position;
+            direction.y = 0;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
+            transform.Translate(0, 0, movementspeed * Time.deltaTime);
+        }
+
+        if (Vector3.Distance(spawnPoint.position, transform.position) < offsetSpawnPoint)
+        {
+            moveToSpawn = false;
+            int i = Random.Range(0, 2);
+            if (i == 0)
+            {
+                state = State.Idle;
+                Idle();
+            }
+            else if (i == 1)
+            {
+                state = State.Patrol;
+                Patrolling();
             }
         }
     }
@@ -412,7 +456,7 @@ public class Enemy : MonoBehaviour {
                 Audio.clip = AttackSound;
                 Audio.volume = Random.Range(.8f, 1f);
                 Audio.pitch = Random.Range(.8f, 1f);
-                Audio.PlayDelayed(Random.Range(.8f, 1f));
+                Audio.PlayOneShot(AttackSound);
                 yield return new WaitForSeconds(Audio.clip.length);
             }
 
@@ -422,7 +466,7 @@ public class Enemy : MonoBehaviour {
                 Audio.volume = Random.Range(.55f, 1f);
                 Audio.pitch = Random.Range(.75f, 1f);
                 Audio.PlayOneShot(runSound);
-                yield return new WaitForSeconds(Audio.clip.length);
+                yield return new WaitForSeconds(Audio.clip.length + (0.15f * Time.deltaTime));
                 //Audio.Stop(runSound);
             }
 
