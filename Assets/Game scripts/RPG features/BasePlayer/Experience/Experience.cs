@@ -13,6 +13,7 @@ public class Experience : MonoBehaviour
     [SerializeField] Slider expBar;
     [SerializeField] GameObject LevelupBox;
     [SerializeField] TMP_Text levelText;
+    public Text LevelFrameText;
     public TMP_Text ExpBarText;
     [SerializeField] AudioManger Audio;
 
@@ -140,6 +141,7 @@ public class Experience : MonoBehaviour
     {
         VCurrExp -= VExpReq;
         VLevel++;
+        SetLevelText("" + VLevel);
         float t = Mathf.Pow(VExpMod, VLevel);
         VExpReq = (int)Mathf.Floor(VExpBase * t);
 
@@ -150,6 +152,7 @@ public class Experience : MonoBehaviour
     private void Start()
     {
         expBar.value = CalculateExpBar();
+        SetLevelText("" + VLevel);
 
         if (ExpBarText != null)
         {
@@ -227,11 +230,20 @@ public class Experience : MonoBehaviour
     public void SetText(string Text)
     {
         //text from ui set to = string text
+        // text to level box popping up
         levelText.GetComponent<TMP_Text>().text = Text;
+    }
+
+    void SetLevelText (string Text)
+    {
+        // Text for level frame
+        LevelFrameText.text = Text;
+        
     }
 
     void SetExpText(string text)
     {
+        //exp bar text
         ExpBarText.GetComponent<TMP_Text>().text = text;
     }
 

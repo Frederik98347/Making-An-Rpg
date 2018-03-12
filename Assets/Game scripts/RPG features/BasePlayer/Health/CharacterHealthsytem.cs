@@ -20,7 +20,7 @@ public class CharacterHealthsytem : MonoBehaviour {
     [SerializeField] bool isPercentageHp;
     [SerializeField] bool isPercentageNnumbers;
 
-    public Slider healthBar;
+    public Image healthBar;
     
     #region Init
     public float CurrentHealth
@@ -120,7 +120,7 @@ public class CharacterHealthsytem : MonoBehaviour {
         MaxHealth = GetComponent<Player>().Health;
         // Rests health to full on game load
         CurrentHealth = MaxHealth;
-        healthBar.value = CalculateHealth();
+        healthBar.fillAmount = CalculateHealth();
 
         if (HpBarText != null)
         {
@@ -146,7 +146,7 @@ public class CharacterHealthsytem : MonoBehaviour {
         CombatTextManager.Instance.CreateText(transform.position, true, false, false, false, damageValue.ToString());
 
         CurrentHealth -= damageValue;
-        healthBar.value = CalculateHealth();
+        healthBar.fillAmount = CalculateHealth();
 
         //making sure health cant go below 0%
 
@@ -167,7 +167,7 @@ public class CharacterHealthsytem : MonoBehaviour {
         CombatTextManager.Instance.CreateText(transform.position, false, true, false, false, healValue.ToString());
 
         CurrentHealth += healValue;
-        healthBar.value = CalculateHealth();
+        healthBar.fillAmount = CalculateHealth();
         //HpGained = "Health +" + healValue;
 
         //making sure Health can go above 100%
@@ -175,7 +175,7 @@ public class CharacterHealthsytem : MonoBehaviour {
         {
             IsDead = false;
             CurrentHealth = MaxHealth;
-            healthBar.value = 1;
+            healthBar.fillAmount = 1;
 
             if (HpBarText != null)
             {
@@ -271,7 +271,7 @@ public class CharacterHealthsytem : MonoBehaviour {
     void Die()
     {
         CurrentHealth = 0;
-        healthBar.value = CurrentHealth;
+        healthBar.fillAmount = CurrentHealth;
         IsDead = true;
         if (HpBarText != null)
         {
