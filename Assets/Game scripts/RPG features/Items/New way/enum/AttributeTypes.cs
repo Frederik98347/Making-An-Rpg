@@ -2,7 +2,7 @@
     STRENGTH, // Increases meleedamage, and increases how much weight you can have in your bags, more weight = more bag space
     STAMINA, //Increases healthpool
     INTELLECT, //Allmagic damage increase, Increase mana pool && give memory
-    AGILITY, // +meleeattackdamage / 3 of str, + crit + movementspeed
+    AGILITY, // +meleeattackdamage / 2 of str, + crit + movementspeed
     HASTE, // how fast you cast / can melee swing
     DEFENSE, // reduction to physical damage (dark, physical, bleed, poison)
     CRITCHANCE, //how often you critical strike

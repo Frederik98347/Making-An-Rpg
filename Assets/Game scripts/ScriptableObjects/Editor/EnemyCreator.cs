@@ -19,7 +19,7 @@ public class EnemyCreator : EditorWindow {
         {
 
             //enemyManager = GameObject.Find("EnemyManager").GetComponent<EnemyManager>();
-            enemyManager = GameObject.FindObjectOfType<EnemyManager>().GetComponent<EnemyManager>();
+            enemyManager = FindObjectOfType<EnemyManager>().GetComponent<EnemyManager>();
         }
 
         if (tempEnemy)

@@ -9,10 +9,10 @@ public class FamiliyTraits : MonoBehaviour {
     public string IntelligenceTooltip;
 
 
-    [SerializeField] Slider staminaSlider;
-    [SerializeField] Slider strenghtSlider;
-    [SerializeField] Slider intelligenceSlider;
-    [SerializeField] Slider agilitySlider;
+    public Slider staminaSlider;
+    public Slider strenghtSlider;
+    public Slider intelligenceSlider;
+    public Slider agilitySlider;
 
     // Use this for initialization
     void Start()
