@@ -36,34 +36,14 @@ public class BaseWarriorClass : BaseCharacterClass
     public int BaseEndurance;
     public int BaseMemory;
 
-    private int StatMaxValue;
-    private int CurStatValue;
-
-    public void StatsBySlider()
-    {
-        if (traits != null)
-        {
-            StatMaxValue = 15;
-            CurStatValue = (int)traits.strenghtSlider.value + (int)traits.staminaSlider.value + (int)traits.intelligenceSlider.value + (int)traits.agilitySlider.value;
-            if (CurStatValue < StatMaxValue || CurStatValue == StatMaxValue)
-            {
-                stats[0] += (int)traits.strenghtSlider.value;
-                stats[1] += (int)traits.staminaSlider.value;
-                stats[2] += (int)traits.intelligenceSlider.value;
-                stats[3] += (int)traits.agilitySlider.value;
-            }
-            else if (CurStatValue > StatMaxValue)
-            {
-                Debug.Log("Error statvalue too high");
-            }
-        }
-    }
+    public string ClassBonus;
 
     public void WarriorClass()
     {
         // can take more damage, casts spells and able to avoid some damage.
         CharacterClassName = "Warrior";
         CharacterClassDescription = "Brutal Heavy hitter whos also able to withstand damage toe to toe with hardhitting enemies. Expert in close quarters, but also suffers from low intellect and agility";
+        ClassBonus = "Bonuses: +15% to physical and dark damage. 10% to defence. Drawbacks: +5 % slowduration and - 10 % energy.";
         StatsAfterBonus();
     }
 
@@ -72,7 +52,7 @@ public class BaseWarriorClass : BaseCharacterClass
 
         //Implementing stats here
         Stats();
-        StatsBySlider();
+        SpecBonus();
 
         //calc after bonus
         BaseStrength = stats[0] + StrengthBonus;

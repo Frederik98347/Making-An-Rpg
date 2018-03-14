@@ -1,6 +1,5 @@
 ﻿using PlayerClass;
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New PlayerMage Data", menuName = "PlayerClass data/Mage")]
 public class BaseMageClass : BaseCharacterClass{
@@ -35,31 +34,15 @@ public class BaseMageClass : BaseCharacterClass{
     public int BaseEndurance;
     public int BaseMemory;
 
-    private int StatMaxValue;
-    private int CurStatValue;
-
-    public void StatsBySlider()
-    {
-        StatMaxValue = 15;
-        CurStatValue = stats[0] + stats[1] + stats[2] + stats[3];
-        if (CurStatValue < StatMaxValue || CurStatValue == StatMaxValue)
-        {
-            stats[0] += (int)traits.strenghtSlider.value;
-            stats[1] += (int)traits.staminaSlider.value;
-            stats[2] += (int)traits.intelligenceSlider.value;
-            stats[3] += (int)traits.agilitySlider.value;
-        }
-        else if (CurStatValue > StatMaxValue)
-        {
-            Debug.Log("Error statvalue too high");
-        }
-    }
+    public string ClassBonus;
 
     public void MageClass()
     {
         // can take more damage, casts spells and able to avoid some damage.
         CharacterClassName = "Mage";
         CharacterClassDescription = "A Wizard who deals a lot of damage at range, but takes alot of physical damage in return";
+        ClassBonus = "Bonuses: +10% to all types of magic damage and 10% more energy," +
+            " Drawbacks: -15 % to all non magical damage done.";
         StatsAfterBonus();
     }
 
@@ -68,7 +51,7 @@ public class BaseMageClass : BaseCharacterClass{
 
         //Implementing stats here
         Stats();
-        StatsBySlider();
+        SpecBonus();
 
         //calc after bonus
         BaseStrength = stats[0] + StrengthBonus;

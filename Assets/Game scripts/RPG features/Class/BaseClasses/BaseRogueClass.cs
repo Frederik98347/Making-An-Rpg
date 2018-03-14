@@ -35,31 +35,15 @@ public class BaseRogueClass : BaseCharacterClass
     public int BaseEndurance;
     public int BaseMemory;
 
-    private int StatMaxValue;
-    private int CurStatValue;
-
-    public void StatsBySlider()
-    {
-        StatMaxValue = 15;
-        CurStatValue = stats[0] + stats[1] + stats[2] + stats[3];
-        if (CurStatValue < StatMaxValue || CurStatValue == StatMaxValue)
-        {
-            stats[0] += (int)traits.strenghtSlider.value;
-            stats[1] += (int)traits.staminaSlider.value;
-            stats[2] += (int)traits.intelligenceSlider.value;
-            stats[3] += (int)traits.agilitySlider.value;
-        }
-        else if (CurStatValue > StatMaxValue)
-        {
-            Debug.Log("Error statvalue too high");
-        }
-    }
+    public string ClassBonus;
 
     public void RogueClass()
     {
         // can take more damage, casts spells and able to avoid some damage.
         CharacterClassName = "Rogue";
         CharacterClassDescription = "A fast and agile assasasin, who deals a lot of damage in short periods of time, but in return takes massiv amounts of damage.";
+        ClassBonus = "Bonuses: +15% to speed (movement & attackspeed). 10% to energy regen," +
+    " Drawbacks: +5 % to physical, dark and poison damage taken.";
         StatsAfterBonus();
     }
 
@@ -68,7 +52,7 @@ public class BaseRogueClass : BaseCharacterClass
 
         //Implementing stats here
         Stats();
-        StatsBySlider();
+        SpecBonus();
 
         //calc after bonus
         BaseStrength = stats[0] + StrengthBonus;

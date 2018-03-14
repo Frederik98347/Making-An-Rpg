@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BaseCharacterClass : ScriptableObject{
 
@@ -16,8 +14,6 @@ public class BaseCharacterClass : ScriptableObject{
     float runningSpeed;
     float walkingSpeed;
     float attackspeed;
-
-    public FamiliyTraits traits;
 
 
     //stats
@@ -142,6 +138,7 @@ public class BaseCharacterClass : ScriptableObject{
 
     private void InitStats()
     {
+        //basic stat template for all classes
         stats[0] = 6;
         stats[1] = 8;
         stats[2] = 6;
