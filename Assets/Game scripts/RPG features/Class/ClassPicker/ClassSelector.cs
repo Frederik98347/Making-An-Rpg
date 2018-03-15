@@ -2,6 +2,9 @@
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// ClassSelector script allows you to create a class, updating stats & applying all bonuses and drawbacks to the player before instantiation.
+/// </summary>
 public class ClassSelector : MonoBehaviour {
     public SpecToggleGroup toggleGroup;
 
@@ -51,6 +54,11 @@ public class ClassSelector : MonoBehaviour {
         {
             if (CurStatValue < StatMaxValue)
             {
+                StrengthSlider.maxValue = 5;
+                AgilitySlider.maxValue = 5;
+                IntelligenceSlider.maxValue = 5;
+                StaminaSlider.maxValue = 5;
+
                 strengthSliderValue = (int)StrengthSlider.value;
                 staminaSliderValue = (int)StaminaSlider.value;
                 agilitySliderValue = (int)AgilitySlider.value;
@@ -59,28 +67,66 @@ public class ClassSelector : MonoBehaviour {
                 CurStatValue = ((((int)StrengthSlider.value) + ((int)StaminaSlider.value) + ((int)IntelligenceSlider.value) + ((int)AgilitySlider.value)));
                 SetText("Stat points left: " + TextCalc());
             }
-            else if (CurStatValue >= StatMaxValue)
+            else if (CurStatValue == StatMaxValue)
             {
                 //dont allow stat to progress over statMax
 
-                if (CurStatValue == StatMaxValue)
-                {
-                    CurStatValue = StatMaxValue;
-                    strengthSliderValue = (int)StrengthSlider.value;
-                    staminaSliderValue = (int)StaminaSlider.value;
-                    agilitySliderValue = (int)AgilitySlider.value;
-                    intelligenceSliderValue = (int)IntelligenceSlider.value;
+                strengthSliderValue = (int)StrengthSlider.value;
+                staminaSliderValue = (int)StaminaSlider.value;
+                agilitySliderValue = (int)AgilitySlider.value;
+                intelligenceSliderValue = (int)IntelligenceSlider.value;
 
 
-                    //limit slider here to StatMaxValue
-                    SetText("Stat points left: " + TextCalc());
-                }
+                //limit slider here to StatMaxValue
+                SetText("Stat points left: " + TextCalc());
             }
+        }
+    }
+
+    public void SliderControl ()
+    {
+        TextCalc();
+
+        if (CurStatValue == StatMaxValue)
+        {
+            strengthSliderValue = (int)StrengthSlider.value;
+            staminaSliderValue = (int)StaminaSlider.value;
+            agilitySliderValue = (int)AgilitySlider.value;
+            intelligenceSliderValue = (int)IntelligenceSlider.value;
+
+            StrengthSlider.maxValue = strengthSliderValue;
+            AgilitySlider.maxValue = agilitySliderValue;
+            IntelligenceSlider.maxValue = intelligenceSliderValue;
+            StaminaSlider.maxValue = staminaSliderValue;
+
+            TextCalc();
+
+        } else if (CurStatValue < StatMaxValue)
+        {
+            TextCalc();
+
+            StrengthSlider.maxValue = StrengthSlider.value;
+            StrengthSlider.maxValue = 5;
+
+            AgilitySlider.maxValue = AgilitySlider.value;
+            AgilitySlider.maxValue = 5;
+
+            StaminaSlider.maxValue = StaminaSlider.value;
+            StaminaSlider.maxValue = 5;
+
+            IntelligenceSlider.maxValue = IntelligenceSlider.value;
+            IntelligenceSlider.maxValue = 5;
+
         }
     }
 
     // Use this for initialization
     void Start () {
+        StrengthSlider.maxValue = 5;
+        AgilitySlider.maxValue = 5;
+        IntelligenceSlider.maxValue = 5;
+        StaminaSlider.maxValue = 5;
+
         if (toggleGroup == null)
         {
           toggleGroup = FindObjectOfType<SpecToggleGroup>();
@@ -209,8 +255,10 @@ public class ClassSelector : MonoBehaviour {
         Text.text = text;
     }
 
-    int TextCalc()
+    public int TextCalc()
     {
+        CurStatValue = ((((int)StrengthSlider.value) + ((int)StaminaSlider.value) + ((int)IntelligenceSlider.value) + ((int)AgilitySlider.value)));
+
         return StatMaxValue - CurStatValue;
     }
 }

@@ -15,10 +15,20 @@ public class BaseCharacterClass : ScriptableObject{
     float walkingSpeed;
     float attackspeed;
 
+    float globalCoolDown = 1.5f;
+
+    int staminaFormula;
+
 
     //stats
     [HideInInspector]
     public AttributeTypes attributeTypes;
+    private int baseHealth = 10;
+    private float baseAttackSpeed = 2f;
+    private float attackSpeedFormula;
+    int level;
+    private float defenseFormula;
+    private float defense;
 
     public string CharacterClassName{
         get {return characterClassName;}
@@ -94,6 +104,58 @@ public class BaseCharacterClass : ScriptableObject{
         }
     }
 
+    public int BaseHealth
+    {
+        get
+        {
+            return baseHealth;
+        }
+
+        set
+        {
+            baseHealth = value;
+        }
+    }
+
+    public int Level
+    {
+        get
+        {
+            return level;
+        }
+
+        set
+        {
+            level = value;
+        }
+    }
+
+    public float GlobalCoolDown
+    {
+        get
+        {
+            return globalCoolDown;
+        }
+
+        set
+        {
+            globalCoolDown = value;
+        }
+    }
+
+    public float Defense
+    {
+        get
+        {
+            return defense;
+        }
+
+        set
+        {
+            defense = value;
+        }
+    }
+
     void CustomClass()
     {
         if (customClass)
@@ -134,6 +196,8 @@ public class BaseCharacterClass : ScriptableObject{
 
         //make sure all stats = 0 on init
         InitStats();
+
+        StatCalc();
     }
 
     private void InitStats()
@@ -151,9 +215,23 @@ public class BaseCharacterClass : ScriptableObject{
         stats[9] = 5;
     }
 
-    void StatCalc()
+    public void StatCalc()
     {
         //calc here how stats impact eachother, like stamina giving hp and such
+        //formulas for calculation
+        staminaFormula = stats[1] * 5;
+        attackSpeedFormula = baseAttackSpeed / (1 + (stats[4] / 100));
+        defenseFormula = (0.01050120510299f * stats[5] + 0.003205956904f);
+
+        //Increases healthpool
+        Maxhealth = BaseHealth + (staminaFormula / Level);
+
+        // how fast you cast / can melee swing
+        Attackspeed = (attackSpeedFormula) / Level;
+
+        // reduction to physical damage
+        Defense = defenseFormula / Level;
+
 
     }
 }﻿
