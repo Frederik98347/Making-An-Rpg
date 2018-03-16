@@ -1,7 +1,5 @@
 ﻿using PlayerClass;
-using UnityEngine;
 
-[CreateAssetMenu(fileName = "New PlayerRogue Data", menuName = "PlayerClass data/Rogue")]
 public class BaseRogueClass : BaseCharacterClass
 {
     // all generic enemy data for War class

@@ -1,10 +1,17 @@
 fileFormatVersion: 2
 guid: ac0150ee6611a9f41ab0dec3170c6f6c
-timeCreated: 1519217548
-licenseType: Free
 ModelImporter:
   serializedVersion: 22
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: //RootNode
+    400000: //RootNode
+    2100000: Wood
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Sword
+    6400000: //RootNode
+    7400000: Default Take
+    9500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -24,6 +31,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5

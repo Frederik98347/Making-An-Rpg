@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BaseCharacterClass : ScriptableObject{
+public class BaseCharacterClass{
 
     public GameObject charModel;
     private string characterClassName;
@@ -26,7 +26,7 @@ public class BaseCharacterClass : ScriptableObject{
     private int baseHealth = 10;
     private float baseAttackSpeed = 2f;
     private float attackSpeedFormula;
-    int level;
+    int level = 1;
     private float defenseFormula;
     private float defense;
 

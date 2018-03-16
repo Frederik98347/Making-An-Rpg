@@ -1,7 +1,5 @@
 ﻿using PlayerClass;
-using UnityEngine;
 
-[CreateAssetMenu(fileName = "New PlayerMage Data", menuName = "PlayerClass data/Mage")]
 public class BaseMageClass : BaseCharacterClass{
     // all generic enemy data for War class
     public MageWpnType wpnType;

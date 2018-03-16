@@ -1,7 +1,5 @@
 ﻿using PlayerClass;
-using UnityEngine;
 
-[CreateAssetMenu(fileName = "New PlayerWarrior Data", menuName = "PlayerClass data/Warrior")]
 public class BaseWarriorClass : BaseCharacterClass
 {
 
