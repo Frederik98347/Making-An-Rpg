@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 1cd2dfa9acc037e43b469f28fc8ab34c
-timeCreated: 1521057416
-licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -13,6 +11,7 @@ ModelImporter:
     2300000: Statue_No_Colors
     3300000: Statue_No_Colors
     4300000: Statue_No_Colors
+    6400000: Statue_No_Colors
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -37,6 +36,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -50,13 +50,13 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
