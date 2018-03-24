@@ -7,6 +7,7 @@ using TMPro;
 /// </summary>
 public class ClassSelector : MonoBehaviour {
     public SpecToggleGroup toggleGroup;
+    public Birthday birthDay;
 
     public bool isRogue;
     public bool isMage;
@@ -130,6 +131,11 @@ public class ClassSelector : MonoBehaviour {
         if (toggleGroup == null)
         {
           toggleGroup = FindObjectOfType<SpecToggleGroup>();
+        }
+
+        if (birthDay == null)
+        {
+            birthDay = FindObjectOfType<Birthday>();
         }
 
         StatMaxValue = 10;
