@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using PlayerClass; // so enemy knows stuff about the playerclass
 
 /// <summary>
 /// Script to control enemy mob's behaviour, sounds and animations
@@ -482,8 +483,8 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-	public void GetHit (int damage) {
-        CombatTextManager.Instance.CreateText(transform.position, false, false, true, false, damage.ToString());
+	public void GetHit (int damage, PlayerDmgTypes damageType = PlayerDmgTypes.PHYSICAL) {
+        CombatTextManager.Instance.CreateText(this.transform.position, false, false, true, false, damage.ToString());
 
         //deal damage
         CurrentHealth -= damage;
@@ -500,7 +501,7 @@ public class Enemy : MonoBehaviour {
 
     public void GetHealth(int healValue)
     {
-        CombatTextManager.Instance.CreateText(transform.position, true, false, false, false, healValue.ToString());
+        CombatTextManager.Instance.CreateText(this.transform.position, true, false, false, false, healValue.ToString());
         CurrentHealth += healValue;
         HealthBar.value = CalculateHealth();
         //Enemy healing spells can work now

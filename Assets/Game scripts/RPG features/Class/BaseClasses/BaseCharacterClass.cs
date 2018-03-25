@@ -14,11 +14,11 @@ public class BaseCharacterClass{
     float runningSpeed;
     float walkingSpeed;
     float attackspeed;
+    float haste;
 
     float globalCoolDown = 1.5f;
 
     int staminaFormula;
-
 
     //stats
     [HideInInspector]
@@ -29,6 +29,8 @@ public class BaseCharacterClass{
     int level = 1;
     private float defenseFormula;
     private float defense;
+    private float castingSpeedFormula;
+    private float baseCastingSpeed = 2f;
 
     public string CharacterClassName{
         get {return characterClassName;}
@@ -156,6 +158,32 @@ public class BaseCharacterClass{
         }
     }
 
+    public float Haste
+    {
+        get
+        {
+            return haste;
+        }
+
+        set
+        {
+            haste = value;
+        }
+    }
+
+    public float CastingSpeed
+    {
+        get
+        {
+            return baseCastingSpeed;
+        }
+
+        set
+        {
+            baseCastingSpeed = value;
+        }
+    }
+
     void CustomClass()
     {
         if (customClass)
@@ -221,13 +249,17 @@ public class BaseCharacterClass{
         //formulas for calculation
         staminaFormula = stats[1] * 5;
         attackSpeedFormula = baseAttackSpeed / (1 + (stats[4] / 100));
+        castingSpeedFormula = baseCastingSpeed / (1 + (stats[4] / 100));
         defenseFormula = (0.01050120510299f * stats[5] + 0.003205956904f);
 
         //Increases healthpool
         Maxhealth = BaseHealth + (staminaFormula / Level);
 
+        //Haste
+        Haste = stats[4] / (1 + (stats[4] / 100));
         // how fast you cast / can melee swing
-        Attackspeed = (attackSpeedFormula) / Level;
+        Attackspeed = (attackSpeedFormula + 1/5*Haste) / Level;
+        CastingSpeed = (castingSpeedFormula + 1 / 5 * Haste) / Level;
 
         // reduction to physical damage
         Defense = defenseFormula / Level;

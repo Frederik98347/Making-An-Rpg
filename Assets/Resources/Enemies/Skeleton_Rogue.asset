@@ -42,7 +42,7 @@ MonoBehaviour:
   mobRarity: 0
   dmgType: 0
   mobType: 0
-  mobClass: 0
+  mobClass: 3
   warWpnType: 0
   warDmgType: 0
   warriorClassType: 0

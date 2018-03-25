@@ -8,7 +8,8 @@
         FROST,
         LIGHTNING,
         DARK,
-        FIRE
+        FIRE,
+        TOXIN
     }
 
     public enum PlayerClass
@@ -44,7 +45,10 @@
         NONE = 0,
         STAFF,
         WAND,
-        GRIMOIRE_WAND
+        GRIMOIRE_WAND,
+        ONE_HANDED_SWORD,
+        ONE_HANDED_MACE,
+
     }
 
     public enum MageDmgTypes
@@ -61,7 +65,9 @@
         NONE = 0,
         DAGGERS,
         THROWING_KNIVES,
-        ONE_HANDED_SWORD
+        ONE_HANDED_SWORD,
+        ONE_HANDED_AXE
+
     }
 
     public enum RogueDmgTypes

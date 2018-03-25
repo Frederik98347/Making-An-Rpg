@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using EnemyTypes;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Animator))]
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour{
     public string Playername;
     public string Playerclass;
     float health = 20f;
+    public float HPRegain = 0.05f;
 
     // auto attack timer
     public bool autoAttacking = false;
@@ -101,7 +103,7 @@ public class Player : MonoBehaviour{
         //if dead 
         Isdead(); // doesnt work
 
-        HPregain();
+        HPregain(HPRegain);
     }
 
     void OnMouseEnter() {
@@ -112,7 +114,7 @@ public class Player : MonoBehaviour{
             canAttack = false;
             print("DESELECT");
         }
-        if (Input.GetMouseButton(0)) {
+        if (Input.GetMouseButtonDown(0)) {
             SelectselectedUnit();
             int i = 0;
             i = i + 1;
@@ -143,19 +145,31 @@ public class Player : MonoBehaviour{
             }
             else
             {
-                state = State.Alive;
+                state = State.OUTOFCOMBAT;
                 CombatCounter = 0;
             }
         }
     }
 
-    void HPregain()
+    void HPregain(float hpregain)
     {
-        if (state == State.Alive)
+
+        if (state == State.OUTOFCOMBAT)
         {
             if (healthsystem.CurrentHealth < healthsystem.MaxHealth)
             {
-                healthsystem.CurrentHealth += (int)(0.05f * healthsystem.MaxHealth* Time.deltaTime);
+                healthsystem.CurrentHealth += (int)(hpregain * healthsystem.MaxHealth) * Time.deltaTime;
+
+                if (healthsystem.CurrentHealth >= healthsystem.MaxHealth)
+                {
+                    healthsystem.CurrentHealth = healthsystem.MaxHealth;
+                }
+            }
+        } else if (state == State.COMBAT)
+        {
+            if (healthsystem.CurrentHealth < healthsystem.MaxHealth)
+            {
+                healthsystem.CurrentHealth += (int)(hpregain * healthsystem.MaxHealth) * Time.deltaTime;
 
                 if (healthsystem.CurrentHealth >= healthsystem.MaxHealth)
                 {
@@ -275,7 +289,7 @@ public class Player : MonoBehaviour{
         }
 	}
 
-    public void GetHit(int damage)
+    public void GetHit(int damage, MobDmgTypes damageType = MobDmgTypes.PHYSICAL)
     {
         if (healthsystem.IsDead == true)
         {
@@ -284,18 +298,19 @@ public class Player : MonoBehaviour{
         } else
         {
             healthsystem.GetHit(damage);
+            Debug.Log(damageType);
         }
     }
 
-    void DoAutoDamage()
+    void DoAutoDamage(PlayerClass.PlayerDmgTypes damageType = PlayerClass.PlayerDmgTypes.PHYSICAL)
     {
         AutoAttackDamage = Random.Range(MinDamage, MaxDamage);
-        enemyScript.GetHit(AutoAttackDamage);
+        enemyScript.GetHit(AutoAttackDamage, damageType = PlayerClass.PlayerDmgTypes.PHYSICAL);
     }
 
     public enum State
     {
-        Alive = 0,
+        OUTOFCOMBAT = 0,
         DEAD,
         COMBAT
     }
@@ -314,7 +329,7 @@ public class Player : MonoBehaviour{
                 enemyScript.OutofrangeTimer = 0.0f;
                 enemyScript.state = Enemy.State.Patrol;
             }
-
+            
 		}
 
         //Destroy(this.gameObject, 2.0f);

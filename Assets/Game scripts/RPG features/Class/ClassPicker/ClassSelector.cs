@@ -48,7 +48,13 @@ public class ClassSelector : MonoBehaviour {
     public int Haste;
     public int Memory;
     public int Resistance;
- 
+
+    [Header("Birthday")]
+    public int Age;
+    public int Day;
+    public int Month;
+    public int Year;
+
     public void StatsBySlider()
     {
         if (StrengthSlider != null && StaminaSlider != null && AgilitySlider != null && IntelligenceSlider != null)
@@ -77,6 +83,28 @@ public class ClassSelector : MonoBehaviour {
                 agilitySliderValue = (int)AgilitySlider.value;
                 intelligenceSliderValue = (int)IntelligenceSlider.value;
 
+
+                //limit slider here to StatMaxValue
+                SetText("Stat points left: " + TextCalc());
+            } else
+            {
+                if (StrengthSlider.value > 0)
+                {
+                    strengthSliderValue = (int)StrengthSlider.value - 1;
+                }
+                else return;
+
+                if (AgilitySlider.value > 0)
+                {
+                    agilitySliderValue = (int)AgilitySlider.value - 1;
+                }
+                else return;
+
+                if (IntelligenceSlider.value > 0)
+                {
+                    intelligenceSliderValue = (int)IntelligenceSlider.value - 1;
+                }
+                else return;
 
                 //limit slider here to StatMaxValue
                 SetText("Stat points left: " + TextCalc());
@@ -121,6 +149,19 @@ public class ClassSelector : MonoBehaviour {
         }
     }
 
+    private void OnEnable()
+    {
+        if (birthDay == null)
+        {
+            birthDay = FindObjectOfType<Birthday>();
+
+            Age = birthDay.Age;
+            Day = birthDay.Day;
+            Month = birthDay.Month;
+            Year = birthDay.year;
+        }
+    }
+
     // Use this for initialization
     void Start () {
         StrengthSlider.maxValue = 5;
@@ -131,11 +172,6 @@ public class ClassSelector : MonoBehaviour {
         if (toggleGroup == null)
         {
           toggleGroup = FindObjectOfType<SpecToggleGroup>();
-        }
-
-        if (birthDay == null)
-        {
-            birthDay = FindObjectOfType<Birthday>();
         }
 
         StatMaxValue = 10;
@@ -205,6 +241,12 @@ public class ClassSelector : MonoBehaviour {
 
                     ClassStats(SelectedClass.BaseAgility, SelectedClass.BaseStamina, SelectedClass.BaseStrength, SelectedClass.BaseIntellect, SelectedClass.BaseCritchance,
                         SelectedClass.BaseDefence, SelectedClass.BaseEndurance, SelectedClass.BaseHaste, SelectedClass.BaseMemory, SelectedClass.BaseResistance);
+
+                    //birthday
+                    Age = birthDay.Age;
+                    Day = birthDay.Day;
+                    Month = birthDay.Month;
+                    Year = birthDay.year;
                 }
             }
             else if (toggleGroup.toggleMage.isOn == true)
@@ -228,6 +270,12 @@ public class ClassSelector : MonoBehaviour {
 
                     ClassStats(SelectedClass.BaseAgility, SelectedClass.BaseStamina, SelectedClass.BaseStrength, SelectedClass.BaseIntellect, SelectedClass.BaseCritchance,
                           SelectedClass.BaseDefence, SelectedClass.BaseEndurance, SelectedClass.BaseHaste, SelectedClass.BaseMemory, SelectedClass.BaseResistance);
+
+                    //birthday
+                    Age = birthDay.Age;
+                    Day = birthDay.Day;
+                    Month = birthDay.Month;
+                    Year = birthDay.year;
                 }
             }
             else if (toggleGroup.toggleWarrior.isOn == true)
@@ -251,6 +299,12 @@ public class ClassSelector : MonoBehaviour {
 
                     ClassStats(SelectedClass.BaseAgility, SelectedClass.BaseStamina, SelectedClass.BaseStrength, SelectedClass.BaseIntellect, SelectedClass.BaseCritchance,
                          SelectedClass.BaseDefence, SelectedClass.BaseEndurance, SelectedClass.BaseHaste, SelectedClass.BaseMemory, SelectedClass.BaseResistance);
+
+                    //birthday
+                    Age = birthDay.Age;
+                    Day = birthDay.Day;
+                    Month = birthDay.Month;
+                    Year = birthDay.year;
                 }
             }
         }

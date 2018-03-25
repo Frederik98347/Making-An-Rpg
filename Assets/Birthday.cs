@@ -2,11 +2,13 @@
 using UnityEngine.UI;
 using TMPro;
 
-public class Birthday : MonoBehaviour {
+public class Birthday : MonoBehaviour
+{
 
     [Header("Age Area")]
-    [Range(16,30)]
-    [SerializeField] int Age;
+    [Range(16, 30)]
+    [SerializeField]
+    public int Age;
     public Slider AgeSlider;
     public TMP_Text AgeText;
     public TMP_Dropdown AgeDropDown;
@@ -14,7 +16,8 @@ public class Birthday : MonoBehaviour {
 
     [Header("Day Area")]
     [Range(1, 31)]
-    [SerializeField] int Day;
+    [SerializeField]
+    public int Day;
     public Slider DaySlider;
     public TMP_Text DayText;
     public TMP_Dropdown DayDropDown;
@@ -22,19 +25,23 @@ public class Birthday : MonoBehaviour {
 
     [Header("Month Area")]
     [Range(1, 12)]
-    [SerializeField] int Month;
+    [SerializeField]
+    public int Month;
     public Slider MonthSlider;
     public TMP_Text MonthText;
     public TMP_Dropdown MonthDropDown;
     public int MonthDropDownValue;
 
     [Header("BirthDay Area")]
-    [SerializeField] int year;
+    [SerializeField]
+    public int year;
+    int baseYear = 800;
     string BirthDateText;
     public TMP_Text _BirthDayText;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         AgeSlider = GameObject.Find("Age").GetComponentInChildren<Slider>();
         DaySlider = GameObject.Find("BirthDay").GetComponentInChildren<Slider>();
         MonthSlider = GameObject.Find("BirthMonth").GetComponentInChildren<Slider>();
@@ -60,14 +67,15 @@ public class Birthday : MonoBehaviour {
 
         if (_BirthDayText != null)
         {
-            year = (Age + 800);
+            year = (Age + baseYear);
             BirthDateText = Day + "/" + Month + "/" + year;
             _BirthDayText.text = BirthDateText;
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (_BirthDayText != null)
         {
             year = (Age + 800);
@@ -95,7 +103,7 @@ public class Birthday : MonoBehaviour {
             for (int i = 0; i <= AgeSlider.maxValue; i++)
             {
                 AgeText.text = Age + "";
-                AgeDropDown.value = Age-16;
+                AgeDropDown.value = Age - 16;
             }
         }
     }
@@ -119,13 +127,16 @@ public class Birthday : MonoBehaviour {
             for (int i = 0; i <= MonthSlider.maxValue; i++)
             {
                 MonthDropDown.value = Month - 1;
-                
+
                 if (MonthDropDown.value == 0)
                 {
                     MonthText.text = "January";
-                } else if (MonthDropDown.value == 1){
+                }
+                else if (MonthDropDown.value == 1)
+                {
                     MonthText.text = "February";
-                } else if (MonthDropDown.value == 2)
+                }
+                else if (MonthDropDown.value == 2)
                 {
                     MonthText.text = "March";
                 }
