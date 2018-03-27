@@ -116,9 +116,9 @@ public class CreateNewCharacter : MonoBehaviour {
 			//Set Different Class Stats
 			if (hasCreated == true && canCreate == true && nameCreated == true) {
                 // set level to 1 because it creates a new char
-                newPlayer.Stats();
+                //newPlayer.Stats();
 
-                newPlayer.Playerlevel = 1;
+                //newPlayer.Playerlevel = 1;
                 charName = newPlayer.PlayerName;
                 //newPlayer.stats[0]
                 //newPlayer.Intellect = newPlayer.PlayerClass.Intellect;

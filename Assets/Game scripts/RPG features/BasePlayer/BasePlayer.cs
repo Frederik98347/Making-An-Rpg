@@ -1,21 +1,8 @@
-﻿public class BasePlayer : BaseCharacterClass {
+﻿public class BasePlayer {
 
     private string playerName;
-    private int playerlevel;
+    string familyName;
     private BaseCharacterClass playerClass;
-
-    public int Playerlevel
-    {
-        get
-        {
-            return playerlevel;
-        }
-
-        set
-        {
-            playerlevel = value;
-        }
-    }
 
     public string PlayerName
     {
@@ -29,6 +16,7 @@
             playerName = value;
         }
     }
+    public int PlayerLevel;
 
     public BaseCharacterClass PlayerClass
     {
@@ -40,6 +28,19 @@
         set
         {
             playerClass = value;
+        }
+    }
+
+    public string FamilyName
+    {
+        get
+        {
+            return familyName;
+        }
+
+        set
+        {
+            familyName = value;
         }
     }
 }

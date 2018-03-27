@@ -17,10 +17,10 @@ public class BaseWarriorClass : BaseCharacterClass
     int AgilityBonus = -2;
     int CritchanceBonus = -2;
     int DefenceBonus = 2;
-    int hasteBonus = -1;
+    int hasteBonus = 0;
     int ResistanceBonus = 2;
-    int EnduranceBonus = 0;
-    int MemoryBonus = 0;
+    int EnduranceBonus = -1;
+    int MemoryBonus = -1;
 
     //generic base stats
     public int BaseStamina;

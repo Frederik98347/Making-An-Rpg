@@ -161,7 +161,7 @@ public class Experience : MonoBehaviour
 
         if(basePlayer != null)
         {
-            basePlayer.Playerlevel = vLevel;
+            basePlayer.PlayerLevel = vLevel;
         }
     }
 

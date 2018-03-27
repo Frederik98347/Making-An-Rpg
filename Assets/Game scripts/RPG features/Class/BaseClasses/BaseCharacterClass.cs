@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BaseCharacterClass{
+public class BaseCharacterClass : BasePlayer{
 
     public GameObject charModel;
     private string characterClassName;
@@ -23,7 +23,7 @@ public class BaseCharacterClass{
     //stats
     [HideInInspector]
     public AttributeTypes attributeTypes;
-    private int baseHealth = 10;
+    private int baseHealth = 5;
     private float baseAttackSpeed = 2f;
     private float attackSpeedFormula;
     int level = 1;
@@ -31,6 +31,9 @@ public class BaseCharacterClass{
     private float defense;
     private float castingSpeedFormula;
     private float baseCastingSpeed = 2f;
+    private float resistanceFormula;
+    private int _pointsIntoStam = 1;
+    private float _staminaFormula;
 
     public string CharacterClassName{
         get {return characterClassName;}
@@ -184,6 +187,19 @@ public class BaseCharacterClass{
         }
     }
 
+    public float Resistance
+    {
+        get
+        {
+            return resistanceFormula;
+        }
+
+        set
+        {
+            resistanceFormula = value;
+        }
+    }
+
     void CustomClass()
     {
         if (customClass)
@@ -203,7 +219,7 @@ public class BaseCharacterClass{
     STAMINA, //Increases healthpool
     INTELLECT, //Allmagic damage increase, Increase energy pool & energy regen
     AGILITY, // +meleeattackdamage / 2 of str + movementspeed
-    HASTE, // how fast you cast / can melee swing
+    HASTE, // how fast you cast / can melee swing, reduce gcd
     DEFENSE, // reduction to physical damage
     CRITCHANCE, //how often you critical strike
     ENDURANCE, // how long time you can sprint
@@ -245,15 +261,27 @@ public class BaseCharacterClass{
 
     public void StatCalc()
     {
+        Level = PlayerLevel;
+
         //calc here how stats impact eachother, like stamina giving hp and such
         //formulas for calculation
-        staminaFormula = stats[1] * 5;
+        staminaFormula = stats[1];
+        _staminaFormula = stats[1] * 1.25f;
         attackSpeedFormula = baseAttackSpeed / (1 + (stats[4] / 100));
         castingSpeedFormula = baseCastingSpeed / (1 + (stats[4] / 100));
         defenseFormula = (0.01050120510299f * stats[5] + 0.003205956904f);
+        resistanceFormula = (0.01050120510299f * stats[8] + 0.003105956904f);
 
         //Increases healthpool
-        Maxhealth = BaseHealth + (staminaFormula / Level);
+        if (stats[1] > 49)
+        {
+            staminaFormula += (int)(_staminaFormula / 2f);
+            Maxhealth = BaseHealth + (staminaFormula);
+        } else
+        {
+            staminaFormula = stats[1];
+            Maxhealth = BaseHealth + (staminaFormula);
+        }
 
         //Haste
         Haste = stats[4] / (1 + (stats[4] / 100));
@@ -261,9 +289,13 @@ public class BaseCharacterClass{
         Attackspeed = (attackSpeedFormula + 1/5*Haste) / Level;
         CastingSpeed = (castingSpeedFormula + 1 / 5 * Haste) / Level;
 
+        //defense stats
+
         // reduction to physical damage
         Defense = defenseFormula / Level;
 
+        //reduction to all magic damage
+        Resistance = resistanceFormula / Level;
 
     }
 }﻿
