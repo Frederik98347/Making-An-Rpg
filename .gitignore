@@ -81,3 +81,45 @@ Assets/Scenes/MainScene/ReflectionProbe-0.exr.meta
 Assets/Scenes/MainScene/ReflectionProbe-0.exr
 Assets/Scenes/MainScene/OcclusionCullingData.asset.meta
 Assets/Terrain models/Mega Fantasy Props Pack/Materials/books_paper_d.mat
+*.asset
+*.asset
+Assets/Scenes/MainScene/LightingData.asset.meta
+Assets/Scenes/MainScene/Lightmap-0_comp_dir.png
+Assets/Scenes/MainScene/Lightmap-0_comp_dir.png.meta
+Assets/Scenes/MainScene/Lightmap-0_comp_light.exr
+Assets/Scenes/MainScene/Lightmap-0_comp_light.exr.meta
+Assets/Scenes/MainScene/Lightmap-1_comp_dir.png
+Assets/Scenes/MainScene/Lightmap-1_comp_dir.png.meta
+Assets/Scenes/MainScene/Lightmap-1_comp_light.exr
+Assets/Scenes/MainScene/Lightmap-1_comp_light.exr.meta
+Assets/Scenes/MainScene/OcclusionCullingData.asset
+Assets/Scenes/MainScene/OcclusionCullingData.asset.meta
+Assets/Scenes/MainScene/ReflectionProbe-0.exr
+*.meta
+*.mat
+Assets/Standard Assets/Environment/Water/Water4/Materials/Water4Simple.mat
+Assets/Terrain models/Castle/Statue/Statue_No_ColorsMat.mat
+Assets/Terrain models/Free Island Collection/Environment/Terrain/Terrains/Terrain 2.asset
+Assets/Terrain models/Mega Fantasy Props Pack/Materials/books_paper_d.mat
+*.asset
+Assets/Scenes/MainScene/LightingData.asset
+Assets/Scenes/MainScene/LightingData.asset
+Assets/Scenes/MainScene/LightingData.asset.meta
+Assets/Scenes/MainScene/Lightmap-0_comp_dir.png
+Assets/Scenes/MainScene/Lightmap-0_comp_dir.png.meta
+Assets/Scenes/MainScene/Lightmap-0_comp_light.exr
+Assets/Scenes/MainScene/Lightmap-0_comp_light.exr.meta
+Assets/Scenes/MainScene/Lightmap-1_comp_dir.png
+Assets/Scenes/MainScene/Lightmap-1_comp_dir.png.meta
+Assets/Scenes/MainScene/Lightmap-1_comp_light.exr
+Assets/Scenes/MainScene/Lightmap-1_comp_light.exr.meta
+Assets/Scenes/MainScene/OcclusionCullingData.asset
+Assets/Scenes/MainScene/OcclusionCullingData.asset.meta
+Assets/Scenes/MainScene/ReflectionProbe-0.exr
+Assets/Scenes/MainScene/ReflectionProbe-0.exr.meta
+Assets/Standard Assets/Environment/Water/Water/Materials/WaterProNighttime.mat
+Assets/Standard Assets/Environment/Water/Water4/Materials/Water4Advanced.mat
+Assets/Standard Assets/Environment/Water/Water4/Materials/Water4Simple.mat
+Assets/Terrain models/Castle/Statue/Statue_No_ColorsMat.mat
+Assets/Terrain models/Free Island Collection/Environment/Terrain/Terrains/Terrain 2.asset
+Assets/Terrain models/Mega Fantasy Props Pack/Materials/books_paper_d.mat
