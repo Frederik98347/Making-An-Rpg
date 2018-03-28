@@ -4,6 +4,7 @@
 public class Item : ScriptableObject{
     public bool isStackable = false;
     public int StackSize = 0;
+    public GameObject itemPrefab;
     [SerializeField] Texture2D image;
     [SerializeField] string description;
     [SerializeField] ItemType itemType;
