@@ -123,3 +123,8 @@ Assets/Standard Assets/Environment/Water/Water4/Materials/Water4Simple.mat
 Assets/Terrain models/Castle/Statue/Statue_No_ColorsMat.mat
 Assets/Terrain models/Free Island Collection/Environment/Terrain/Terrains/Terrain 2.asset
 Assets/Terrain models/Mega Fantasy Props Pack/Materials/books_paper_d.mat
+*.asset
+*.png
+*.meta
+*.png
+*.meta

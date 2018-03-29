@@ -7,6 +7,7 @@ public class ItemManager : MonoBehaviour {
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         if (instance != null)
         {
             Debug.LogWarning("more than one instance of inventory");
@@ -32,11 +33,11 @@ public class ItemManager : MonoBehaviour {
             return false;
         }
 
-        if (items.Contains(item) && item.isStackable)
+        /*if (items.Contains(item) && item.isStackable)
         {
             //InventorySlot data = 
             //data.amount += amountToAdd
-        }
+        }*/
 
         items.Add(item);
         if (onItemChangedCallback != null)

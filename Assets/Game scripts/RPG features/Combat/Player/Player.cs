@@ -11,7 +11,6 @@ public class Player : MonoBehaviour{
     CharacterHealthsytem healthsystem;
     [SerializeField] Enemy enemyScript;
     [SerializeField] UserMovement usermovement;
-    BasePlayer basePlayer;
     //CreateNewCharacter character;
     // public int _characterIndex;
 
@@ -75,11 +74,11 @@ public class Player : MonoBehaviour{
 
     // Use this for initialization
     void Start() {
-        if (basePlayer != null)
+        /*if (basePlayer != null)
         {
             basePlayer.PlayerName = Playername;
             basePlayer.PlayerClass.CharacterClassName = Playerclass;
-        }
+        }*/
 
         if (focus)
         {

@@ -12,6 +12,7 @@ public class ClassSelector : MonoBehaviour {
     public Birthday birthDay;
     [HideInInspector]
     public FamiliyTraits familyTraits;
+    FamilyStatus Status;
 
     public bool isRogue;
     public bool isMage;
@@ -34,14 +35,18 @@ public class ClassSelector : MonoBehaviour {
 
     [SerializeField] int StatMaxValue;
     [SerializeField] int CurStatValue;
-    [Range(0,5)]
-    [SerializeField] int strengthSliderValue;
     [Range(0, 5)]
-    [SerializeField] int staminaSliderValue;
+    [SerializeField]
+    int strengthSliderValue;
     [Range(0, 5)]
-    [SerializeField] int agilitySliderValue;
+    [SerializeField]
+    int staminaSliderValue;
     [Range(0, 5)]
-    [SerializeField] int intelligenceSliderValue;
+    [SerializeField]
+    int agilitySliderValue;
+    [Range(0, 5)]
+    [SerializeField]
+    int intelligenceSliderValue;
 
     [Header("Buttons")]
     [SerializeField] Button StaminaButtonPlus;
@@ -88,6 +93,15 @@ public class ClassSelector : MonoBehaviour {
     public int Day;
     public int Month;
     public int Year;
+
+    [Header("FamilyStatus")]
+    public Item[] StartItems;
+    public int Amount;
+    public bool StackAble;
+
+    public string MoneyName = "Gold Coins";
+    public float Money = 0;
+    public float IncomePrDay = 0;
 
     [Header("Next Button")]
     public Button NextButton;
@@ -167,6 +181,20 @@ public class ClassSelector : MonoBehaviour {
         if (birthDay == null)
         {
             birthDay = FindObjectOfType<Birthday>();
+        }
+
+        if (Status == null)
+        {
+            Status = FindObjectOfType<FamilyStatus>();
+
+            StartItems = new Item[]{
+                Status.StartItem_Boots, Status.StartItem_Chest,
+                Status.StartItem_Pants, Status.StartItem_Weapon};
+
+            MoneyName = Status.MoneyName;
+            Money = Status.Money;
+            IncomePrDay = Status.Income;
+            
         }
 
         if (familyTraits == null)
@@ -301,6 +329,11 @@ public class ClassSelector : MonoBehaviour {
                     Month = birthDay.Month;
                     Year = birthDay.year;
 
+                    //classbased speed
+                    AttackSpeed = SelectedClass.Attackspeed;
+                    MovementSpeed = SelectedClass.RunningSpeed;
+                    CastingSpeed = SelectedClass.CastingSpeed;
+
                     //setting up so the name typed is = to playerName
                     SelectedClass.PlayerName = GameObject.Find("Name").GetComponentInChildren<TMP_InputField>().text;
                     SelectedClass.FamilyName = GameObject.Find("Family Name").GetComponentInChildren<TMP_InputField>().text;
@@ -311,6 +344,7 @@ public class ClassSelector : MonoBehaviour {
                     PlayerName = SelectedClass.PlayerName;
 
                     CheckName(PlayerName, FamilyName);
+                    Status.DropDowns();
                 }
             }
             else if (toggleGroup.toggleMage.isOn == true)
@@ -341,6 +375,11 @@ public class ClassSelector : MonoBehaviour {
                     Month = birthDay.Month;
                     Year = birthDay.year;
 
+                    //classbased speed
+                    AttackSpeed = SelectedClass.Attackspeed;
+                    MovementSpeed = SelectedClass.RunningSpeed;
+                    CastingSpeed = SelectedClass.CastingSpeed;
+
                     //setting up so the name typed is = to playerName
                     SelectedClass.PlayerName = GameObject.Find("Name").GetComponentInChildren<TMP_InputField>().text;
                     SelectedClass.FamilyName = GameObject.Find("Family Name").GetComponentInChildren<TMP_InputField>().text;
@@ -351,6 +390,7 @@ public class ClassSelector : MonoBehaviour {
                     PlayerName = SelectedClass.PlayerName;
 
                     CheckName(PlayerName, FamilyName);
+                    Status.DropDowns();
                 }
             }
             else if (toggleGroup.toggleWarrior.isOn == true)
@@ -381,6 +421,11 @@ public class ClassSelector : MonoBehaviour {
                     Month = birthDay.Month;
                     Year = birthDay.year;
 
+                    //classbased speed
+                    AttackSpeed = SelectedClass.Attackspeed;
+                    MovementSpeed = SelectedClass.RunningSpeed;
+                    CastingSpeed = SelectedClass.CastingSpeed;
+
                     //setting up so the name typed is = to playerName
                     SelectedClass.PlayerName = GameObject.Find("Name").GetComponentInChildren<TMP_InputField>().text;
                     SelectedClass.FamilyName = GameObject.Find("Family Name").GetComponentInChildren<TMP_InputField>().text;
@@ -391,6 +436,7 @@ public class ClassSelector : MonoBehaviour {
                     PlayerName = SelectedClass.PlayerName;
 
                     CheckName(PlayerName, FamilyName);
+                    Status.DropDowns();
                 }
             }
         }
