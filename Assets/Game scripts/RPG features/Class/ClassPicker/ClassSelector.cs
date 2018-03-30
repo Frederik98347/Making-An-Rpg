@@ -23,9 +23,10 @@ public class ClassSelector : MonoBehaviour {
     public GameObject NextMenu;
 
     [SerializeField] TextMeshProUGUI Text;
-
+    [Header("Error Popups")]
     public GameObject FamilyNameError;
     public GameObject FirstNameError;
+    public GameObject StatSliderError;
 
     [Header("Slider properties")]
     public Slider StrengthSlider;
@@ -99,9 +100,9 @@ public class ClassSelector : MonoBehaviour {
     public int Amount;
     public bool StackAble;
 
-    public string MoneyName = "Gold Coins";
-    public float Money = 0;
-    public float IncomePrDay = 0;
+    string MoneyName = "Gold Coins";
+    [SerializeField] float Money;
+    [SerializeField] float IncomePrDay;
 
     [Header("Next Button")]
     public Button NextButton;
@@ -187,14 +188,12 @@ public class ClassSelector : MonoBehaviour {
         {
             Status = FindObjectOfType<FamilyStatus>();
 
-            StartItems = new Item[]{
-                Status.StartItem_Boots, Status.StartItem_Chest,
-                Status.StartItem_Pants, Status.StartItem_Weapon};
-
-            MoneyName = Status.MoneyName;
-            Money = Status.Money;
-            IncomePrDay = Status.Income;
-            
+            if (Status.currency != null)
+            {
+                MoneyName = Status.MoneyName;
+                Money = Status.AmountOfMoney;
+                IncomePrDay = Status.IncomePrDay;
+            }
         }
 
         if (familyTraits == null)
@@ -224,6 +223,10 @@ public class ClassSelector : MonoBehaviour {
         AgilitySlider.maxValue = 5;
         IntelligenceSlider.maxValue = 5;
         StaminaSlider.maxValue = 5;
+
+        StartItems = new Item[]{
+                Status.StartItem_Boots = null, Status.StartItem_Chest = null,
+                Status.StartItem_Pants, Status.StartItem_Weapon = null};
 
         if (NextButton == null)
         {
@@ -256,14 +259,39 @@ public class ClassSelector : MonoBehaviour {
         if (FirstNameError == null)
         {
             FirstNameError = GameObject.Find("FirstNameErrorBox");
-            FirstNameError.SetActive(false);
         }
+
+        FirstNameError.SetActive(false);
+
+        if (StatSliderError == null)
+        {
+            StatSliderError = GameObject.Find("StatSliderError");
+        }
+
+        StatSliderError.SetActive(false);
 
         if (FamilyNameError == null)
         {
             FamilyNameError = GameObject.Find("FamilyNameErrorBox");
-            FamilyNameError.SetActive(false);
+        }
+        FamilyNameError.SetActive(false);
+    }
 
+    private void Update()
+    {
+        if (GameObject.Find("Family Name").GetComponentInChildren<TMP_InputField>().text != string.Empty)
+        {
+            FamilyNameError.SetActive(false);
+        }
+
+        if (GameObject.Find("Name").GetComponentInChildren<TMP_InputField>().text != string.Empty)
+        {
+            FirstNameError.SetActive(false);
+        }
+
+        if (CurStatValue == StatMaxValue)
+        {
+            StatSliderError.SetActive(false);
         }
     }
 
@@ -344,7 +372,7 @@ public class ClassSelector : MonoBehaviour {
                     PlayerName = SelectedClass.PlayerName;
 
                     CheckName(PlayerName, FamilyName);
-                    Status.DropDowns();
+                    Status.SetDropDownValues();
                 }
             }
             else if (toggleGroup.toggleMage.isOn == true)
@@ -390,7 +418,7 @@ public class ClassSelector : MonoBehaviour {
                     PlayerName = SelectedClass.PlayerName;
 
                     CheckName(PlayerName, FamilyName);
-                    Status.DropDowns();
+                    Status.SetDropDownValues();
                 }
             }
             else if (toggleGroup.toggleWarrior.isOn == true)
@@ -436,7 +464,7 @@ public class ClassSelector : MonoBehaviour {
                     PlayerName = SelectedClass.PlayerName;
 
                     CheckName(PlayerName, FamilyName);
-                    Status.DropDowns();
+                    Status.SetDropDownValues();
                 }
             }
         }
@@ -458,12 +486,11 @@ public class ClassSelector : MonoBehaviour {
     {
         if (GameObject.Find("Name").GetComponentInChildren<TMP_InputField>().text == string.Empty)
         {
-            Debug.Log("true");
             if(FirstNameError != null)
             {
                 FirstNameError.SetActive(true);
 
-                string firstNameError = "Name missing: Please fill out name fields";
+                string firstNameError = "Name missing: Please fill out field";
                 FirstNameError.GetComponentInChildren<TextMeshProUGUI>().text = firstNameError;
             }
         } else
@@ -477,7 +504,7 @@ public class ClassSelector : MonoBehaviour {
             {
                 FamilyNameError.SetActive(true);
 
-                string firstNameError = "Family Name missing: Please fill out name fields";
+                string firstNameError = "Family Name missing: Please fill out field";
                 FamilyNameError.GetComponentInChildren<TextMeshProUGUI>().text = firstNameError;
             }
         }
@@ -488,7 +515,27 @@ public class ClassSelector : MonoBehaviour {
 
         if (GameObject.Find("Family Name").GetComponentInChildren<TMP_InputField>().text != string.Empty && GameObject.Find("Name").GetComponentInChildren<TMP_InputField>().text != string.Empty)
         {
-            NextPage(NextButton);
+            if (CurStatValue == StatMaxValue)
+            {
+                StatSliderError.SetActive(false);
+                NextPage(NextButton);
+            } else
+            {
+                //Error popup
+                CheckStatSlider();
+
+            }
+        }
+    }
+
+    void CheckStatSlider()
+    {
+
+        if (StatSliderError != null)
+        {
+            string StatSliderErrorText = "Points missing: Please spend all points";
+            StatSliderError.GetComponentInChildren<TextMeshProUGUI>().text = StatSliderErrorText;
+            StatSliderError.SetActive(true);
         }
     }
 
