@@ -55,7 +55,7 @@ MonoBehaviour:
     type: 2}
   TextPrefabHeal: {fileID: 1150587642263326, guid: 9d3162431e09bb54a917c8f59ff390d4,
     type: 2}
-  TextPrefabAuto: {fileID: 1555073445864534, guid: ca1daaa868e69114e9442c99d32a63c1,
+  TextPrefabAuto: {fileID: 1508602506322344, guid: 96607bd2613714b4eb4e5793b4b5263b,
     type: 2}
   TextPrefabAbility: {fileID: 1680191503310048, guid: 1ce2951b5d9026e4089efe79c580aac7,
     type: 2}

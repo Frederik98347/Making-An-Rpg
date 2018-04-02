@@ -25,7 +25,8 @@
         LIGHTNING,
         PHYSICAL,
         DARK,
-        FIRE
+        FIRE,
+        TOXIC
     }
 
     public enum MobClass

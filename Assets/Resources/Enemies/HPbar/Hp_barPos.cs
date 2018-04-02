@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using RpgTools.PlayerClass;
 
 public class Hp_barPos : MonoBehaviour
 {
@@ -21,6 +22,16 @@ public class Hp_barPos : MonoBehaviour
         if (player == null)
         {
             player = FindObjectOfType<Player>().transform;
+        }
+
+        if (canvas == null)
+        {
+            canvas = GetComponentInChildren<Canvas>();
+        }
+
+        if (owner == null)
+        {
+            owner = GetComponentInParent<GameObject>().transform;
         }
     }
 

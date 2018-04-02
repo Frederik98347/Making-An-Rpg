@@ -1,10 +1,9 @@
-﻿using PlayerClass;
+﻿using RpgTools.PlayerClass;
 
 public class BaseRogueClass : BaseCharacterClass
 {
     // all generic enemy data for War class
-    public RogueWpnType wpnType;
-    public RogueDmgTypes dmgType;
+    public PlayerDmgTypes dmgTypes;
 
     //warrior generic abilities
     public Spell[] RogueAbilities;
@@ -12,12 +11,12 @@ public class BaseRogueClass : BaseCharacterClass
     //stat bonuses
     int StaminaBonus = -3;
     int StrengthBonus = -1;
-    int IntellectBonus = -1;
+    int IntellectBonus = -2;
     int AgilityBonus = 3;
     int CritchanceBonus = 3;
     int DefenceBonus = -2;
     int hasteBonus = 0;
-    int ResistanceBonus = -1;
+    int ResistanceBonus = 0;
     int EnduranceBonus = 1;
     int MemoryBonus = 0;
 
@@ -70,6 +69,7 @@ public class BaseRogueClass : BaseCharacterClass
     {
         //Bonuses: +15 % to speed(movement & attackspeed). 10 % to energy regen
         //Drawbacks: +5 % to physical, dark and poison damage taken.
-
+        RunningSpeed *= 1.15f;
+        Attackspeed *= 1.15f;
     }
 }

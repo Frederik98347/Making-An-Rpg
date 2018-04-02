@@ -7,13 +7,13 @@ public class PauseMenu : MonoBehaviour {
     
     public GameObject PauseMenuUI;
     [SerializeField] UserCamera cam;
-    Player player;
+    RpgTools.PlayerClass.Player player;
 
     public string StartMenu = "StartMenu";
 
     private void Start()
     {
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<RpgTools.PlayerClass.Player>();
     }
 
     private void Update()

@@ -11,6 +11,7 @@ public class FamilyStatus : MonoBehaviour{
     public Item StartItem_Pants;
     public Item StartItem_Chest;
     public Item StartItem_Boots;
+    public Item[] StartItems;
 
     [SerializeField] TMP_Dropdown wealthDropDownPick;
     [SerializeField] TMP_Dropdown socialDropDownPick;
@@ -38,6 +39,8 @@ public class FamilyStatus : MonoBehaviour{
             AmountOfMoney = currency.CurrencyAmount;
             IncomePrDay = currency.IncomePrDay;
         }
+
+        StartItems = new Item[] { StartItem_Weapon, StartItem_Pants, StartItem_Boots, StartItem_Chest };
     }
 
     void DropDownSocial()
@@ -49,14 +52,15 @@ public class FamilyStatus : MonoBehaviour{
             // pants, no weapons
             // 5% speed (movement, attackspeed & casting speed)
 
-            ClearInventory(StartItem_Boots);
-            ClearInventory(StartItem_Chest);
-            ClearInventory(StartItem_Weapon);
-            ClearInventory(StartItem_Pants);
-
-            SetInventory(StartItem_Pants);
+            ClearInventory(StartItems[0]); // weapon
+            ClearInventory(StartItems[1]); // pants
+            ClearInventory(StartItems[2]); // feet
+            ClearInventory(StartItems[3]); // chest
+            SetInventory(StartItems[1]);
             if (currency != null)
-                currency.IncomePrDay = 0f;
+            {
+                IncomePrDay = 0f;
+            }
         }
         else if (socialDropDownPick.value == 1)
         {
@@ -64,35 +68,36 @@ public class FamilyStatus : MonoBehaviour{
             //pants && wep
             //2.5% speed
 
-            ClearInventory(StartItem_Boots);
-            ClearInventory(StartItem_Chest);
-            ClearInventory(StartItem_Weapon);
-            ClearInventory(StartItem_Pants);
-
-            SetInventory(StartItem_Weapon);
-            SetInventory(StartItem_Pants);
+            ClearInventory(StartItems[0]); // weapon
+            ClearInventory(StartItems[1]); // pants
+            ClearInventory(StartItems[2]); // feet
+            ClearInventory(StartItems[3]); // chest
+            SetInventory(StartItems[0]); // weapon
+            SetInventory(StartItems[1]); // pants
 
             if (currency != null)
-                currency.IncomePrDay = 0.5f;
+            {
+                IncomePrDay = .5f;
+            }
         }
         else if (socialDropDownPick.value == 2)
         {
             //knight
             //pants & wep & chest & boots, level 1 gear though
             // 0 % speed
-
-            ClearInventory(StartItem_Boots);
-            ClearInventory(StartItem_Chest);
-            ClearInventory(StartItem_Weapon);
-            ClearInventory(StartItem_Pants);
-
-            SetInventory(StartItem_Weapon);
-            SetInventory(StartItem_Pants);
-            SetInventory(StartItem_Chest);
-            SetInventory(StartItem_Boots);
+            ClearInventory(StartItems[0]); // weapon
+            ClearInventory(StartItems[1]); // pants
+            ClearInventory(StartItems[2]); // feet
+            ClearInventory(StartItems[3]); // chest
+            SetInventory(StartItems[0]); // weapon
+            SetInventory(StartItems[1]); // pants
+            SetInventory(StartItems[2]); // feet
+            SetInventory(StartItems[3]); // chest
 
             if (currency != null)
-                currency.IncomePrDay = 1f;
+            {
+                IncomePrDay = 1f;
+            }
         }
     }
 

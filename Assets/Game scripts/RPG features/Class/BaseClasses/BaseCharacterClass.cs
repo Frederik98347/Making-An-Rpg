@@ -32,7 +32,6 @@ public class BaseCharacterClass : BasePlayer{
     private float castingSpeedFormula;
     private float baseCastingSpeed = 2f;
     private float resistanceFormula;
-    private int _pointsIntoStam = 1;
     private float _staminaFormula;
 
     public string CharacterClassName{
@@ -257,6 +256,10 @@ public class BaseCharacterClass : BasePlayer{
         stats[7] = 3;
         stats[8] = 4;
         stats[9] = 5;
+
+        walkingSpeed = 3.5f;
+        runningSpeed = 6f;
+        attackspeed = 2f;
     }
 
     public void StatCalc()

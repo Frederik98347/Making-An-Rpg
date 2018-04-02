@@ -1,11 +1,10 @@
-﻿using PlayerClass;
+﻿using RpgTools.PlayerClass;
 
 public class BaseWarriorClass : BaseCharacterClass
 {
 
     // all generic enemy data for War class
-    public WarriorWpnType wpnType;
-    public WarriorDmgTypes dmgType;
+    public PlayerDmgTypes dmgTypes;
 
     //warrior generic abilities
     public Spell[] warriorAbilities;

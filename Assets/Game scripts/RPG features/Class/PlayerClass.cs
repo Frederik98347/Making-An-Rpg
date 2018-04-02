@@ -1,4 +1,4 @@
-﻿namespace PlayerClass
+﻿namespace RpgTools.PlayerClass
 {
     //Class fantasy, all classes has a grimoire flying beside them, helping with casting magic spells / doing all kinds of abilities.
     public enum PlayerDmgTypes
@@ -12,7 +12,7 @@
         TOXIN
     }
 
-    public enum PlayerClass
+    /*public enum PlayerClass
     {
         WARRIOR = 0,
         MAGE,
@@ -76,5 +76,5 @@
         TOXIN,
         SHADOW,
         PHYSICAL
-    }
+    }*/
 }
