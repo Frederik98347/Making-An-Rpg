@@ -9,27 +9,36 @@ namespace RpgTools {
     {
 
         //current level
+        [Header("Level options")]
         [SerializeField] int vLevel;
+        [SerializeField] int MaxLevel = 50;
+
+        [Header("LevelUp particlesystem")]
         [SerializeField] ParticleSystem levelParticleSystem;
         [SerializeField] float levelParticlefadeTime = 1.5f;
+
+        [Header("Objects")]
         [SerializeField] Slider expBar;
         [SerializeField] GameObject LevelupBox;
         [SerializeField] TMP_Text levelText;
         public Text LevelFrameText;
         public TMP_Text ExpBarText;
+
+        [Header("Levelup Sound")]
         [SerializeField] AudioManger Audio;
 
         BasePlayer basePlayer;
 
+        [Header("Settings")][Tooltip("Options in different kind of exp text displayType")]
         public bool showText = true;
         public bool isPercentageExp;
         public bool isPercentageNnumbersExp;
         //current exp amount
-        [SerializeField] int vCurrExp = 0;
+        int vCurrExp = 0;
         //exp amount needed for lvl 1
         int vExpBase = 25;
         //exp amount Required to next levelup
-        [SerializeField] int vExpReq = 30;
+        int vExpReq = 30;
         //modifier that increases needed exp each level
         float vExpMod = 1.15f;
 
@@ -141,14 +150,21 @@ namespace RpgTools {
 
         void LvlUp()
         {
-            VCurrExp -= VExpReq;
-            VLevel++;
-            SetLevelText("" + VLevel);
-            float t = Mathf.Pow(VExpMod, VLevel);
-            VExpReq = (int)Mathf.Floor(VExpBase * t);
+            if (VLevel != MaxLevel)
+            {
+                VCurrExp -= VExpReq;
+                VLevel++;
+                SetLevelText("" + VLevel);
+                float t = Mathf.Pow(VExpMod, VLevel);
+                VExpReq = (int)Mathf.Floor(VExpBase * t);
 
-            IncreaseExp();
-            LvlUpAnim();
+                IncreaseExp();
+                LvlUpAnim();
+            } else if (VLevel == MaxLevel)
+            {
+                ExpBarText.gameObject.SetActive(false);
+                expBar.gameObject.SetActive(false);
+            }
         }
 
         private void Start()
@@ -175,7 +191,7 @@ namespace RpgTools {
         void Update()
         {
             if (Input.GetButtonDown("Jump")) {
-                GainExp(100);
+                LvlUp();
             }
 
             if (expBar.value == 1 && VCurrExp == 0)

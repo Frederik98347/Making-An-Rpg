@@ -47,7 +47,9 @@ public class UserCamera : MonoBehaviour {
 		
 		if (lockToRearOfTarget)
 			rotateBehind = true;
+
 		} 
+
 	
 	void Update () {
 

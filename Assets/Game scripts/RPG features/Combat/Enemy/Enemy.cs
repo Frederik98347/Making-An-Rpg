@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using RpgTools.PlayerClass; // so enemy knows stuff about the playerclass
 using UnityEngine.AI;
 
 /// <summary>
@@ -14,9 +13,10 @@ namespace RpgTools.Enemy
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Interactable))]
     [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(CharacterHealthsytem))]
     public class Enemy : MonoBehaviour
     {
-
+        [SerializeField] CharacterHealthsytem healthSystem;
         [SerializeField] AIConfig _enemyInfo;
         public Slider HealthBar;
         [SerializeField]
@@ -40,7 +40,7 @@ namespace RpgTools.Enemy
 
         [Tooltip("Specifies if an enemy should runaway with 50% hp & no be aggresive")] [SerializeField] bool isCritter;
 
-        [SerializeField] Player Player;
+        [SerializeField] PlayerClass.Player Player;
         [SerializeField] Hp_barPos canvas;
 
         [SerializeField] float rotSpeed = 2.5f;
@@ -106,8 +106,9 @@ namespace RpgTools.Enemy
         public int Stamina;
         public int Intellect;
 
-        float currentHealth;
-        float maxHealth;
+        [HideInInspector]
+        public float MaxHealth;
+
         private float baseoutofrangeTimer;
 
         bool beenAttacked;
@@ -138,40 +139,18 @@ namespace RpgTools.Enemy
             }
         }
 
-        public float MaxHealth
-        {
-            get
-            {
-                return maxHealth;
-            }
-
-            set
-            {
-                maxHealth = value;
-            }
-        }
-
-        public float CurrentHealth
-        {
-            get
-            {
-                return currentHealth;
-            }
-
-            set
-            {
-                currentHealth = value;
-            }
-        }
-
         // Use this for initialization
         void Start()
         {
+            if (healthSystem == null)
+            {
+                healthSystem = transform.GetComponent<CharacterHealthsytem>();
+            }
 
             //Finding the player component
             if (Player == null)
             {
-                Player = FindObjectOfType<Player>().GetComponent<Player>();
+                Player = FindObjectOfType<PlayerClass.Player>().GetComponent<PlayerClass.Player>();
                 player = Player.transform;
             }
             if (canvas == null)
@@ -215,9 +194,7 @@ namespace RpgTools.Enemy
                 MaxDamage = _enemyInfo.MaxAutoDamage;
                 MaxHealth = _enemyInfo.EnemyHP;
 
-                // Rests health to full on game load
-                CurrentHealth = MaxHealth;
-                HealthBar.value = CalculateHealth();
+                HealthBar.value = healthSystem.CurrentHealth;
                 exptogive = _enemyInfo.Exptogive;
 
                 //anim speed
@@ -315,7 +292,7 @@ namespace RpgTools.Enemy
         {
             if (isCritter == true)
             {
-                if (CurrentHealth == MaxHealth / 2) // if 50% hp, run away from player
+                /*if (healthSystem.CurrentHealth == healthSystem.MaxHealth / 2) // if 50% hp, run away from player
                 {
                     state = State.RunAway;
                     //runaway as soon as enemy attacks
@@ -338,7 +315,7 @@ namespace RpgTools.Enemy
                     transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
                     transform.Translate(0 + Random.Range(-2, 2), 0, walkingspeed * Time.deltaTime);
                     //agent.SetDestination(runPosition); // for navmesh
-                }
+                }*/
             }
         }
 
@@ -438,10 +415,9 @@ namespace RpgTools.Enemy
         void IsEnemyDead()
         {
 
-            if (CurrentHealth <= 0)
+            if (this.healthSystem.CurrentHealth <= 0)
             {
-                CurrentHealth = 0;
-                HealthBar.value = CurrentHealth;
+
                 state = State.Dead;
                 canvas.gameObject.SetActive(false);
                 if (state == State.Dead && Audio.isPlaying == false)
@@ -636,37 +612,34 @@ namespace RpgTools.Enemy
             }
         }
 
-        public void GetHit(int damage, PlayerDmgTypes damageType = PlayerDmgTypes.PHYSICAL)
+        public void GetHit(int damage, PlayerClass.PlayerDmgTypes damageType)
         {
-            CombatTextManager.Instance.CreateText(this.transform.position, false, false, true, false, damage.ToString());
-            beenAttacked = true;
-            //deal damage
-            CurrentHealth -= damage;
-            HealthBar.value = CalculateHealth();
-            // checking if this transform is dead
-            if (CurrentHealth <= 0)
+            if (healthSystem.IsDead == true)
             {
-                //enemy is dead
+                //Is dead
                 state = State.Dead;
                 beenAttacked = false;
-                CurrentHealth = 0;
-                HealthBar.value = CalculateHealth();
                 IsEnemyDead();
+            }
+            else
+            {
+                beenAttacked = true;
+                healthSystem.GetHit(damage);
             }
         }
 
-        public void GetHealth(int healValue)
+        public void GetHealth(int HealthValue)
         {
-            CombatTextManager.Instance.CreateText(this.transform.position, true, false, false, false, healValue.ToString());
-            CurrentHealth += healValue;
-            HealthBar.value = CalculateHealth();
-            //Enemy healing spells can work now
-
-            //making sure Health can go above 100%
-            if (CurrentHealth >= MaxHealth)
+            if (healthSystem.IsDead == true)
             {
-                CurrentHealth = MaxHealth;
-                HealthBar.value = 1;
+                //Is dead
+                state = State.Dead;
+                beenAttacked = false;
+                IsEnemyDead();
+            }
+            else
+            {
+                healthSystem.GetHealth(HealthValue);
             }
         }
 
@@ -742,6 +715,7 @@ namespace RpgTools.Enemy
                 {
                     state = State.Attacking;
                     damage = Random.Range(Mindamage, MaxDamage);
+                    
                     Player.GetHit(damage);
 
                 }
@@ -764,11 +738,6 @@ namespace RpgTools.Enemy
                     }
                 }
             }
-        }
-
-        float CalculateHealth()
-        {
-            return CurrentHealth / MaxHealth;
         }
     }
 }

@@ -48,7 +48,7 @@ MonoBehaviour:
       downsampling: 0
       forceForwardCompatibility: 1
       ambientOnly: 1
-      highPrecision: 1
+      highPrecision: 0
   screenSpaceReflection:
     m_Enabled: 1
     m_Settings:
@@ -72,7 +72,7 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       focusDistance: 9.26
-      aperture: 0.4
+      aperture: 4.3
       focalLength: 32
       useCameraFov: 1
       kernelSize: 0

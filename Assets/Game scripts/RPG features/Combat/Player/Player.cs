@@ -7,6 +7,7 @@ namespace RpgTools.PlayerClass
     [RequireComponent(typeof(AudioSource))]
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(UserMovement))]
+    [RequireComponent(typeof(CharacterHealthsytem))]
     public class Player : MonoBehaviour
     {
 
@@ -113,6 +114,8 @@ namespace RpgTools.PlayerClass
                 AutoAttack();
             }
 
+            TestDamage();
+
             //if dead 
             Isdead(); // doesnt work
 
@@ -149,6 +152,19 @@ namespace RpgTools.PlayerClass
                 {
                     autoAttacking = true;
                 }
+            }
+        }
+
+        void TestDamage()
+        {
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                GetHit(Random.Range(1, 10));
+            }
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                GetHealth(Random.Range(1, 10));
             }
         }
 
@@ -273,6 +289,7 @@ namespace RpgTools.PlayerClass
                     {
                         //frontal
                         canAttack = false;
+                        autoAttacking = true;
                     }
                     else
                     {
@@ -290,13 +307,13 @@ namespace RpgTools.PlayerClass
                         behindEnemy = true;
                     }
 
-                    if (canAttack == true && autoAttacking == true && enemyScript.state != Enemy.Enemy.State.Dead && Vector3.Distance(this.transform.position, selectedUnit.transform.position) < AutoattackRange)
+                    if (autoAttacking == true && enemyScript.state != Enemy.Enemy.State.Dead && Vector3.Distance(this.transform.position, selectedUnit.transform.position) < AutoattackRange)
                     {
                         state = State.COMBAT;
                         autoAttackcurTime += Time.deltaTime;
                         //count up
 
-                        if (autoAttackcurTime >= autoAttackCD)
+                        if (autoAttackcurTime >= autoAttackCD && canAttack == true)
                         {
                             // no cd on autoattack
                             DoAutoDamage();
@@ -306,7 +323,7 @@ namespace RpgTools.PlayerClass
                     else if (Vector3.Distance(transform.position, selectedUnit.transform.position) > AutoattackRange)
                     {
                         autoAttacking = false;
-                        canAttack = false;
+                        //canAttack = false;
                         autoAttackcurTime = 0;
 
                         // Check if no enemies is around and then run the script
@@ -331,10 +348,24 @@ namespace RpgTools.PlayerClass
             }
         }
 
+        public void GetHealth(int HealthValue)
+        {
+            if (this.healthsystem.IsDead == true)
+            {
+                //Is dead
+                Isdead();
+                state = State.DEAD;
+            }
+            else
+            {
+                this.healthsystem.GetHealth(HealthValue);
+            }
+        }
+
         void DoAutoDamage(PlayerDmgTypes damageType = PlayerDmgTypes.PHYSICAL)
         {
             AutoAttackDamage = Random.Range(MinDamage, MaxDamage);
-            enemyScript.GetHit(AutoAttackDamage, damageType = PlayerClass.PlayerDmgTypes.PHYSICAL);
+            enemyScript.GetHit(AutoAttackDamage, damageType = PlayerDmgTypes.PHYSICAL);
         }
 
         public enum State
@@ -346,7 +377,7 @@ namespace RpgTools.PlayerClass
 
         void Isdead()
         {
-            if (state == State.DEAD)
+            /*if (state == State.DEAD)
             {
                 float Speed = usermovement.runSpeed;
 
@@ -361,7 +392,7 @@ namespace RpgTools.PlayerClass
                     enemyScript.state = Enemy.Enemy.State.Patrol;
                 }
 
-            }
+            }*/
 
             //Destroy(this.gameObject, 2.0f);
         }

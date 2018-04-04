@@ -24,6 +24,7 @@ namespace RpgTools
         [SerializeField] bool isPercentageNnumbers;
 
         public Image healthBar;
+        public Slider TargetBar;
 
         #region Init
         public float CurrentHealth
@@ -120,10 +121,17 @@ namespace RpgTools
 
         void Start()
         {
-            MaxHealth = GetComponent<PlayerClass.Player>().Health;
-            // Rests health to full on game load
-            CurrentHealth = MaxHealth;
-            healthBar.fillAmount = CalculateHealth();
+            if (this.gameObject.tag == "enemy")
+            {
+                MaxHealth = transform.GetComponent<Enemy.Enemy>().MaxHealth;
+                CurrentHealth = MaxHealth;
+                TargetBar.value = CalculateHealth();
+            } else if(this.gameObject.tag == "Player")
+            {
+                MaxHealth = transform.GetComponent<PlayerClass.Player>().Health;
+                CurrentHealth = MaxHealth;
+                healthBar.fillAmount = CalculateHealth();
+            }
 
             if (HpBarText != null)
             {
@@ -134,8 +142,6 @@ namespace RpgTools
 
         void Update()
         {
-            TestDamage();
-
             if (HpBarText != null)
             {
                 ShowText();
@@ -149,7 +155,17 @@ namespace RpgTools
             CombatTextManager.Instance.CreateText(transform.position, true, false, false, false, damageValue.ToString());
 
             CurrentHealth -= damageValue;
-            healthBar.fillAmount = CalculateHealth();
+
+            if (this.gameObject.tag == "enemy")
+            {
+                MaxHealth = transform.GetComponent<Enemy.Enemy>().MaxHealth;
+                TargetBar.value = CalculateHealth();
+            }
+            else if (this.gameObject.tag == "Player")
+            {
+                MaxHealth = transform.GetComponent<PlayerClass.Player>().Health;
+                healthBar.fillAmount = CalculateHealth();
+            }
 
             //making sure health cant go below 0%
 
@@ -295,19 +311,6 @@ namespace RpgTools
                 {
                     OutofHPCalc();
                 }
-            }
-        }
-
-        void TestDamage()
-        {
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                GetHit(Random.Range(1, 10));
-            }
-
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                GetHealth(Random.Range(1, 10));
             }
         }
     }
