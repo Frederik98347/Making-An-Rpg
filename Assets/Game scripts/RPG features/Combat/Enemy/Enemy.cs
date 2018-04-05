@@ -724,7 +724,7 @@ namespace RpgTools.Enemy
                     damage = Random.Range(Mindamage, MaxDamage);
                     
                     Player.GetHit(damage);
-                    EnemySounds();
+                    StartCoroutine(EnemySounds());
 
                 }
                 else

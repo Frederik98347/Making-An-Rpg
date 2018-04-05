@@ -152,8 +152,6 @@ namespace RpgTools
 
         public void GetHit(int damageValue)
         {
-            //Deduct the damage deatlh from the character's health
-            CombatTextManager.Instance.CreateText(transform.position, true, false, false, false, damageValue.ToString());
 
             CurrentHealth -= damageValue;
 
@@ -161,10 +159,14 @@ namespace RpgTools
             {
                 MaxHealth = transform.GetComponent<Enemy.Enemy>().MaxHealth;
                 TargetBar.value = CalculateHealth();
+                //Deduct the damage deatlh from the character's health
+                CombatTextManager.Instance.CreateText(transform.position, false, false, true, false, damageValue.ToString());
             }
             else if (isPlayer == true)
             {
                 MaxHealth = transform.GetComponent<PlayerClass.Player>().Health;
+                //Deduct the damage deatlh from the character's health
+                CombatTextManager.Instance.CreateText(transform.position, true, false, false, false, damageValue.ToString());
                 healthBar.fillAmount = CalculateHealth();
             }
 

@@ -4991,6 +4991,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1461953093923590
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4527116935771422}
+  - component: {fileID: 114256514828306464}
+  m_Layer: 5
+  m_Name: FloatingCombatText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1462345012433334
 GameObject:
   m_ObjectHideFlags: 1
@@ -11260,6 +11276,7 @@ Transform:
   - {fileID: 4474426901619880}
   - {fileID: 4672961919272818}
   - {fileID: 4176166358114604}
+  - {fileID: 4527116935771422}
   m_Father: {fileID: 4697508728772810}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0.042000003, y: 24.732, z: -0.24700001}
@@ -14915,6 +14932,19 @@ Transform:
   m_Father: {fileID: 4207963182626000}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -0.0000013094091, y: 0.0000005242062, z: -19.88752}
+--- !u!4 &4527116935771422
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1461953093923590}
+  m_LocalRotation: {x: 1.4e-44, y: 0.96685404, z: 1.4e-44, w: 0.25533003}
+  m_LocalPosition: {x: 9.888581, y: -0.8243548, z: 2.357472}
+  m_LocalScale: {x: 0.10000005, y: 0.1, z: 0.10000005}
+  m_Children: []
+  m_Father: {fileID: 4099759623037002}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4527996843319798
 Transform:
   m_ObjectHideFlags: 1
@@ -21173,6 +21203,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114256514828306464
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1461953093923590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2883296f5d7f7b40b0d4cafa6d8eb89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPosition: {fileID: 4099759623037002}
+  offsetX: 0.262
+  offsetY: 0.62
 --- !u!114 &114271921692821310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22011,6 +22055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPosition: {fileID: 4659609456120158}
   offsetX: 0.262
+  offsetY: 0.1
 --- !u!114 &114548843594310356
 MonoBehaviour:
   m_ObjectHideFlags: 1

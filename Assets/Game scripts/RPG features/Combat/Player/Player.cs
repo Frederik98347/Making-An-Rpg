@@ -334,6 +334,10 @@ namespace RpgTools.PlayerClass
 
                         // Check if no enemies is around and then run the script
                         GettingOutOfCombat();
+                    } else if (enemyScript.state == Enemy.Enemy.State.Dead)
+                    {
+                        canAttack = false;
+                        autoAttacking = false;
                     }
                 }
             }
@@ -349,7 +353,7 @@ namespace RpgTools.PlayerClass
             else
             {
                 state = State.COMBAT;
-                healthsystem.GetHit(damage);
+                this.healthsystem.GetHit(damage);
                 Debug.Log(damageType);
             }
         }

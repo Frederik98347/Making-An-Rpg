@@ -78,6 +78,7 @@ public class CombatTextManager : MonoBehaviour {
     private void SetUp(GameObject sct)
     {
         sct.transform.eulerAngles = Camera.main.transform.eulerAngles;
-        sct.transform.position = canvasTransform.GetComponent<PositionasParent>().targetPosition.position;
+        var transform = canvasTransform.GetComponent<PositionasParent>();
+        sct.transform.position = transform.targetPosition.position;
     }
 }
