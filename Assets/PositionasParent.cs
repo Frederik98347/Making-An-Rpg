@@ -8,7 +8,7 @@ public class PositionasParent : MonoBehaviour {
 
     private void Start()
     {
-        transform.position = targetPosition.position;
-        transform.position = new Vector3(targetPosition.position.x + (Random.Range(-offsetX, offsetX)), targetPosition.position.y, targetPosition.position.z);
+        transform.position = Camera.main.WorldToScreenPoint(targetPosition.position);
+        transform.position = new Vector2(targetPosition.position.x + (Random.Range(-offsetX, offsetX)), targetPosition.position.y);
     }
 }

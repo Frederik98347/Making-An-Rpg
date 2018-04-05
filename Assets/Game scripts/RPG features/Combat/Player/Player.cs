@@ -148,9 +148,12 @@ namespace RpgTools.PlayerClass
             else if (Input.GetMouseButtonDown(1))
             {
                 SelectselectedUnit();
-                if (state != State.DEAD)
+                if (state != State.DEAD && selectedUnit != null)
                 {
-                    autoAttacking = true;
+                    if (Vector3.Distance(this.transform.position, selectedUnit.transform.position) <= 20f)
+                    {
+                        autoAttacking = true;
+                    }
                 }
             }
         }
@@ -232,8 +235,11 @@ namespace RpgTools.PlayerClass
 
                     if (interactable.transform.tag == "enemy")
                     {
-                        selectedUnit = interactable.transform.gameObject;
-                        enemyScript = this.selectedUnit.transform.gameObject.transform.GetComponent<Enemy.Enemy>();
+                        if (Vector3.Distance(this.transform.position, interactable.transform.position) <= 40f)
+                        {
+                            selectedUnit = interactable.transform.gameObject;
+                            enemyScript = this.selectedUnit.transform.gameObject.transform.GetComponent<Enemy.Enemy>();
+                        }
                     }
                 }
             }

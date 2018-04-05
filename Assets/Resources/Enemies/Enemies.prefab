@@ -1984,6 +1984,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1173673970985468
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4220262475868764}
+  - component: {fileID: 114533451000729068}
+  m_Layer: 5
+  m_Name: FloatingCombatText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1174463066406476
 GameObject:
   m_ObjectHideFlags: 1
@@ -3172,6 +3188,7 @@ GameObject:
   - component: {fileID: 114824294700110682}
   - component: {fileID: 114977226515984334}
   - component: {fileID: 143640480077340450}
+  - component: {fileID: 114016765637932134}
   m_Layer: 0
   m_Name: Wolf_prefab
   m_TagString: enemy
@@ -3656,6 +3673,7 @@ GameObject:
   - component: {fileID: 114644661497172396}
   - component: {fileID: 114102651357215288}
   - component: {fileID: 143456452839581584}
+  - component: {fileID: 114591412827193174}
   m_Layer: 0
   m_Name: Skeleton@Skin (2)
   m_TagString: enemy
@@ -3829,6 +3847,7 @@ GameObject:
   - component: {fileID: 82033276120020658}
   - component: {fileID: 114661246893690794}
   - component: {fileID: 143903852347293536}
+  - component: {fileID: 114241625420952540}
   m_Layer: 0
   m_Name: Deer_prefab
   m_TagString: enemy
@@ -4551,6 +4570,7 @@ GameObject:
   - component: {fileID: 114075470458620378}
   - component: {fileID: 114464236111438054}
   - component: {fileID: 143802387327128516}
+  - component: {fileID: 114766383202015788}
   m_Layer: 0
   m_Name: Skeleton@Skin
   m_TagString: enemy
@@ -4888,6 +4908,7 @@ GameObject:
   - component: {fileID: 82806670175370000}
   - component: {fileID: 114353131501465928}
   - component: {fileID: 143113722544701066}
+  - component: {fileID: 114587985070863890}
   m_Layer: 0
   m_Name: goat_prefab
   m_TagString: Untagged
@@ -5030,6 +5051,7 @@ GameObject:
   - component: {fileID: 114416863306918650}
   - component: {fileID: 114490220740345360}
   - component: {fileID: 143346383564292442}
+  - component: {fileID: 114837587621386274}
   m_Layer: 0
   m_Name: Brown_bear_prefab
   m_TagString: enemy
@@ -6008,6 +6030,7 @@ GameObject:
   - component: {fileID: 114532215256334222}
   - component: {fileID: 114103762708914062}
   - component: {fileID: 143083234242127582}
+  - component: {fileID: 114463430289382524}
   m_Layer: 0
   m_Name: Deer_male_prefab
   m_TagString: enemy
@@ -6028,6 +6051,7 @@ GameObject:
   - component: {fileID: 82197935942382228}
   - component: {fileID: 114994746047772784}
   - component: {fileID: 143407899930599956}
+  - component: {fileID: 114723625556639006}
   m_Layer: 0
   m_Name: Cattle_male_prefab
   m_TagString: enemy
@@ -6512,6 +6536,7 @@ GameObject:
   - component: {fileID: 114343932316623822}
   - component: {fileID: 114362466071106658}
   - component: {fileID: 143705427241518310}
+  - component: {fileID: 114128110019754706}
   m_Layer: 0
   m_Name: Skeleton@Skin (1)
   m_TagString: enemy
@@ -7498,6 +7523,7 @@ GameObject:
   - component: {fileID: 114999047640369066}
   - component: {fileID: 114417424642090180}
   - component: {fileID: 143539634351643478}
+  - component: {fileID: 114001067647833092}
   m_Layer: 0
   m_Name: Skeleton@Skin
   m_TagString: enemy
@@ -7624,6 +7650,7 @@ GameObject:
   - component: {fileID: 82942138042350972}
   - component: {fileID: 114582718277866432}
   - component: {fileID: 143339692608833246}
+  - component: {fileID: 114449272590102586}
   m_Layer: 0
   m_Name: Cattle_prefab
   m_TagString: enemy
@@ -10615,7 +10642,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1031084179048586}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5810728, y: 0.008263221, z: -4.392016}
+  m_LocalPosition: {x: -6.75, y: 0.008263221, z: 6.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4386892438097032}
@@ -11226,7 +11253,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1305389432088254}
   m_LocalRotation: {x: -1.4e-44, y: -0.96685404, z: -1.4e-44, w: 0.25533003}
-  m_LocalPosition: {x: 7.7966537, y: 1.8045225, z: 8.001076}
+  m_LocalPosition: {x: 7.7966537, y: 1.8045225, z: 11.1}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4808691250535702}
@@ -12376,6 +12403,19 @@ Transform:
   m_Father: {fileID: 4336321554032506}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0.042000003, y: 0, z: -0.24700001}
+--- !u!4 &4220262475868764
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1173673970985468}
+  m_LocalRotation: {x: 1.4e-44, y: 0.9152121, z: 1.4e-44, w: 0.40297258}
+  m_LocalPosition: {x: 8.174807, y: -0.8233124, z: 9.857913}
+  m_LocalScale: {x: 0.100000024, y: 0.1, z: 0.100000024}
+  m_Children: []
+  m_Father: {fileID: 4659609456120158}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4221382798751814
 Transform:
   m_ObjectHideFlags: 1
@@ -15984,6 +16024,7 @@ Transform:
   - {fileID: 4086938225739650}
   - {fileID: 4064013354797352}
   - {fileID: 4690399949894642}
+  - {fileID: 4220262475868764}
   m_Father: {fileID: 4697508728772810}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0.042000003, y: 24.732, z: -0.24700001}
@@ -20240,6 +20281,27 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
+--- !u!114 &114001067647833092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1711570561008918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f40352811a80b4b80458b987520150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  isEnemy: 1
+  currentHealth: 0
+  maxHealth: 0
+  showText: 1
+  HpBarText: {fileID: 0}
+  isPercentageHp: 0
+  isPercentageNnumbers: 0
+  healthBar: {fileID: 0}
+  TargetBar: {fileID: 0}
 --- !u!114 &114016001222899950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20261,6 +20323,27 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114016765637932134
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1289319467318606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f40352811a80b4b80458b987520150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  isEnemy: 1
+  currentHealth: 0
+  maxHealth: 0
+  showText: 1
+  HpBarText: {fileID: 0}
+  isPercentageHp: 0
+  isPercentageNnumbers: 0
+  healthBar: {fileID: 0}
+  TargetBar: {fileID: 0}
 --- !u!114 &114022041497260772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20474,6 +20557,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f40352811a80b4b80458b987520150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer: 0
+  isEnemy: 1
   currentHealth: 0
   maxHealth: 0
   showText: 1
@@ -20481,6 +20566,7 @@ MonoBehaviour:
   isPercentageHp: 0
   isPercentageNnumbers: 0
   healthBar: {fileID: 0}
+  TargetBar: {fileID: 0}
 --- !u!114 &114060504743071764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20540,7 +20626,7 @@ MonoBehaviour:
   exptogive: 5
   AttackRange: 3
   agg: 0
-  state: 2
+  state: 0
   waypoints:
   - {fileID: 4930417988133492}
   - {fileID: 4625691226291880}
@@ -20556,6 +20642,7 @@ MonoBehaviour:
   Strength: 13
   Stamina: 15
   Intellect: 2
+  MaxHealth: 0
 --- !u!114 &114079495386686692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20663,6 +20750,28 @@ MonoBehaviour:
   Strength: 13
   Stamina: 15
   Intellect: 2
+  MaxHealth: 0
+--- !u!114 &114128110019754706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1614015640032940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f40352811a80b4b80458b987520150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  isEnemy: 1
+  currentHealth: 0
+  maxHealth: 0
+  showText: 1
+  HpBarText: {fileID: 0}
+  isPercentageHp: 0
+  isPercentageNnumbers: 0
+  healthBar: {fileID: 0}
+  TargetBar: {fileID: 0}
 --- !u!114 &114138113980640654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21016,6 +21125,27 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114241625420952540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340895076049532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f40352811a80b4b80458b987520150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  isEnemy: 1
+  currentHealth: 0
+  maxHealth: 0
+  showText: 1
+  HpBarText: {fileID: 0}
+  isPercentageHp: 0
+  isPercentageNnumbers: 0
+  healthBar: {fileID: 0}
+  TargetBar: {fileID: 0}
 --- !u!114 &114248074805498720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21286,7 +21416,7 @@ MonoBehaviour:
   exptogive: 5
   AttackRange: 3
   agg: 0
-  state: 2
+  state: 3
   waypoints:
   - {fileID: 4784749054004920}
   - {fileID: 4625691226291880}
@@ -21302,6 +21432,7 @@ MonoBehaviour:
   Strength: 13
   Stamina: 15
   Intellect: 2
+  MaxHealth: 0
 --- !u!114 &114353131501465928
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21350,6 +21481,7 @@ MonoBehaviour:
   Strength: 13
   Stamina: 15
   Intellect: 2
+  MaxHealth: 0
 --- !u!114 &114362466071106658
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21486,7 +21618,7 @@ MonoBehaviour:
   exptogive: 0
   AttackRange: 3
   agg: 0
-  state: 4
+  state: 0
   waypoints:
   - {fileID: 4074575544020146}
   - {fileID: 4852768447782048}
@@ -21503,6 +21635,7 @@ MonoBehaviour:
   Strength: 13
   Stamina: 15
   Intellect: 2
+  MaxHealth: 0
 --- !u!114 &114417424642090180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21570,6 +21703,48 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114449272590102586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1717971597635332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f40352811a80b4b80458b987520150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  isEnemy: 1
+  currentHealth: 0
+  maxHealth: 0
+  showText: 1
+  HpBarText: {fileID: 0}
+  isPercentageHp: 0
+  isPercentageNnumbers: 0
+  healthBar: {fileID: 0}
+  TargetBar: {fileID: 0}
+--- !u!114 &114463430289382524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1555249192600958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f40352811a80b4b80458b987520150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  isEnemy: 1
+  currentHealth: 0
+  maxHealth: 0
+  showText: 1
+  HpBarText: {fileID: 0}
+  isPercentageHp: 0
+  isPercentageNnumbers: 0
+  healthBar: {fileID: 0}
+  TargetBar: {fileID: 0}
 --- !u!114 &114464236111438054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21823,6 +21998,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   interactionTransform: {fileID: 4448411701454344}
+--- !u!114 &114533451000729068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1173673970985468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2883296f5d7f7b40b0d4cafa6d8eb89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPosition: {fileID: 4659609456120158}
+  offsetX: 0.262
 --- !u!114 &114548843594310356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22069,6 +22257,28 @@ MonoBehaviour:
   Strength: 13
   Stamina: 15
   Intellect: 2
+  MaxHealth: 0
+--- !u!114 &114587985070863890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451300237043268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f40352811a80b4b80458b987520150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  isEnemy: 1
+  currentHealth: 0
+  maxHealth: 0
+  showText: 1
+  HpBarText: {fileID: 0}
+  isPercentageHp: 0
+  isPercentageNnumbers: 0
+  healthBar: {fileID: 0}
+  TargetBar: {fileID: 0}
 --- !u!114 &114590687764853230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22090,6 +22300,27 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114591412827193174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1322848382086228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f40352811a80b4b80458b987520150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  isEnemy: 1
+  currentHealth: 0
+  maxHealth: 0
+  showText: 1
+  HpBarText: {fileID: 0}
+  isPercentageHp: 0
+  isPercentageNnumbers: 0
+  healthBar: {fileID: 0}
+  TargetBar: {fileID: 0}
 --- !u!114 &114608094150372542
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22176,6 +22407,7 @@ MonoBehaviour:
   Strength: 2
   Stamina: 10
   Intellect: 9
+  MaxHealth: 0
 --- !u!114 &114656775314776516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22251,6 +22483,7 @@ MonoBehaviour:
   Strength: 13
   Stamina: 15
   Intellect: 2
+  MaxHealth: 0
 --- !u!114 &114665919005011394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22353,7 +22586,7 @@ MonoBehaviour:
   - {fileID: 4030845935364126}
   - {fileID: 4202414904907054}
   - {fileID: 4713087684046856}
-  accuracyWP: 0.8
+  accuracyWP: 0.66
   timeBeforeStateChange: 0
   Defence: 5
   Haste: 1
@@ -22363,6 +22596,7 @@ MonoBehaviour:
   Strength: 13
   Stamina: 15
   Intellect: 2
+  MaxHealth: 0
 --- !u!114 &114688427454507702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22425,6 +22659,27 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114723625556639006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1555884257382682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f40352811a80b4b80458b987520150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  isEnemy: 1
+  currentHealth: 0
+  maxHealth: 0
+  showText: 1
+  HpBarText: {fileID: 0}
+  isPercentageHp: 0
+  isPercentageNnumbers: 0
+  healthBar: {fileID: 0}
+  TargetBar: {fileID: 0}
 --- !u!114 &114725277579959196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22551,6 +22806,27 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114766383202015788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1417124970236538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f40352811a80b4b80458b987520150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  isEnemy: 1
+  currentHealth: 0
+  maxHealth: 0
+  showText: 1
+  HpBarText: {fileID: 0}
+  isPercentageHp: 0
+  isPercentageNnumbers: 0
+  healthBar: {fileID: 0}
+  TargetBar: {fileID: 0}
 --- !u!114 &114774145563075314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22675,6 +22951,7 @@ MonoBehaviour:
   Strength: 13
   Stamina: 15
   Intellect: 2
+  MaxHealth: 0
 --- !u!114 &114824455247232970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22742,6 +23019,27 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114837587621386274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1471205453703204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f40352811a80b4b80458b987520150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  isEnemy: 1
+  currentHealth: 0
+  maxHealth: 0
+  showText: 1
+  HpBarText: {fileID: 0}
+  isPercentageHp: 0
+  isPercentageNnumbers: 0
+  healthBar: {fileID: 0}
+  TargetBar: {fileID: 0}
 --- !u!114 &114846589355883192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -23164,6 +23462,7 @@ MonoBehaviour:
   Strength: 13
   Stamina: 15
   Intellect: 2
+  MaxHealth: 0
 --- !u!114 &114999047640369066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -23211,6 +23510,7 @@ MonoBehaviour:
   Strength: 13
   Stamina: 15
   Intellect: 2
+  MaxHealth: 0
 --- !u!137 &137037438291395204
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

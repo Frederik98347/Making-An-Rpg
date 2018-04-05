@@ -9,7 +9,8 @@ namespace RpgTools
 {
     public class CharacterHealthsytem : MonoBehaviour
     {
-
+        public bool isPlayer;
+        public bool isEnemy;
         [SerializeField] float currentHealth;
         [SerializeField] float maxHealth;
         float percentageHealth;
@@ -121,12 +122,12 @@ namespace RpgTools
 
         void Start()
         {
-            if (this.gameObject.tag == "enemy")
+            if (isEnemy == true)
             {
                 MaxHealth = transform.GetComponent<Enemy.Enemy>().MaxHealth;
                 CurrentHealth = MaxHealth;
                 TargetBar.value = CalculateHealth();
-            } else if(this.gameObject.tag == "Player")
+            } else if(isPlayer == true)
             {
                 MaxHealth = transform.GetComponent<PlayerClass.Player>().Health;
                 CurrentHealth = MaxHealth;
@@ -156,12 +157,12 @@ namespace RpgTools
 
             CurrentHealth -= damageValue;
 
-            if (this.gameObject.tag == "enemy")
+            if (isEnemy == true)
             {
                 MaxHealth = transform.GetComponent<Enemy.Enemy>().MaxHealth;
                 TargetBar.value = CalculateHealth();
             }
-            else if (this.gameObject.tag == "Player")
+            else if (isPlayer == true)
             {
                 MaxHealth = transform.GetComponent<PlayerClass.Player>().Health;
                 healthBar.fillAmount = CalculateHealth();
@@ -187,7 +188,14 @@ namespace RpgTools
                 CombatTextManager.Instance.CreateText(transform.position, false, true, false, false, healValue.ToString());
 
             CurrentHealth += healValue;
-            healthBar.fillAmount = CalculateHealth();
+            if (isEnemy == true)
+            {
+                TargetBar.value = CalculateHealth();
+            }
+            else if (isPlayer == true)
+            {
+                healthBar.fillAmount = CalculateHealth();
+            }
             //HpGained = "Health +" + healValue;
 
             //making sure Health can go above 100%
@@ -195,7 +203,14 @@ namespace RpgTools
             {
                 IsDead = false;
                 CurrentHealth = MaxHealth;
-                healthBar.fillAmount = 1;
+                if (isEnemy == true)
+                {
+                    TargetBar.value = CalculateHealth();
+                }
+                else if (isPlayer == true)
+                {
+                    healthBar.fillAmount = CalculateHealth();
+                }
 
                 if (HpBarText != null)
                 {
@@ -295,7 +310,14 @@ namespace RpgTools
         void Die()
         {
             CurrentHealth = 0;
-            healthBar.fillAmount = CurrentHealth;
+            if (isEnemy == true)
+            {
+                TargetBar.value = CalculateHealth();
+            }
+            else if (isPlayer == true)
+            {
+                healthBar.fillAmount = CalculateHealth();
+            }
             IsDead = true;
             if (HpBarText != null)
             {

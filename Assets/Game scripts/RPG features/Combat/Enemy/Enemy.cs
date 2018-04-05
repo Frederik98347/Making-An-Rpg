@@ -193,8 +193,9 @@ namespace RpgTools.Enemy
                 Mindamage = _enemyInfo.MinAutoDamage;
                 MaxDamage = _enemyInfo.MaxAutoDamage;
                 MaxHealth = _enemyInfo.EnemyHP;
+                
 
-                HealthBar.value = healthSystem.CurrentHealth;
+                HealthBar.value = MaxHealth;
                 exptogive = _enemyInfo.Exptogive;
 
                 //anim speed
@@ -207,7 +208,8 @@ namespace RpgTools.Enemy
 
                 if (agent == null)
                 {
-                    agent = GetComponent<NavMeshAgent>();
+                    //not using navmesh yet
+                    //agent = GetComponent<NavMeshAgent>();
                 }
             }
         }
@@ -232,7 +234,7 @@ namespace RpgTools.Enemy
             //Implentment into move to spawn script. So the target moves back away from the player before starting to patrol again
             if (Vector3.Distance(transform.position, player.position) > AttackRange * 1.25f && targetSeen)
             {
-                if (state == State.Chase || state == State.RunAway)
+                if (state == State.Chase || state == State.RunAway || state == State.Attacking)
                 {
                     //check if i'm out of dectectionRange and then count down
                     outofrangeTimer -= Time.deltaTime;
@@ -256,7 +258,6 @@ namespace RpgTools.Enemy
             {
                 Patrolling();
             }
-            StartCoroutine(EnemySounds());
 
             if (state == State.Idle)
             {
@@ -405,6 +406,7 @@ namespace RpgTools.Enemy
                         {
                             state = State.Patrol;
                             Patrolling();
+                            StartCoroutine(EnemySounds());
                         }
                     }
 
@@ -487,6 +489,8 @@ namespace RpgTools.Enemy
                                 anim.SetBool("isWalking", false);
                                 anim.SetBool("isIdle", false);
 
+                                StartCoroutine(EnemySounds());
+
                             }
                             else
                             {
@@ -530,6 +534,8 @@ namespace RpgTools.Enemy
                             anim.SetBool("isAttacking", false);
                             anim.SetBool("isWalking", false);
                             anim.SetBool("isIdle", false);
+
+                            StartCoroutine(EnemySounds());
 
                         }
                         else if (direction.magnitude <= AttackRange)
@@ -624,6 +630,7 @@ namespace RpgTools.Enemy
             else
             {
                 beenAttacked = true;
+                HealthBar.value = healthSystem.CalculateHealth();
                 healthSystem.GetHit(damage);
             }
         }
@@ -717,6 +724,7 @@ namespace RpgTools.Enemy
                     damage = Random.Range(Mindamage, MaxDamage);
                     
                     Player.GetHit(damage);
+                    EnemySounds();
 
                 }
                 else
