@@ -238,7 +238,7 @@ namespace RpgTools.PlayerClass
                         if (Vector3.Distance(this.transform.position, interactable.transform.position) <= 40f)
                         {
                             selectedUnit = interactable.transform.gameObject;
-                            enemyScript = this.selectedUnit.transform.gameObject.transform.GetComponent<Enemy.Enemy>();
+                            enemyScript = this.selectedUnit.transform.GetComponent<Enemy.Enemy>();
                         }
                     }
                 }
