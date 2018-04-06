@@ -3189,6 +3189,7 @@ GameObject:
   - component: {fileID: 114977226515984334}
   - component: {fileID: 143640480077340450}
   - component: {fileID: 114016765637932134}
+  - component: {fileID: 114000576402086722}
   m_Layer: 0
   m_Name: Wolf_prefab
   m_TagString: enemy
@@ -3436,6 +3437,7 @@ GameObject:
   - component: {fileID: 114727407326542020}
   - component: {fileID: 143442745837606346}
   - component: {fileID: 114058979857643248}
+  - component: {fileID: 114952680803798720}
   m_Layer: 0
   m_Name: Skeleton@Skin (3)
   m_TagString: enemy
@@ -3674,6 +3676,7 @@ GameObject:
   - component: {fileID: 114102651357215288}
   - component: {fileID: 143456452839581584}
   - component: {fileID: 114591412827193174}
+  - component: {fileID: 114665484068581568}
   m_Layer: 0
   m_Name: Skeleton@Skin (2)
   m_TagString: enemy
@@ -3848,6 +3851,7 @@ GameObject:
   - component: {fileID: 114661246893690794}
   - component: {fileID: 143903852347293536}
   - component: {fileID: 114241625420952540}
+  - component: {fileID: 114716367533706384}
   m_Layer: 0
   m_Name: Deer_prefab
   m_TagString: enemy
@@ -4571,6 +4575,7 @@ GameObject:
   - component: {fileID: 114464236111438054}
   - component: {fileID: 143802387327128516}
   - component: {fileID: 114766383202015788}
+  - component: {fileID: 114042622692874476}
   m_Layer: 0
   m_Name: Skeleton@Skin
   m_TagString: enemy
@@ -4909,6 +4914,7 @@ GameObject:
   - component: {fileID: 114353131501465928}
   - component: {fileID: 143113722544701066}
   - component: {fileID: 114587985070863890}
+  - component: {fileID: 114735942812009768}
   m_Layer: 0
   m_Name: goat_prefab
   m_TagString: Untagged
@@ -4991,22 +4997,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1461953093923590
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4527116935771422}
-  - component: {fileID: 114256514828306464}
-  m_Layer: 5
-  m_Name: FloatingCombatText
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1462345012433334
 GameObject:
   m_ObjectHideFlags: 1
@@ -5068,6 +5058,7 @@ GameObject:
   - component: {fileID: 114490220740345360}
   - component: {fileID: 143346383564292442}
   - component: {fileID: 114837587621386274}
+  - component: {fileID: 114898046417588736}
   m_Layer: 0
   m_Name: Brown_bear_prefab
   m_TagString: enemy
@@ -5518,7 +5509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1511332123050808
 GameObject:
   m_ObjectHideFlags: 1
@@ -6047,6 +6038,7 @@ GameObject:
   - component: {fileID: 114103762708914062}
   - component: {fileID: 143083234242127582}
   - component: {fileID: 114463430289382524}
+  - component: {fileID: 114002358372516010}
   m_Layer: 0
   m_Name: Deer_male_prefab
   m_TagString: enemy
@@ -6068,6 +6060,7 @@ GameObject:
   - component: {fileID: 114994746047772784}
   - component: {fileID: 143407899930599956}
   - component: {fileID: 114723625556639006}
+  - component: {fileID: 114166846685565864}
   m_Layer: 0
   m_Name: Cattle_male_prefab
   m_TagString: enemy
@@ -6322,7 +6315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1583394416843618
 GameObject:
   m_ObjectHideFlags: 1
@@ -6553,6 +6546,7 @@ GameObject:
   - component: {fileID: 114362466071106658}
   - component: {fileID: 143705427241518310}
   - component: {fileID: 114128110019754706}
+  - component: {fileID: 114210845031353512}
   m_Layer: 0
   m_Name: Skeleton@Skin (1)
   m_TagString: enemy
@@ -7540,6 +7534,7 @@ GameObject:
   - component: {fileID: 114417424642090180}
   - component: {fileID: 143539634351643478}
   - component: {fileID: 114001067647833092}
+  - component: {fileID: 114432307683400530}
   m_Layer: 0
   m_Name: Skeleton@Skin
   m_TagString: enemy
@@ -7667,6 +7662,7 @@ GameObject:
   - component: {fileID: 114582718277866432}
   - component: {fileID: 143339692608833246}
   - component: {fileID: 114449272590102586}
+  - component: {fileID: 114719775569181020}
   m_Layer: 0
   m_Name: Cattle_prefab
   m_TagString: enemy
@@ -11276,7 +11272,6 @@ Transform:
   - {fileID: 4474426901619880}
   - {fileID: 4672961919272818}
   - {fileID: 4176166358114604}
-  - {fileID: 4527116935771422}
   m_Father: {fileID: 4697508728772810}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0.042000003, y: 24.732, z: -0.24700001}
@@ -14932,19 +14927,6 @@ Transform:
   m_Father: {fileID: 4207963182626000}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -0.0000013094091, y: 0.0000005242062, z: -19.88752}
---- !u!4 &4527116935771422
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1461953093923590}
-  m_LocalRotation: {x: 1.4e-44, y: 0.96685404, z: 1.4e-44, w: 0.25533003}
-  m_LocalPosition: {x: 9.888581, y: -0.8243548, z: 2.357472}
-  m_LocalScale: {x: 0.10000005, y: 0.1, z: 0.10000005}
-  m_Children: []
-  m_Father: {fileID: 4099759623037002}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4527996843319798
 Transform:
   m_ObjectHideFlags: 1
@@ -20311,6 +20293,17 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
+--- !u!114 &114000576402086722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1289319467318606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e03f129f6e16147acbb6fc41c017c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114001067647833092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20332,6 +20325,17 @@ MonoBehaviour:
   isPercentageNnumbers: 0
   healthBar: {fileID: 0}
   TargetBar: {fileID: 0}
+--- !u!114 &114002358372516010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1555249192600958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e03f129f6e16147acbb6fc41c017c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114016001222899950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20464,7 +20468,6 @@ MonoBehaviour:
   distZ: 0
   owner: {fileID: 4147477769687856}
   IsEnemy: 1
-  fadeRange: 10
   player: {fileID: 0}
   HpbarFadeRange: 6
   canvas: {fileID: 223758389729988140}
@@ -20495,6 +20498,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114042622692874476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1417124970236538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e03f129f6e16147acbb6fc41c017c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114045302229509962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20510,7 +20524,6 @@ MonoBehaviour:
   distZ: 0
   owner: {fileID: 4383766098421860}
   IsEnemy: 1
-  fadeRange: 10
   player: {fileID: 0}
   HpbarFadeRange: 6
   canvas: {fileID: 223631711889127118}
@@ -20529,7 +20542,6 @@ MonoBehaviour:
   distZ: 0
   owner: {fileID: 4659609456120158}
   IsEnemy: 1
-  fadeRange: 10
   player: {fileID: 0}
   HpbarFadeRange: 6
   canvas: {fileID: 223392983834241218}
@@ -20715,7 +20727,6 @@ MonoBehaviour:
   distZ: 0
   owner: {fileID: 4533832501142004}
   IsEnemy: 1
-  fadeRange: 10
   player: {fileID: 0}
   HpbarFadeRange: 6
   canvas: {fileID: 223293547909099972}
@@ -20925,6 +20936,17 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114166846685565864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1555884257382682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e03f129f6e16147acbb6fc41c017c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114174358794317148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21102,6 +21124,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114210845031353512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1614015640032940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e03f129f6e16147acbb6fc41c017c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114211893792493324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21203,20 +21236,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114256514828306464
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1461953093923590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2883296f5d7f7b40b0d4cafa6d8eb89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetPosition: {fileID: 4099759623037002}
-  offsetX: 0.262
-  offsetY: 0.62
 --- !u!114 &114271921692821310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21307,7 +21326,6 @@ MonoBehaviour:
   distZ: 0
   owner: {fileID: 4448411701454344}
   IsEnemy: 1
-  fadeRange: 10
   player: {fileID: 0}
   HpbarFadeRange: 6
   canvas: {fileID: 223588445057421170}
@@ -21495,7 +21513,7 @@ MonoBehaviour:
   isCritter: 1
   Player: {fileID: 0}
   canvas: {fileID: 114993702003538070}
-  rotSpeed: 2.3
+  rotSpeed: 3
   behind_detectionRange: 8
   outofrangeTimer: 15
   offsetSpawnPoint: 2
@@ -21720,6 +21738,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114432307683400530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1711570561008918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e03f129f6e16147acbb6fc41c017c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114445586158948546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22154,7 +22183,6 @@ MonoBehaviour:
   distZ: 0
   owner: {fileID: 4450930619001672}
   IsEnemy: 1
-  fadeRange: 10
   player: {fileID: 0}
   HpbarFadeRange: 6
   canvas: {fileID: 223491419860845284}
@@ -22381,7 +22409,6 @@ MonoBehaviour:
   distZ: 0
   owner: {fileID: 4817169245852112}
   IsEnemy: 1
-  fadeRange: 10
   player: {fileID: 0}
   HpbarFadeRange: 6
   canvas: {fileID: 223063406236882374}
@@ -22400,7 +22427,6 @@ MonoBehaviour:
   distZ: 0
   owner: {fileID: 4898520818211926}
   IsEnemy: 1
-  fadeRange: 10
   player: {fileID: 0}
   HpbarFadeRange: 6
   canvas: {fileID: 223735087324282798}
@@ -22529,6 +22555,17 @@ MonoBehaviour:
   Stamina: 15
   Intellect: 2
   MaxHealth: 0
+--- !u!114 &114665484068581568
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1322848382086228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e03f129f6e16147acbb6fc41c017c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114665919005011394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22658,6 +22695,17 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114716367533706384
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340895076049532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e03f129f6e16147acbb6fc41c017c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114719421667840952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22673,10 +22721,20 @@ MonoBehaviour:
   distZ: 0
   owner: {fileID: 4626764447052072}
   IsEnemy: 1
-  fadeRange: 10
   player: {fileID: 0}
   HpbarFadeRange: 6
   canvas: {fileID: 223436313971151352}
+--- !u!114 &114719775569181020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1717971597635332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e03f129f6e16147acbb6fc41c017c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114720692821680800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22754,6 +22812,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   interactionTransform: {fileID: 4099759623037002}
+--- !u!114 &114735942812009768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451300237043268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e03f129f6e16147acbb6fc41c017c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114741074901593084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22930,7 +22999,6 @@ MonoBehaviour:
   distZ: 0
   owner: {fileID: 4192513892716240}
   IsEnemy: 1
-  fadeRange: 10
   player: {fileID: 0}
   HpbarFadeRange: 6
   canvas: {fileID: 223831068008709200}
@@ -23248,6 +23316,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   interactionTransform: {fileID: 4817169245852112}
+--- !u!114 &114898046417588736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1471205453703204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e03f129f6e16147acbb6fc41c017c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114905281157571946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -23332,7 +23411,6 @@ MonoBehaviour:
   distZ: 0
   owner: {fileID: 4099759623037002}
   IsEnemy: 1
-  fadeRange: 10
   player: {fileID: 0}
   HpbarFadeRange: 6
   canvas: {fileID: 223620867106210032}
@@ -23352,6 +23430,17 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114952680803798720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1305389432088254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e03f129f6e16147acbb6fc41c017c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114963225278484438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -23455,7 +23544,6 @@ MonoBehaviour:
   distZ: 0
   owner: {fileID: 4336321554032506}
   IsEnemy: 1
-  fadeRange: 10
   player: {fileID: 0}
   HpbarFadeRange: 6
   canvas: {fileID: 223674466462163848}
@@ -26614,7 +26702,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

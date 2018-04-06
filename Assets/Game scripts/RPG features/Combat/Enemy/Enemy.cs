@@ -14,6 +14,7 @@ namespace RpgTools.Enemy
     [RequireComponent(typeof(Interactable))]
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(CharacterHealthsytem))]
+    [RequireComponent(typeof(UI.TargetFrame))]
     public class Enemy : MonoBehaviour
     {
         [SerializeField] CharacterHealthsytem healthSystem;
