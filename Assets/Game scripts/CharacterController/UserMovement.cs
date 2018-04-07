@@ -3,7 +3,7 @@ using UnityEngine;
 public class UserMovement : MonoBehaviour
 {
 
-    public float walkSpeed = 2;
+    float walkSpeed = 2;
     public float runSpeed = 6;
     public float gravity = -12;
     public float jumpHeight = 1;
@@ -27,6 +27,7 @@ public class UserMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         cameraT = Camera.main.transform;
         controller = GetComponent<CharacterController>();
+        walkSpeed = runSpeed / 2f;
     }
 
     void Update()

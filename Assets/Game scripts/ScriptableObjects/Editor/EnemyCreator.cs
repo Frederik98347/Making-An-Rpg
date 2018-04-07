@@ -33,7 +33,6 @@ public class EnemyCreator : EditorWindow {
             tempEnemy.AttackRange = EditorGUILayout.FloatField("Attack Range", tempEnemy.AttackRange);
             tempEnemy.EnemyDefense = EditorGUILayout.IntField("Enemy Defense", tempEnemy.EnemyDefense);
             EditorGUILayout.Space();
-            tempEnemy.WalkingSpeed = EditorGUILayout.FloatField("Walking Speed", tempEnemy.WalkingSpeed);
             tempEnemy.MovementSpeed = EditorGUILayout.FloatField("MovementSpeed", tempEnemy.MovementSpeed);
             tempEnemy.DetectionRange = EditorGUILayout.FloatField("DetectionRange", tempEnemy.DetectionRange);
             tempEnemy.Exptogive = EditorGUILayout.IntField("Exp to give", tempEnemy.Exptogive);
@@ -174,7 +173,6 @@ public class EnemyCreator : EditorWindow {
             tempEnemy.Exptogive = 0;
             tempEnemy.AttackSpeed = 0f;
             tempEnemy.AttackRange = 0f;
-            tempEnemy.WalkingSpeed = 0f;
             tempEnemy.MovementSpeed = 0f;
             tempEnemy.DetectionRange = 0f;
             tempEnemy.OutofrangeTimer = 0f;

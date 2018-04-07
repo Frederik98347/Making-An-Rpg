@@ -103,6 +103,9 @@ namespace RpgTools.PlayerClass
             {
                 healthsystem = GetComponent<CharacterHealthsytem>();
             }
+
+            healthsystem.MaxHealth = this.Health;
+
         }
 
         // Update is called once per frame

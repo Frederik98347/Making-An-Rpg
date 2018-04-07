@@ -18,11 +18,12 @@ namespace RpgTools
         string hpGained;
         string hpLost;
         bool isDead;
-        public bool showText = true;
 
-        public TMP_Text HpBarText;
-        [SerializeField] bool isPercentageHp;
-        [SerializeField] bool isPercentageNnumbers;
+        [SerializeField] TMP_Text HpBarText;
+        TMP_Text TargetText;
+        public bool showText = true;
+        public bool isPercentageHp;
+        public bool isPercentageNnumbers;
 
         public Image healthBar;
         public Slider TargetBar;
@@ -124,12 +125,9 @@ namespace RpgTools
         {
             if (isEnemy == true)
             {
-                MaxHealth = transform.GetComponent<Enemy.Enemy>().MaxHealth;
-                CurrentHealth = MaxHealth;
                 TargetBar.value = CalculateHealth();
             } else if(isPlayer == true)
             {
-                MaxHealth = transform.GetComponent<PlayerClass.Player>().Health;
                 CurrentHealth = MaxHealth;
                 healthBar.fillAmount = CalculateHealth();
             }
@@ -157,14 +155,14 @@ namespace RpgTools
 
             if (isEnemy == true)
             {
-                MaxHealth = transform.GetComponent<Enemy.Enemy>().MaxHealth;
+                //MaxHealth = transform.GetComponent<Enemy.Enemy>().MaxHealth;
                 TargetBar.value = CalculateHealth();
                 //Deduct the damage deatlh from the character's health
                 CombatTextManager.Instance.CreateText(transform.position, false, false, true, false, damageValue.ToString());
             }
             else if (isPlayer == true)
             {
-                MaxHealth = transform.GetComponent<PlayerClass.Player>().Health;
+                //MaxHealth = transform.GetComponent<PlayerClass.Player>().Health;
                 //Deduct the damage deatlh from the character's health
                 CombatTextManager.Instance.CreateText(transform.position, true, false, false, false, damageValue.ToString());
                 healthBar.fillAmount = CalculateHealth();
@@ -185,9 +183,11 @@ namespace RpgTools
 
         public void GetHealth(int healValue)
         {
-            if (!isDead)
+            if (!isDead && CurrentHealth != MaxHealth)
+            {
                 //Deduct the damage deatlh from the character's health
                 CombatTextManager.Instance.CreateText(transform.position, false, true, false, false, healValue.ToString());
+            }
 
             CurrentHealth += healValue;
             if (isEnemy == true)

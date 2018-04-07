@@ -14,12 +14,11 @@ namespace RpgTools.Enemy
     [RequireComponent(typeof(Interactable))]
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(CharacterHealthsytem))]
-    [RequireComponent(typeof(UI.TargetFrame))]
     public class Enemy : MonoBehaviour
     {
         [SerializeField] CharacterHealthsytem healthSystem;
         [SerializeField] AIConfig _enemyInfo;
-        public Slider HealthBar;
+        [SerializeField] Slider HealthBar;
         [SerializeField]
         private NavMeshAgent agent;
 
@@ -81,7 +80,7 @@ namespace RpgTools.Enemy
         [SerializeField] int exptogive;
         float attackspeed;
         [SerializeField] float AttackRange;
-        float movementspeed;
+        public float movementspeed;
         float walkingspeed;
         float detectionRange;
         Texture2D enemyIcon;
@@ -107,8 +106,7 @@ namespace RpgTools.Enemy
         public int Stamina;
         public int Intellect;
 
-        [HideInInspector]
-        public float MaxHealth;
+        float MaxHealth;
 
         private float baseoutofrangeTimer;
 
@@ -176,7 +174,7 @@ namespace RpgTools.Enemy
                 enemyIcon = _enemyInfo.EnemyIcon;
                 toolTip = _enemyInfo.ToolTip;
                 outofrangeTimer = _enemyInfo.OutofrangeTimer;
-                walkingspeed = _enemyInfo.WalkingSpeed;
+                walkingspeed = _enemyInfo.MovementSpeed / 2f;
                 AttackRange = _enemyInfo.AttackRange;
                 EnemyLevel = _enemyInfo.EnemyLevel;
                 attackspeed = _enemyInfo.AttackSpeed;
@@ -194,8 +192,9 @@ namespace RpgTools.Enemy
                 Mindamage = _enemyInfo.MinAutoDamage;
                 MaxDamage = _enemyInfo.MaxAutoDamage;
                 MaxHealth = _enemyInfo.EnemyHP;
-                
 
+                healthSystem.MaxHealth = this.MaxHealth;
+                healthSystem.CurrentHealth = this.healthSystem.MaxHealth;
                 HealthBar.value = MaxHealth;
                 exptogive = _enemyInfo.Exptogive;
 
@@ -203,7 +202,7 @@ namespace RpgTools.Enemy
                 if (Anim != null)
                 {
                     Anim["Run"].speed = _enemyInfo.MovementSpeed;
-                    Anim["Walk"].speed = _enemyInfo.WalkingSpeed;
+                    Anim["Walk"].speed = _enemyInfo.MovementSpeed/2f;
                     Anim["Attack"].speed = _enemyInfo.AttackSpeed;
                 }
 
@@ -283,6 +282,7 @@ namespace RpgTools.Enemy
                     //count up
                     if (AttackcurTime >= attackspeed && Vector3.Distance(transform.position, this.player.transform.position) < AttackRange)
                     {
+                        StartCoroutine(EnemySounds());
                         Attack();
                         AttackcurTime = 0;
                     }
@@ -725,7 +725,6 @@ namespace RpgTools.Enemy
                     damage = Random.Range(Mindamage, MaxDamage);
                     
                     Player.GetHit(damage);
-                    StartCoroutine(EnemySounds());
 
                 }
                 else

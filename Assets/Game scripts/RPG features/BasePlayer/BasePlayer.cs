@@ -1,7 +1,4 @@
-﻿using EnemyTypes;
-
-public class BasePlayer {
-    MobDmgTypes dmgTypes;
+﻿public class BasePlayer {
     private string playerName;
     string familyName;
     int playerlevel = 1;
@@ -43,22 +40,5 @@ public class BasePlayer {
         {
             playerlevel = value;
         }
-    }
-
-    public virtual void Block(int damage, bool Frontal)
-    {
-        if (Frontal == true)
-        {
-            if (dmgTypes == MobDmgTypes.DARK || dmgTypes == MobDmgTypes.PHYSICAL || dmgTypes == MobDmgTypes.TOXIC)
-            {
-                //30% damage reduction on block
-                damage *= (int)0.70f;
-            }
-        }
-    }
-
-    public virtual void Roll()
-    {
-
     }
 }

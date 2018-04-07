@@ -22,7 +22,6 @@ public class AIConfig : ScriptableObject
     [SerializeField] float attackSpeed;
     [SerializeField] float attackRange;
     [SerializeField] float movementSpeed;
-    [SerializeField] float walkingSpeed;
     [SerializeField] float detectionRange;
     [SerializeField] float behind_detectionRange;
     [SerializeField] float outofrangeTimer;
@@ -136,19 +135,6 @@ public class AIConfig : ScriptableObject
         set
         {
             movementSpeed = value;
-        }
-    }
-
-    public float WalkingSpeed
-    {
-        get
-        {
-            return walkingSpeed;
-        }
-
-        set
-        {
-            walkingSpeed = value;
         }
     }
 
