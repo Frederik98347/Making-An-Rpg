@@ -16,10 +16,10 @@ namespace RpgTools.Enemy
     [RequireComponent(typeof(CharacterHealthsytem))]
     public class Enemy : MonoBehaviour
     {
-        [SerializeField] CharacterHealthsytem healthSystem;
+        CharacterHealthsytem healthSystem;
         [SerializeField] AIConfig _enemyInfo;
         [SerializeField] Slider HealthBar;
-        [SerializeField]
+
         private NavMeshAgent agent;
 
         public enum State
@@ -40,7 +40,7 @@ namespace RpgTools.Enemy
 
         [Tooltip("Specifies if an enemy should runaway with 50% hp & no be aggresive")] [SerializeField] bool isCritter;
 
-        [SerializeField] PlayerClass.Player Player;
+        PlayerClass.Player Player;
         [SerializeField] Hp_barPos canvas;
 
         [SerializeField] float rotSpeed = 2.5f;

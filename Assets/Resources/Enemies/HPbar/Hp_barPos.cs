@@ -7,7 +7,7 @@ public class Hp_barPos : MonoBehaviour
     public float distY;
     public float distZ;
     public Transform owner;
-    public bool IsEnemy;
+    public bool IsEnemy = true;
     [SerializeField] Transform player;
     [Range(1f, 10f)]
     public float HpbarFadeRange = 8f;

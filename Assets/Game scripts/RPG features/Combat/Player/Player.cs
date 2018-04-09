@@ -105,6 +105,8 @@ namespace RpgTools.PlayerClass
             }
 
             healthsystem.MaxHealth = this.Health;
+            healthsystem.CurrentHealth = this.healthsystem.MaxHealth;
+            healthsystem.healthBar.fillAmount = healthsystem.CalculateHealth();
 
         }
 
@@ -238,6 +240,7 @@ namespace RpgTools.PlayerClass
 
                     if (interactable.transform.tag == "enemy")
                     {
+
                         if (Vector3.Distance(this.transform.position, interactable.transform.position) <= 40f)
                         {
                             selectedUnit = interactable.transform.gameObject;

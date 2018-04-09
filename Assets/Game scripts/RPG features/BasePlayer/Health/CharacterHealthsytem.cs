@@ -121,22 +121,19 @@ namespace RpgTools
         }
         #endregion // All private variables init into public 
 
-        void Start()
+        private void Awake()
         {
-            if (isEnemy == true)
-            {
-                TargetBar.value = CalculateHealth();
-            } else if(isPlayer == true)
-            {
-                CurrentHealth = MaxHealth;
-                healthBar.fillAmount = CalculateHealth();
-            }
 
             if (HpBarText != null)
             {
                 ShowText();
 
             }
+        }
+
+        void Start()
+        {
+    
         }
 
         void Update()
