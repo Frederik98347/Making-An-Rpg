@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RpgTools {
+namespace RpgTools.UI {
     public class Hover : MonoBehaviour {
 
         public Texture2D defaultTexture;
@@ -11,43 +11,38 @@ namespace RpgTools {
 
         public CursorMode curMode = CursorMode.Auto;
         public Vector2 hotSpot = Vector2.zero;
-
-        PlayerClass.Player player;
+        [SerializeField] LayerMask mask;
 
         // Use this for initialization
         void Start() {
             Cursor.SetCursor(defaultTexture, hotSpot, curMode);
-            player = FindObjectOfType<PlayerClass.Player>();
+            mask = 1;
         }
 
         private void Update()
         {
-           // OnMouseEnter();
-        }
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-        private void OnMouseEnter()
-        {
-            if (player.selectedUnit != null)
-            {
-                var Target = player.selectedUnit;
-                if (Target.tag == "enemy")
+            if (Physics.Raycast(ray, out hit, 500f, mask.value)) {
+                if (hit.collider.gameObject.tag == "enemy")
                 {
-                    Debug.Log("Enemy");
-                    Cursor.SetCursor(BattleTexture, hotSpot, curMode);
-                }
-                else if (Target.tag == "Npc")
+                    if (hit.collider.gameObject.GetComponent<Enemy.Enemy>().agg == Enemy.Enemy.Aggresiveness.NONAGGRESIVE)
+                    {
+                        Cursor.SetCursor(FriendlyTexture, hotSpot, curMode);
+                    } else
+                    {
+                        Cursor.SetCursor(BattleTexture, hotSpot, curMode);
+                    }
+
+                } else if (hit.collider.gameObject.tag == "Npc")
                 {
                     Cursor.SetCursor(FriendlyTexture, hotSpot, curMode);
+                } else
+                {
+                    Cursor.SetCursor(defaultTexture, hotSpot, curMode);
                 }
             }
-
-            Cursor.SetCursor(defaultTexture, hotSpot, curMode);
-        }
-
-
-        private void OnMouseExit()
-        {
-            Cursor.SetCursor(defaultTexture, hotSpot, curMode);
         }
     }
 }

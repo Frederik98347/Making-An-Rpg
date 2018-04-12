@@ -129,7 +129,7 @@ namespace RpgTools.PlayerClass
 
         void OnMouseEnter()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown("Escape"))
             {
                 autoAttacking = false;
                 autoAttackcurTime = 0;
@@ -329,6 +329,10 @@ namespace RpgTools.PlayerClass
                         {
                             // no cd on autoattack
                             DoAutoDamage();
+
+                            AbilityIconEffects IconEffects = GetComponent<AbilityIconEffects>(); // getting component of icon effects
+                            IconEffects.AttackEffect(); // calling attackeffect
+
                             autoAttackcurTime = 0;
                         }
                     }

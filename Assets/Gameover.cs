@@ -13,14 +13,14 @@ namespace RpgTools.GameOver
         public GameObject GameOverMenuUI;
         public UserCamera cam;
         public AudioClip GameOverSound;
-        AudioSource Audio;
+        [SerializeField]AudioSource Audio;
 
         RpgTools.PlayerClass.Player player;
 
         // Use this for initialization
         void Start()
         {
-            player = FindObjectOfType<RpgTools.PlayerClass.Player>();
+            player = FindObjectOfType<PlayerClass.Player>();
             Audio = GetComponent<AudioSource>();
 
             //set Gameover menu to be inactive

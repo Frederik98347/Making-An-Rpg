@@ -182,11 +182,12 @@ InputManager:
     axis: 1
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Fire1
-    descriptiveName: 
+    m_Name: Block
+    descriptiveName: 'Block Ability: Makes you take less damage from frontal physical
+      attacks'
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: joystick button 0
+    positiveButton: r
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -198,11 +199,11 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Fire2
-    descriptiveName: 
+    m_Name: Roll
+    descriptiveName: Able to roll and avoid damage or just use it to move around quicker
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: joystick button 1
+    positiveButton: f
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -311,7 +312,7 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Escape
-    descriptiveName: Cancel GUI / Deselect Enemies
+    descriptiveName: Cancel GUI / Deselect Enemies / popup pause menu
     descriptiveNegativeName: PauseMenu
     negativeButton: 
     positiveButton: 
