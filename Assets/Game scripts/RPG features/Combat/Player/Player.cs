@@ -18,6 +18,8 @@ namespace RpgTools.PlayerClass
         [SerializeField] Enemy.Enemy enemyScript;
         [SerializeField] UserMovement usermovement;
 
+        public Animator anim;
+
         //tooltip GUI
         public State state;
         public GameObject selectedUnit;
@@ -37,8 +39,9 @@ namespace RpgTools.PlayerClass
 
         //bools to check enemy location
         public bool behindEnemy = false;
-        [SerializeField] bool CombatHP_regain;
-        bool canAttack = false;
+        public bool frontEnemy = false;
+        public bool CombatHP_regain;
+        public bool canAttack = false;
 
         private int autoattackDamage;
         private float autoattackRange = 3f;
@@ -46,6 +49,7 @@ namespace RpgTools.PlayerClass
         private float CombatTime = 10f;
 
         [SerializeField] float attackArc = 120f;
+        private float time;
 
         public int AutoAttackDamage
         {
@@ -108,6 +112,8 @@ namespace RpgTools.PlayerClass
             healthsystem.CurrentHealth = this.healthsystem.MaxHealth;
             healthsystem.healthBar.fillAmount = healthsystem.CalculateHealth();
 
+            state = State.OUTOFCOMBAT;
+            anim = GetComponent<Animator>();
         }
 
         // Update is called once per frame
@@ -121,15 +127,21 @@ namespace RpgTools.PlayerClass
 
             TestDamage();
 
-            //if dead 
-            Isdead(); // doesnt work
-
             HPregain(HPRegain, CombatHP_regain);
+            if (canAttack == false)
+            {
+                anim.SetBool("isAttacking", false);
+            } else if(autoAttacking == false)
+            {
+                anim.SetBool("isAttacking", false);
+            }
+
+            GettingOutOfCombat();
         }
 
         void OnMouseEnter()
         {
-            if (Input.GetKeyDown("Escape"))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 autoAttacking = false;
                 autoAttackcurTime = 0;
@@ -176,17 +188,15 @@ namespace RpgTools.PlayerClass
             }
         }
 
+        //working now
         void GettingOutOfCombat()
         {
-            if (state == State.COMBAT)
+            //changed something here lately, canAttack == false
+            if (state == State.COMBAT && canAttack == false)
             {
-                if (CombatCounter < CombatTime)
-                {
-                    //count up
-                    CombatCounter += Time.deltaTime;
-
-                }
-                else
+                //count up
+                CombatCounter += Time.deltaTime;
+                if (CombatCounter >= CombatTime)
                 {
                     state = State.OUTOFCOMBAT;
                     CombatCounter = 0;
@@ -194,30 +204,34 @@ namespace RpgTools.PlayerClass
             }
         }
 
+        //Working now
         void HPregain(float hpregain, bool CombatRegain)
         {
-
             if (state == State.OUTOFCOMBAT)
             {
-                if (healthsystem.CurrentHealth < healthsystem.MaxHealth)
+                time += Time.deltaTime;
+                if (time >= 5.0f)
                 {
-                    healthsystem.CurrentHealth += (int)((hpregain * healthsystem.MaxHealth) * Time.deltaTime);
-
-                    if (healthsystem.CurrentHealth >= healthsystem.MaxHealth)
+                    if (healthsystem.CurrentHealth < healthsystem.MaxHealth)
                     {
-                        healthsystem.CurrentHealth = healthsystem.MaxHealth;
+                        //do that every 5 sec until full hp
+                        healthsystem.GetHealth((int)(hpregain * healthsystem.MaxHealth)); // 0.05f*maxhp = 5% of maxhp to regain
+                        time = 0.0f;
+                        Debug.Log("Healing");
                     }
                 }
             }
-            else if (state == State.COMBAT && CombatRegain)
+            else if (state == State.COMBAT && CombatRegain == true)
             {
-                if (healthsystem.CurrentHealth < healthsystem.MaxHealth)
+                time += Time.deltaTime;
+                if (time >= 5.0f)
                 {
-                    healthsystem.CurrentHealth += (int)((hpregain * healthsystem.MaxHealth) * Time.deltaTime);
 
-                    if (healthsystem.CurrentHealth >= healthsystem.MaxHealth)
+                    if (healthsystem.CurrentHealth < healthsystem.MaxHealth)
                     {
-                        healthsystem.CurrentHealth = healthsystem.MaxHealth;
+                        //do that every 5 sec until full hp
+                        healthsystem.GetHealth((int)(hpregain * healthsystem.MaxHealth)); // 0.05f*maxhp = 5% of maxhp to regain
+                        time = 0.0f;
                     }
                 }
             }
@@ -305,8 +319,10 @@ namespace RpgTools.PlayerClass
                     }
                     else
                     {
-
+                        autoAttacking = true;
                         canAttack = true;
+
+                        frontEnemy = true;
                     }
 
                     if (Vector3.Dot(direction, selectedUnit.transform.forward) < 0)
@@ -328,6 +344,7 @@ namespace RpgTools.PlayerClass
                         if (autoAttackcurTime >= autoAttackCD && canAttack == true)
                         {
                             // no cd on autoattack
+                            attackAnimation();
                             DoAutoDamage();
 
                             AbilityIconEffects IconEffects = GetComponent<AbilityIconEffects>(); // getting component of icon effects
@@ -342,15 +359,22 @@ namespace RpgTools.PlayerClass
                         //canAttack = false;
                         autoAttackcurTime = 0;
 
-                        // Check if no enemies is around and then run the script
-                        GettingOutOfCombat();
                     } else if (enemyScript.state == Enemy.Enemy.State.Dead)
                     {
                         canAttack = false;
                         autoAttacking = false;
+
+                        //call loot script here
                     }
                 }
             }
+        }
+
+        void attackAnimation()
+        {
+            anim.SetBool("isAttacking", true);
+            anim.SetBool("isBlocking", false);
+            anim.SetBool("isRolling", false);
         }
 
         public void GetHit(int damage, MobDmgTypes damageType = MobDmgTypes.PHYSICAL)
@@ -359,6 +383,7 @@ namespace RpgTools.PlayerClass
             {
                 //Player is dead
                 state = State.DEAD;
+                Isdead();
             }
             else
             {
@@ -382,7 +407,7 @@ namespace RpgTools.PlayerClass
             }
         }
 
-        void DoAutoDamage(PlayerDmgTypes damageType = PlayerDmgTypes.PHYSICAL)
+        public void DoAutoDamage(PlayerDmgTypes damageType = PlayerDmgTypes.PHYSICAL)
         {
             AutoAttackDamage = Random.Range(MinDamage, MaxDamage);
             enemyScript.GetHit(AutoAttackDamage, damageType = PlayerDmgTypes.PHYSICAL);
@@ -395,8 +420,19 @@ namespace RpgTools.PlayerClass
             COMBAT
         }
 
+        //not working
         void Isdead()
         {
+            if (state == State.DEAD)
+            {
+                anim.SetBool("isIdle", false);
+                anim.SetBool("isRunning", false);
+                anim.SetBool("isAttacking", false);
+                anim.SetBool("isBlocking", false);
+                anim.SetBool("isDying", true);
+                anim.SetBool("isRolling", false);
+                Debug.Log("Dead mf'er");
+            }
             /*if (state == State.DEAD)
             {
                 float Speed = usermovement.runSpeed;

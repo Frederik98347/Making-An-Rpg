@@ -18,6 +18,8 @@ public class UserMovement : MonoBehaviour
     float currentSpeed;
     float velocityY;
 
+    bool running;
+
     Animator animator;
     Transform cameraT;
     CharacterController controller;
@@ -27,7 +29,7 @@ public class UserMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         cameraT = Camera.main.transform;
         controller = GetComponent<CharacterController>();
-        walkSpeed = runSpeed / 2f;
+        walkSpeed = runSpeed / 2.5f;
     }
 
     void Update()
@@ -35,8 +37,16 @@ public class UserMovement : MonoBehaviour
         // input
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector2 inputDir = input.normalized;
-        bool running = Input.GetKey(KeyCode.LeftShift);
+        if (Input.GetButton("Block")) {
+            running = false;
 
+        } else if (Input.GetButtonDown("Roll"))
+        {
+            running = false;
+        } else
+        {
+            running = Input.GetKey(KeyCode.LeftShift);
+        }
         Move(inputDir, running);
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -45,8 +55,16 @@ public class UserMovement : MonoBehaviour
         }
         // animator
         float animationSpeedPercent = ((running) ? currentSpeed / runSpeed : currentSpeed / walkSpeed * .5f);
+
         animator.SetFloat("speedPercent", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
 
+        if (animationSpeedPercent <= 0.1f)
+        {
+            animator.SetBool("isIdle", true);
+        } else
+        {
+            animator.SetBool("isIdle", false);
+        }
     }
 
     void Move(Vector2 inputDir, bool running)
@@ -69,6 +87,7 @@ public class UserMovement : MonoBehaviour
         if (controller.isGrounded)
         {
             velocityY = 0;
+            animator.SetBool("isJumping", false);
         }
 
     }
@@ -79,6 +98,8 @@ public class UserMovement : MonoBehaviour
         {
             float jumpVelocity = Mathf.Sqrt(-2 * gravity * jumpHeight);
             velocityY = jumpVelocity;
+
+            animator.SetBool("isJumping", true);
         }
     }
 

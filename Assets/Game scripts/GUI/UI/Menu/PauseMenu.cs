@@ -18,7 +18,7 @@ public class PauseMenu : MonoBehaviour {
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && player.autoAttacking == false)
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
             {
@@ -42,12 +42,15 @@ public class PauseMenu : MonoBehaviour {
 
     void Pause()
     {
-        PauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        GameIsPaused = true;
+        if (player.autoAttacking == false)
+        {
+            PauseMenuUI.SetActive(true);
+            Time.timeScale = 0f;
+            GameIsPaused = true;
 
-        cam.allowMouseInputX = false;
-        cam.allowMouseInputY = false;
+            cam.allowMouseInputX = false;
+            cam.allowMouseInputY = false;
+        }
     }
 
     public void LoadMenu()

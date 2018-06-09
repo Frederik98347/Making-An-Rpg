@@ -1,16 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+namespace RpgTools.Combat.Animations
+{
+    public class Alphaanim : MonoBehaviour
+    {
+        Animator anim;
+        AudioSource audioSource;
 
-public class Alphaanim : MonoBehaviour {
+        PlayerClass.Player player;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        // Use this for initialization
+        void Start()
+        {
+            audioSource = GetComponent<AudioSource>();
+            FindObjectOfType<PlayerClass.Player>();
+        }
+
+        public void OnTriggerEnter(Collider col)
+        {
+            if (col.CompareTag("enemy"))
+            {
+                player.DoAutoDamage();
+                audioSource.Play();
+            }
+        }
+    }
 }
